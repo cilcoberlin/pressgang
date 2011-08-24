@@ -32,36 +32,36 @@ Installation
 3. If you're running PressGang as your only app, set values for `LOGIN_URL` AND `LOGOUT_URL` to 'YOUR_PRESSGANG_URL/accounts/login' and 'YOUR_PRESSGANG_URL/accounts/logout', respectively.
 4. Provide values for the settings below.
 
-   *PRESSGANG_APACHE_CONFIGS_DIR*
-   A string of the absolute path to the directory that you created to hold per-blog Apache configuration files.
+`PRESSGANG_APACHE_CONFIGS_DIR`
+A string of the absolute path to the directory that you created to hold per-blog Apache configuration files.
 
-   *PRESSGANG_APACHE_DOCUMENT_ROOT*
-   A string that should match the value of Apache's DocumentRoot.
+`PRESSGANG_APACHE_DOCUMENT_ROOT`
+A string that should match the value of Apache's DocumentRoot.
 
-   *PRESSGANG_APACHE_RELOAD_CMD*
-   A string of the full command that will gracefully reload Apache on your server.
+`PRESSGANG_APACHE_RELOAD_CMD`
+A string of the full command that will gracefully reload Apache on your server.
 
-   *PRESSGANG_BACKUPS_DIR*
-   A string of the absolute path to the directory that you created to hold the blog backup files.
+`PRESSGANG_BACKUPS_DIR`
+A string of the absolute path to the directory that you created to hold the blog backup files.
 
-   *PRESSGANG_DB_ADMIN_PASSWORD*
-   A string of the password for the admin use for your MySQL installation.
+`PRESSGANG_DB_ADMIN_PASSWORD`
+A string of the password for the admin use for your MySQL installation.
 
-   *PRESSGANG_DB_ADMIN_USER*
-   A string of the username of the admin user for your MySQL installation.
+`PRESSGANG_DB_ADMIN_USER`
+A string of the username of the admin user for your MySQL installation.
 
-   *PRESSGANG_INSTALLERS*
-   An optional list containing strings of the full paths to any custom installer
-   packages that you have created.  Each item in the list must be on your Python path.
+`PRESSGANG_INSTALLERS`
+An optional list containing strings of the full paths to any custom installer
+packages that you have created.  Each item in the list must be on your Python path.
 
-   *PRESSGANG_MYSQL_PATH*
-   The full path to your mysql executable.
+`PRESSGANG_MYSQL_PATH`
+The full path to your mysql executable.
 
-   *PRESSGANG_MYSQLDUMP_PATH*
-   The full path to your mysqldump executable.
+`PRESSGANG_MYSQLDUMP_PATH`
+The full path to your mysqldump executable.
 
-   *PRESSGANG_SERVER_BASE*
-   A string of the network location (i.e., 'subdomain.server.tld') of the server hosting your blogs.
+`PRESSGANG_SERVER_BASE`
+A string of the network location (i.e., 'subdomain.server.tld') of the server hosting your blogs.
 
 **Permissions**
 

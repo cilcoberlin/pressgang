@@ -1,0 +1,95 @@
+{% extends "pressgang/manage/base.html" %}
+
+{% load i18n %}
+{% load pressgang_accounts %}
+
+{% block title %}
+	{% if user|can_manage_blogs %}
+		{% trans "Manage Blogs" %}
+	{% else %}
+		{% trans "All Blogs" %}
+	{% endif %}
+{% endblock %}
+{% block page_title %}
+	{% if user|can_manage_blogs %}
+		{% trans "Manage Blogs" %}
+	{% else %}
+		{% trans "All Blogs" %}
+	{% endif %}
+{% endblock %}
+
+{% block body_classes %}manage-blogs{% endblock %}
+
+{% block javascript %}
+	{{ block.super }}
+	<script type="text/javascript" src="{{ MEDIA_URL }}pressgang/js/libs/jquery.tablesorter.2.0.5.js"></script>
+	<script type="text/javascript" src="{{ MEDIA_URL }}pressgang/js/manage/list.js"></script>
+{% endblock %}
+
+{% block body %}
+
+	{% if current_version %}
+		<p id="current-version">
+			{% blocktrans with current_version.full as version %}
+				Current WordPress version is <strong>{{ version }}</strong>
+			{% endblocktrans %}
+		</p>
+	{% endif %}
+
+	{% if blogs %}
+
+		<table id="all-blogs" class="sortable">
+
+			<thead>
+				<tr>
+					<th class="title">{% trans "Title" %}</th>
+					<th class="path">{% trans "Path" %}</th>
+					<th class="version">{% trans "Version" %}</th>
+					<th class="created">{% trans "Created" %}</th>
+					{% if user|can_manage_blogs %}
+						<th class="change">{% trans "Actions" %}</th>
+					{% endif %}
+				</tr>
+			</thead>
+
+			<tbody>
+				{% for blog in blogs %}
+					<tr class="blog {% if blog.is_locked %}locked{% endif %}">
+						<td class="title"><a href="{{ blog.url }}" title="{% trans "Visit blog" %}">{{ blog.title }}</a></td>
+						<td class="path">{{ blog.path }}</td>
+						<td class="version">{{ blog.version }}</td>
+						<td class="created sort__{{ blog.created|date:"Ymd" }}">{{ blog.created|date }}</td>
+						{% if user|can_manage_blogs %}
+							<td class="change">
+								<ul class="actions">
+									<li class="action {{ blog.is_locked|yesno:"unlock,lock" }}">
+										{% if blog.is_locked %}
+											{% url confirm-unlock blog_id=blog.pk as lockdown_url %}
+										{% else %}
+											{% url confirm-lockdown blog_id=blog.pk as lockdown_url %}
+										{% endif %}
+										<a title="{% if blog.is_locked %}{% trans "Reopen the blog" %}{% else %}{% trans "Lock down the blog" %}{% endif %}" href="{{ lockdown_url }}">
+											{% if blog.is_locked %}
+												{% trans "Unlock" %}
+											{% else %}
+												{% trans "Lock" %}
+											{% endif %}
+										</a>
+									</li>
+									{% if blog.has_version_snapshots %}
+										<li class="action rollback">
+											<a href="{% url reversion-options blog_id=blog.pk %}" title="{% trans "Revert to an older version of the blog" %}">{% trans "Revert" %}</a>
+										</li>
+									{% endif %}
+								</ul>
+							</td>
+						{% endif %}
+					</tr>
+				{% endfor %}
+			</tbody>
+
+		</table>
+
+	{% endif %}
+
+{% endblock %}

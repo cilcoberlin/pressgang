@@ -1,0 +1,29 @@
+{% extends "pressgang/actions/execute.html" %}
+
+{% load i18n %}
+
+{% block title %}
+	{% blocktrans with blog.title as blog %}
+		Installing {{ blog }}
+	{% endblocktrans %}
+{% endblock %}
+{% block page_title %}
+	{% blocktrans with blog.title as blog %}
+		Installing {{ blog }}
+	{% endblocktrans %}
+{% endblock %}
+
+{% block body_classes %}{{ block.super }} install{% endblock %}
+
+{% block body %}
+
+	<dl id="action-info" title="{% trans "Installation Information" %}">
+		<dt>{% trans "Destination" %}</dt>
+		<dd>{{ blog.path }}</dd>
+		<dt>{% trans "Installer" %}</dt>
+		<dd>{{ action.name }}</dd>
+	</dl>
+
+	{{ block.super }}
+
+{% endblock %}

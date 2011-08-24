@@ -1,0 +1,12 @@
+{% extends "pressgang/actions/record.html" %}
+
+{% load i18n %}
+
+{% block error_title %}{% trans "An error occurred during installation!" %}{% endblock %}
+{% block completed_title %}{% trans "Installation successful!" %}{% endblock %}
+
+{% block completion_text %}
+	{% blocktrans with blog.title as title %}
+		The blog {{ title }} was successfully installed.
+	{% endblocktrans %}
+{% endblock %}

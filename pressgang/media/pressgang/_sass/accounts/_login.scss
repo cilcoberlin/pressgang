@@ -1,0 +1,32 @@
+
+@import "../core/settings";
+
+body.login {
+
+	// The login form
+	#login-form {
+
+		// Fieldwide errors
+		.errors {
+			color: $color-text-error;
+			font-weight: bold;
+		}
+
+		// Wrapper for the username and password fields
+		.data-entry {
+			margin: 1.5em 0;
+
+			.form-field {
+				margin: 0.75em 0;
+
+				// Make the fields be vertically aligned
+				.name {
+					display: inline-block;
+					font-weight: bold;
+					width: 6em;
+				}
+			}
+		}
+
+	}
+}

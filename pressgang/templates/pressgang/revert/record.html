@@ -1,0 +1,12 @@
+{% extends "pressgang/actions/record.html" %}
+
+{% load i18n %}
+
+{% block error_title %}{% trans "An error occurred during reversion!" %}{% endblock %}
+{% block completed_title %}{% trans "Reversion successful!" %}{% endblock %}
+
+{% block completion_text %}
+	{% blocktrans with blog.title as title and action.snapshot.created|date:"DATETIME_FORMAT" as created %}
+		The blog {{ title }} was successfully reverted to the version created on {{ created }}.
+	{% endblocktrans %}
+{% endblock %}

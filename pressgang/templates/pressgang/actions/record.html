@@ -1,0 +1,106 @@
+
+{% load i18n %}
+
+<div class="action-log">
+
+	<ol class="steps {% if record.is_failed %}failure{% endif %}">
+
+		{% for step in log.ordered_steps %}
+
+			<li class="step {{ step.is_complete|yesno:"complete,incomplete" }}">
+
+				<h3 class="title">{{ step.name }}</h3>
+
+				{% if step.start_dt %}
+					<dl class="timing">
+						<dt class="key">{% trans "Started" %}</dt>
+						<dd class="value">{{ step.start_dt|time:"H:i:s" }}</dd>
+						{% if step.is_complete %}
+							<dt class="key">{% trans "Ended" %}</dt>
+							<dd class="value">
+								{% if step.end_dt %}
+									{{ step.end_dt|time:"H:i:s" }}
+								{% else %}
+									{% now "H:i:s" %}
+								{% endif %}
+							</dd>
+						{% endif %}
+					</dl>
+				{% endif %}
+
+				{% if step.actions %}
+
+					<ol class="actions">
+
+						{% for action in step.actions_by_date %}
+							<li class="action {% if not action.is_complete %}in-progress {% if not log.error_message %}follow{% endif %}{% endif %}">
+								<ul class="parts">
+									<li class="start">{{ action.start_message }}&hellip;</li>
+									{% if action.is_complete %}
+										<li class="end">{{ action.end_message }}</li>
+									{% endif %}
+								</ul>
+							</li>
+						{% endfor %}
+
+					</ol>
+
+				{% endif %}
+
+			</li>
+
+		{% endfor %}
+
+	</ol>
+
+	{% if log.error_message %}
+
+		<div class="action-error follow">
+
+			<h3 class="title">{% block error_title %}{% trans "An error occurred!" %}{% endblock %}</h3>
+
+			{{ log.error_message|linebreaks }}
+
+			{% if log.base_error %}
+				<p class="exception">
+					<code>
+						{{ log.base_error }}
+					</code>
+				</p>
+			{% endif %}
+		</div>
+
+	{% endif %}
+
+	{% if succeeded %}
+
+		<div class="action-completed follow">
+
+			<h3 class="title">
+				{% block completed_title %}
+					{% blocktrans with action.display_name as action %}
+						{{ action }} successful
+					{% endblocktrans %}
+				{% endblock %}
+			</h3>
+
+			{% block completion_message %}
+				<p>
+					{% block completion_text %}
+						{% blocktrans with blog.title as title and action.display_name as action %}
+							The {{ action }} action performed on blog {{ title }} was completed successfuly.
+						{% endblocktrans %}
+					{% endblock %}
+				</p>
+
+				<p>
+					{% trans "To visit the blog, go to:" %}
+					<a href="{{ blog.url }}" title="{% trans "Blog URL" %}" class="blog-link"">{{ blog.url }}</a>.
+				</p>
+			{% endblock %}
+
+		</div>
+
+	{% endif %}
+
+</div>

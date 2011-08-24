@@ -1,0 +1,86 @@
+
+@import "../core/mixins";
+@import "../core/settings";
+
+body.manage-blogs {
+
+	// Current version notice
+	#current-version {
+		background: $color-bg-notice;
+		float: right;
+		margin: -3em 0;
+		padding: 0.75em 1.5em;
+		@include rounded(all, 0.75em);
+		text-shadow: $color-shadow-light 1px 1px 0;
+
+		strong {
+			font-weight: bold;
+		}
+	}
+
+	// Wrapper for the table of all installed blogs
+	#all-blogs {
+		margin-top: 3em;
+
+		// General styling and sizing for columns
+		.title {
+			width: 20%;
+		}
+
+		// Individual blog listings
+		tbody {
+
+			// A single blog
+			.blog {
+
+				// Fade locked-down blogs
+				&.locked td {
+					background: $color-bg-muted;
+				}
+
+				// Blog actions
+				.change {
+
+					.actions {
+						font-size: 0.857em;
+						line-height: 1.75em;
+
+						// A single action
+						.action {
+							background-color: $color-bg-button-small;
+							background-repeat: no-repeat;
+							background-position: 0.75em center;
+							border: 1px solid $color-border;
+							display: inline-block;
+							margin-right: 0.75em;
+							padding: 0 0.75em;
+							@include rounded(all, 0.5em);
+
+							a {
+								color: $color-text-header;
+								padding-left: 1.75em;
+							}
+
+							// Make each action to look different
+							&.rollback {
+								background-image: url("../images/icon-arrow-refresh.png");
+							}
+							&.lock {
+								background-image: url("../images/icon-lock-closed.png");
+							}
+							&.unlock {
+								background-image: url("../images/icon-lock-open.png");
+							}
+
+							&:hover {
+								background-color: lighten($color-bg-button-small, 5%);
+								border-color: $color-border-strong;
+							}
+						}
+					}
+				}
+			}
+		}
+
+	}
+}

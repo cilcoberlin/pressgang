@@ -1,0 +1,39 @@
+
+// Container for a page allowing a user to provide a blog's admin login info
+body.admin-info {
+
+	// The page instructions
+	.instructions {
+		margin: 1.5em 0;
+
+		.blog-link {
+			font-weight: bold;
+		}
+	}
+
+	// Wrapper for the admin login form
+	#admin-info-form {
+
+		fieldset {
+			border-top: 1px solid #ccc;
+			padding-top: 1.5em;
+		}
+
+		// The username and password fieldset
+		.account-fields {
+
+			.form-field {
+				margin-bottom: 1.5em;
+
+				// Have the labels and inputs on the same line
+				.name {
+					float: left;
+					font-weight: bold;
+					width: 10em;
+				}
+			}
+		}
+	}
+
+
+}

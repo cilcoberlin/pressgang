@@ -1,0 +1,79 @@
+
+@import "../core/settings";
+
+body.install-options {
+
+	// The form used to provide installation options
+	#installer-form {
+		margin-top: 1.5em;
+
+		fieldset {
+			border-top: 1px solid $color-border;
+			margin: 0;
+			padding: 1.5em 0 0.75em;
+		}
+
+		// Field labels
+		.form-field.required .name {
+			font-weight: bold;
+		}
+		.help-text {
+			color: $color-text-weak;
+			display: block;
+			font-size: 0.857em;
+			line-height: 1.75em;
+		}
+
+		.form-field {
+			margin-bottom: 0.75em;
+			position: relative;
+
+			.name, .help-text {
+				max-width: 22em;
+			}
+
+			input, select {
+				display: block;
+				position: absolute;
+				left: 22em;
+				top: 0;
+			}
+		}
+
+		.form-field.error {
+			input, select {
+				top: 2.25em;
+			}
+		}
+
+		// Fieldset with ID fields
+		#id-fields {
+
+			// Size the ID fields appropriately
+			#id_slug {
+				width: 6em;
+			}
+			#id_title {
+				width: 12em;
+			}
+			#id_description {
+				width: 18em;
+			}
+		}
+
+		// Fieldset containing WordPress information fields
+		#wp-fields input {
+			width: 9em;
+		}
+
+		// Fieldset with user-list fields
+		#user-fields {
+
+			textarea {
+				height: 7.5em;
+				width: 22.5em;
+			}
+		}
+	}
+
+}

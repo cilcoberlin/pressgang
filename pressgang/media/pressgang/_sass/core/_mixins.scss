@@ -1,0 +1,41 @@
+
+@mixin sans-serif {
+	font-family: "Helvetica Neue", Arial, sans-serif;
+}
+
+@mixin opacity($alpha) {
+	-moz-opacity: $alpha;
+	-webkit-opacity: $alpha;
+	-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=$alpha * 100)";
+	filter: alpha(opacity=$alpha * 100);
+	opacity: $alpha;
+}
+
+@mixin rounded($side, $radius: 10px) {
+	@if $side == all {
+		border-radius: $radius;
+		-moz-border-radius: $radius;
+		-webkit-border-radius: $radius;
+	} @else if $side == bottom {
+		border-bottom-left-radius: $radius;
+		border-bottom-right-radius: $radius;
+		-moz-border-radius-bottomleft: $radius;
+		-moz-border-radius-bottomright: $radius;
+		-webkit-border-bottom-left-radius: $radius;
+		-webkit-border-bottom-right-radius: $radius;
+	} @else if $side == top {
+		border-top-left-radius: $radius;
+		border-top-right-radius: $radius;
+		-moz-border-radius-topleft: $radius;
+		-moz-border-radius-topright: $radius;
+		-webkit-border-top-left-radius: $radius;
+		-webkit-border-top-right-radius: $radius;
+	} @else if $side == left {
+		border-top-left-radius: $radius;
+		border-bottom-left-radius: $radius;
+		-moz-border-radius-topleft: $radius;
+		-moz-border-radius-bottomleft: $radius;
+		-webkit-border-top-left-radius: $radius;
+		-webkit-border-bottom-left-radius: $radius;
+	}
+}

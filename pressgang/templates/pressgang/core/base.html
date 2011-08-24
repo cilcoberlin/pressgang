@@ -1,0 +1,91 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="{{ LANGUAGE_CODE }}" xml:lang="{{ LANGUAGE_CODE }}">
+<head>
+
+{% load i18n %}
+{% load pressgang_accounts %}
+{% load pressgang_core %}
+
+	<meta http-equiv="Content-Language" content="en-us" />
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+	{% block all_css %}
+
+		<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Raleway:100">
+		<link type="text/css" rel="stylesheet" media="all" href="{{ MEDIA_URL }}pressgang/css/pressgang.css" />
+		{% block css %}{% endblock %}
+
+	{% endblock %}
+
+	<title>{% block title %}{% endblock %} | PressGang</title>
+
+</head>
+<body class="pressgang {% block body_classes %}{% endblock %}">
+
+	<script type="text/javascript">document.body.className = [document.body.className, 'js'].join(' ');</script>
+
+	<div id="pressgang">
+
+		<div id="header">
+
+			<h3 id="branding">PressGang</h3>
+
+			{% if user.is_authenticated %}
+				<ul id="pages">
+					{% if user|can_install_blogs %}
+						<li class="page"><a href="{% url install-options %}">{% trans "Install Blog" %}</a></li>
+					{% endif %}
+					{% if user|can_manage_blogs or user|can_view_blogs %}
+						<li class="page"><a href="{% url list-blogs %}">
+							{% if user|can_manage_blogs %}
+								{% trans "Manage Blogs" %}
+							{% else %}
+								{% trans "View Blogs" %}
+							{% endif %}
+						</a></li>
+					{% endif %}
+				</ul>
+			{% endif %}
+
+			{% if user.is_authenticated %}
+				<ul id="user-info">
+					<li class="info">
+						{% blocktrans with user.username as user %}
+							Logged in as <span class="username">{{ user }}</span>
+						{% endblocktrans %}
+					</li>
+					<li class="info">
+						<a href="{% get_logout_url %}">{% trans "Log out" %}</a>
+					</li>
+				</ul>
+			{% endif %}
+
+		</div>
+
+		<div id="body">
+			<h1 id="title">{% block page_title %}{% endblock %}</h1>
+			{% block body %}{% endblock %}
+		</div>
+
+		<div id="footer">
+			<ul id="stats">
+				<li class="stat blogs">{% managed_blog_count %}</li>
+			</ul>
+			<ul id="credits">
+				<li class="credit app"><a href="http://languages.oberlin.edu/cilc/projects/pressgang/">{% trans "PressGang" %}</a> {% trans "WordPress installation manager" %}</li>
+				<li class="credit creator">{% trans "Created by" %} <a href="http://languages.oberlin.edu">{% trans "the Cooper International Learning Center" %}</a></li>
+			</ul>
+		</div>
+
+	</div>
+
+	{% block all_javascript %}
+
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
+		<script type="text/javascript" src="{{ MEDIA_URL }}pressgang/js/core/init.js"></script>
+		{% block javascript %}{% endblock %}
+
+	{% endblock %}
+
+</body>
+</html>

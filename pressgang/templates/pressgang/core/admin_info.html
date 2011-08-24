@@ -1,0 +1,39 @@
+{% extends "pressgang/core/base.html" %}
+
+{% load i18n %}
+{% load pressgang_core %}
+
+{% block body_classes %}admin-info{% endblock %}
+
+{% block title %}Admin Account Login Info Required{% endblock %}
+{% block page_title %}Admin Account Login Info Required{% endblock %}
+
+{% block body %}
+
+	<p class="instructions">
+		{% blocktrans with blog.title_as_link as blog %}
+			The blog {{ blog }} does not have a username or password for an
+			administrator account.  In order to interact with this blog, you
+			must provide that information below.
+		{% endblocktrans %}
+	</p>
+
+	<form action="" method="post" id="admin-info-form">
+
+		{{ admin_form.non_field_errors }}
+
+		<fieldset class="account-fields">
+			{% form_field admin_form.username %}
+			{% form_field admin_form.password %}
+			{% form_field admin_form.password_verify %}
+		</fieldset>
+
+		<fieldset class="buttons">
+			{% csrf_token %}
+			<input type="hidden" name="{{ next_param }}" value="{{ next_page }}" />
+			<input type="submit" value="{% trans "Submit login info" %}" />
+		</fieldset>
+
+	</form>
+
+{% endblock %}

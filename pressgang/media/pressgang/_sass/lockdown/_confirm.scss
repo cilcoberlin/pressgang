@@ -1,0 +1,45 @@
+
+@import "../core/mixins";
+@import "../core/settings";
+
+body.lockdown-confirmation {
+
+	// The confirmation prompt
+	#prompt {
+		margin-top: 1em;
+	}
+
+	// Buttons for confirming or rejecting the lockdown action
+	.buttons {
+		margin-top: 1.5em;
+
+		.button {
+			border: 3px double $color-bg-page;
+			display: inline-block;
+			margin-right: 3em;
+			padding: 0.75em 1.5em;
+			@include rounded(all, 0.75em);
+
+			&.confirm {
+				background: $color-bg-button;
+				color: $color-text-button;
+				font-weight: bold;
+				text-shadow: darken($color-bg-button, 10%) 1px 1px 0;
+
+				&:hover {
+					background: lighten($color-bg-button, 5%);
+				}
+			}
+
+			&.reject {
+				background: $color-bg-button-small;
+				color: $color-text-header;
+
+				&:hover {
+					background: lighten($color-bg-button-small, 2%);
+				}
+			}
+		}
+	}
+
+}

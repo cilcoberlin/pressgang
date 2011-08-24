@@ -1,0 +1,29 @@
+{% extends "pressgang/actions/execute.html" %}
+
+{% load i18n %}
+
+{% block title %}
+	{% if blog.is_locked %}
+		{% blocktrans with blog.title as blog %}
+			Unlocking {{ blog }}
+		{% endblocktrans %}
+	{% else %}
+		{% blocktrans with blog.title as blog %}
+			Locking down {{ blog }}
+		{% endblocktrans %}
+	{% endif %}
+{% endblock %}
+
+{% block page_title %}
+	{% if blog.is_locked %}
+		{% blocktrans with blog.title as blog %}
+			Unlocking {{ blog }}
+		{% endblocktrans %}
+	{% else %}
+		{% blocktrans with blog.title as blog %}
+			Locking down {{ blog }}
+		{% endblocktrans %}
+	{% endif %}
+{% endblock %}
+
+{% block body_classes %}{{ block.super }} lockdown{% endblock %}

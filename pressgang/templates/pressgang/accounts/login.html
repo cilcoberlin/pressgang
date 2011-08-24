@@ -1,0 +1,44 @@
+{% extends "pressgang/accounts/base.html" %}
+
+{% load i18n %}
+{% load pressgang_core %}
+
+{% block title %}{% trans "Login" %}{% endblock %}
+{% block page_title %}{% trans "PressGang Login" %}{% endblock %}
+
+{% block body_classes %}{{ block.super }} login{% endblock %}
+
+{% block body %}
+
+    <form id="login-form" method="post" action="{% url django.contrib.auth.views.login %}">
+
+        {% if form.errors %}
+	        <fieldset class="errors">
+	            <p>{% trans "Invalid username or password. Please try again." %}</p>
+	        </fieldset>
+        {% endif %}
+
+        <fieldset class="data-entry">
+			{% form_field form.username %}
+			{% form_field form.password %}
+        </fieldset>
+
+        <fieldset class="buttons">
+            <input type="submit" value="{% trans "Log in to PressGang" %}" />
+            <input type="hidden" name="next" value="{{ next }}" />
+			{% csrf_token %}
+        </fieldset>
+    </form>
+
+{% endblock %}
+
+{% block all_javascript %}
+
+    <script type="text/javascript">
+        var userName = document.getElementById("id_username");
+        if (userName) {
+            userName.focus();
+        }
+    </script>
+
+{% endblock %}

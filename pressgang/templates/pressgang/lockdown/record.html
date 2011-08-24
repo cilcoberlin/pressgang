@@ -1,0 +1,31 @@
+{% extends "pressgang/actions/record.html" %}
+
+{% load i18n %}
+
+{% block error_title %}
+	{% if action.locking %}
+		{% trans "An error occurred during lockdown!" %}
+	{% else %}
+		{% trans "An error occurred during unlocking!" %}
+	{% endif %}
+{% endblock %}
+
+{% block completed_title %}
+	{% if action.locking %}
+		{% trans "Lockdown successful!" %}
+	{% else %}
+		{% trans "Unlocking successful!" %}
+	{% endif %}
+{% endblock %}
+
+{% block completion_text %}
+	{% if action.locking %}
+		{% blocktrans with blog.title as title %}
+			The blog {{ title }} was succesfully locked down.
+		{% endblocktrans %}
+	{% else %}
+		{% blocktrans with blog.title as title %}
+			The blog {{ title }} was succesfully unlocked.
+		{% endblocktrans %}
+	{% endif %}
+{% endblock %}

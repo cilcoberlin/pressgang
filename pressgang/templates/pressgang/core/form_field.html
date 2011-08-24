@@ -1,0 +1,13 @@
+
+<div id="form-field-{{ field.html_name }}" class="form-field {% if is_required %}required{% endif %} {% if field.errors %}error{% endif %}">
+
+	{% if field.errors %}
+		{{ field.errors }}
+	{% endif %}
+
+	<label for="id_{{ field.html_name }}" class="name">{{ field_title }}</label>
+	{% if field.help_text %}
+		<label for="id_{{ field.html_name }}" class="help-text">{{ field.help_text|capfirst }}</label>
+	{% endif %}
+	{{ field }}
+</div>

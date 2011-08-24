@@ -1,0 +1,44 @@
+{% extends "pressgang/core/base.html" %}
+
+{% load i18n %}
+
+{% block javascript %}
+
+	<script type="text/javascript" src="{{ MEDIA_URL }}pressgang/js/libs/jquery.ui.fx.1.8.15.js"></script>
+	<script type="text/javascript" src="{{ MEDIA_URL }}pressgang/js/actions/execute.js"></script>
+
+	<script type="text/javascript">
+		(function($, pressgang) {
+			$(document).ready(function() {
+
+				// Execute the action via the JavaScript executer
+				var executer = new pressgang.actions.Executer({
+					execute_url:        "{% url begin-action %}",
+					progress_url:       "{% url action-progress %}",
+					progress_container: "#action-log"
+				});
+				executer.execute();
+			});
+		})(jQuery, pressgang);
+	</script>
+
+{% endblock %}
+
+{% block title %}
+	{% blocktrans with blog.title as blog and action.display_name as action %}
+		Performing {{ action }} on {{ blog }}
+	{% endblocktrans %}
+{% endblock %}
+{% block page_title %}
+	{% blocktrans with blog.title as blog and action.display_name as action %}
+		Performing {{ action }} on {{ blog }}
+	{% endblocktrans %}
+{% endblock %}
+
+{% block body_classes %}execute-action{% endblock %}
+
+{% block body %}
+
+	<div id="action-log"></div>
+
+{% endblock %}

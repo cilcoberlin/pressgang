@@ -1,0 +1,84 @@
+{% extends "pressgang/lockdown/base.html" %}
+
+{% load i18n %}
+{% load pressgang_core %}
+
+{% block title %}
+	{% if lock %}
+		{% trans "Confirm Lockdown" %}
+	{% else %}
+		{% trans "Confirm Unlock" %}
+	{% endif %}
+{% endblock %}
+
+{% block page_title %}
+	{% if lock %}
+		{% trans "Confirm Lockdown" %}
+	{% else %}
+		{% trans "Confirm Unlock" %}
+	{% endif %}
+{% endblock %}
+
+{% block body_classes %}lockdown-confirmation{% endblock %}
+
+{% block body %}
+
+	<h3 id="prompt">
+		{% if lock %}
+			{% blocktrans with blog.title_as_link as blog %}
+				Are you sure you want to lock down {{ blog }}?
+			{% endblocktrans %}
+		{% else %}
+			{% blocktrans with blog.title_as_link as blog %}
+				Are you sure you want to unlock {{ blog }}?
+			{% endblocktrans %}
+		{% endif %}
+	</h3>
+
+	<p>
+
+		{% if lock %}
+
+			{% blocktrans %}
+				Locking down this blog will apply very aggressive caching to
+				it, and will disable many interactive features, such as commenting.
+			{% endblocktrans %}
+
+		{% else %}
+
+			{% blocktrans %}
+				Unlocking this blog will reenable interactive features such as
+				commenting, and will also apply less aggressive caching.
+			{% endblocktrans %}
+
+		{% endif %}
+
+	</p>
+
+	<p class="buttons">
+
+		{% if lock %}
+			{% url start-lockdown blog_id=blog.pk as confirm_url %}
+		{% else %}
+			{% url start-unlock blog_id=blog.pk as confirm_url %}
+		{% endif %}
+
+		<a class="button confirm" href="{{ confirm_url }}">
+			{% if lock %}
+				{% trans "Yes, I want to lock down this blog" %}
+			{% else %}
+				{% trans "Yes, I want to unlock this blog" %}
+			{% endif %}
+		</a>
+		<a class="button reject" href="{% url list-blogs %}">
+			{% if lock %}
+				{% trans "No, I do not want to lock down this blog" %}
+			{% else %}
+				{% trans "No, I do not want to unlock this blog" %}
+			{% endif %}
+
+		</a>
+
+	</p>
+
+{% endblock %}

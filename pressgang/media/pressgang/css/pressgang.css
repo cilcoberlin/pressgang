@@ -1,0 +1,448 @@
+/* Core */
+/* http://meyerweb.com/eric/tools/css/reset/
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline; }
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block; }
+
+body {
+  line-height: 1; }
+
+ol, ul {
+  list-style: none; }
+
+blockquote, q {
+  quotes: none; }
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none; }
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0; }
+
+/*------------------------------------------------------------------------------
+	Document
+------------------------------------------------------------------------------*/
+body {
+  background: #dfdfda;
+  color: #333333;
+  font-size: 100%;
+  font-family: "Helvetica Neue", Arial, sans-serif; }
+
+html > body {
+  font-size: 14px; }
+
+a {
+  color: #aa0000;
+  text-decoration: none; }
+
+a:visited {
+  color: #770000; }
+
+a:hover {
+  color: #dd0000; }
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: bold; }
+
+h1 {
+  font-size: 2em;
+  line-height: 1.5em; }
+
+h2 {
+  font-size: 1.75em;
+  line-height: 1.714em; }
+
+h3 {
+  font-size: 1.5em;
+  line-height: 2em; }
+
+h4 {
+  font-size: 1.25em;
+  line-height: 1.2em; }
+
+h5 {
+  font-size: 1em;
+  line-height: 1.5em; }
+
+h6 {
+  font-size: 0.75em;
+  line-height: 1.5em; }
+
+code {
+  font-family: monospace; }
+
+form fieldset {
+  margin: 0.75em 0; }
+form input,
+form select,
+form textarea {
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  font-size: 1em;
+  line-height: 1.5em; }
+form .errorlist {
+  background: #eecccc url("../images/icon-error.png") no-repeat 0.75em center;
+  color: #aa0000;
+  margin-bottom: 1.5em;
+  padding: 0.75em 3em;
+  border-radius: 0.75em;
+  -moz-border-radius: 0.75em;
+  -webkit-border-radius: 0.75em; }
+form .form-field.error {
+  color: #aa0000; }
+  form .form-field.error .name {
+    display: block;
+    clear: both; }
+  form .form-field.error .errorlist {
+    background: #eecccc url("../images/icon-error.png") no-repeat 0.75em center;
+    float: left;
+    margin-bottom: 0;
+    padding: 0;
+    padding: 0.375em 3em;
+    border-radius: 0.75em;
+    -moz-border-radius: 0.75em;
+    -webkit-border-radius: 0.75em; }
+form .buttons input {
+  border: 3px double #efefec;
+  background: #afafaa;
+  color: white;
+  cursor: pointer;
+  padding: 0.75em 1.5em;
+  border-radius: 0.75em;
+  -moz-border-radius: 0.75em;
+  -webkit-border-radius: 0.75em;
+  text-shadow: #7d7d76 1px 1px 0; }
+  form .buttons input:hover, form .buttons input:focus {
+    background: #c8c8c4; }
+  form .buttons input:active {
+    background: #e0e0df; }
+
+/*------------------------------------------------------------------------------
+	Header
+------------------------------------------------------------------------------*/
+#header {
+  background: #dfdfda;
+  border-bottom: 1px solid #bbbbbb;
+  height: 3em;
+  padding: 1.5em; }
+  #header #branding {
+    float: left;
+    color: #5f5f5a; }
+  #header #pages {
+    float: left;
+    font-weight: bold;
+    line-height: 3em;
+    margin-left: 3em; }
+    #header #pages .page {
+      display: inline;
+      margin-left: 1.5em; }
+      #header #pages .page a {
+        color: #aa6666; }
+      #header #pages .page a:hover {
+        color: #aa0000; }
+  #header #user-info {
+    color: #5f5f5a;
+    font-size: 0.857em;
+    line-height: 3.5em;
+    float: right; }
+    #header #user-info .info {
+      border-left: 1px solid #bbbbbb;
+      display: inline;
+      margin-left: 0.875em;
+      padding-left: 0.875em; }
+      #header #user-info .info .username {
+        font-weight: bold; }
+      #header #user-info .info a {
+        color: #5f5f5a; }
+      #header #user-info .info a:hover {
+        color: #aa2222; }
+    #header #user-info .info:first-child {
+      border-left: none; }
+
+/*------------------------------------------------------------------------------
+	Body
+------------------------------------------------------------------------------*/
+#body {
+  background: #efefec;
+  clear: both;
+  font-size: 1em;
+  padding: 1.5em 1.5em 3em;
+  line-height: 1.5em; }
+  #body #title {
+    color: black; }
+  #body strong {
+    font-weight: bold; }
+  #body table {
+    border-bottom: 2px solid #777777;
+    position: relative;
+    width: 100%; }
+    #body table thead th {
+      border-bottom: 2px solid #777777;
+      font-weight: bold;
+      text-align: left; }
+    #body table td,
+    #body table th {
+      padding-right: 0.75em; }
+    #body table tbody td {
+      border-bottom: 1px solid #bbbbbb;
+      padding-bottom: 0.75em;
+      padding-top: 0.75em; }
+    #body table tbody tr:hover td {
+      background: #fafafa;
+      color: black; }
+  #body table.sortable th.header {
+    cursor: pointer; }
+    #body table.sortable th.header.headerSortDown, #body table.sortable th.header.headerSortUp {
+      color: #aa0000;
+      background-position: 95% center;
+      background-repeat: no-repeat; }
+    #body table.sortable th.header.headerSortDown {
+      background-image: url("../images/icon-arrow-up-small.png"); }
+    #body table.sortable th.header.headerSortUp {
+      background-image: url("../images/icon-arrow-down-small.png"); }
+
+/*------------------------------------------------------------------------------
+	Footer
+------------------------------------------------------------------------------*/
+#footer {
+  border-top: 1px solid #bbbbbb;
+  background: #dfdfda;
+  color: #a2a2a2;
+  line-height: 1.5em;
+  padding: 0 1.5em; }
+  #footer #stats {
+    float: left;
+    padding: 1.5em 0; }
+    #footer #stats .blogs {
+      background: url("../images/icon-wp.png") no-repeat left center;
+      padding-left: 1.5em; }
+      #footer #stats .blogs .count {
+        color: #aa6666;
+        font-weight: bold; }
+  #footer #credits {
+    padding: 1.5em 0;
+    text-align: right; }
+    #footer #credits a {
+      color: #aa6666;
+      font-weight: bold; }
+
+body.admin-info .instructions {
+  margin: 1.5em 0; }
+  body.admin-info .instructions .blog-link {
+    font-weight: bold; }
+body.admin-info #admin-info-form fieldset {
+  border-top: 1px solid #ccc;
+  padding-top: 1.5em; }
+body.admin-info #admin-info-form .account-fields .form-field {
+  margin-bottom: 1.5em; }
+  body.admin-info #admin-info-form .account-fields .form-field .name {
+    float: left;
+    font-weight: bold;
+    width: 10em; }
+
+/* Accounts */
+body.login #login-form .errors {
+  color: #aa0000;
+  font-weight: bold; }
+body.login #login-form .data-entry {
+  margin: 1.5em 0; }
+  body.login #login-form .data-entry .form-field {
+    margin: 0.75em 0; }
+    body.login #login-form .data-entry .form-field .name {
+      display: inline-block;
+      font-weight: bold;
+      width: 6em; }
+
+/* Actions */
+#action-info {
+  color: #555555;
+  margin-bottom: 1.5em; }
+  #action-info dd, #action-info dt {
+    display: inline; }
+  #action-info dt {
+    font-weight: bold; }
+  #action-info dd {
+    margin-right: 3em; }
+
+.action-log .steps .step {
+  margin-bottom: 1.5em;
+  border-top: 1px solid #bbbbbb;
+  padding-top: 1.5em; }
+  .action-log .steps .step .timing {
+    float: right;
+    margin-top: -2.25em;
+    text-align: right;
+    width: 40%; }
+    .action-log .steps .step .timing .key,
+    .action-log .steps .step .timing .value {
+      display: inline; }
+    .action-log .steps .step .timing .key {
+      background: url("../images/icon-clock.png") no-repeat center left;
+      font-weight: bold;
+      margin-left: 3em;
+      padding-left: 1.5em; }
+  .action-log .steps .step .actions .action {
+    margin: 0.75em 0; }
+    .action-log .steps .step .actions .action .start,
+    .action-log .steps .step .actions .action .end {
+      padding-left: 1.5em; }
+    .action-log .steps .step .actions .action .end {
+      background: url("../images/icon-accept.png") no-repeat center left;
+      color: #009900; }
+  .action-log .steps .step .actions .action.in-progress {
+    font-weight: bold; }
+    .action-log .steps .step .actions .action.in-progress .start {
+      background: url("../images/loader-small.gif") no-repeat center left; }
+  .action-log .steps .step .actions .action.pulse {
+    color: #a00; }
+.action-log .steps.failure .step .actions .action.in-progress .start {
+  background: url("../images/icon-error.png") no-repeat center left;
+  color: #aa0000; }
+.action-log .action-error {
+  background: #eecccc;
+  padding: 0.75em;
+  padding-bottom: 1.5em; }
+  .action-log .action-error .exception code {
+    font-weight: bold; }
+.action-log .action-completed {
+  background: #fafafa;
+  margin-top: 1.5em;
+  padding: 0.75em;
+  padding-bottom: 1.5em; }
+  .action-log .action-completed .blog-link {
+    font-weight: bold; }
+
+/* Installation */
+body.install-options #installer-form {
+  margin-top: 1.5em; }
+  body.install-options #installer-form fieldset {
+    border-top: 1px solid #bbbbbb;
+    margin: 0;
+    padding: 1.5em 0 0.75em; }
+  body.install-options #installer-form .form-field.required .name {
+    font-weight: bold; }
+  body.install-options #installer-form .help-text {
+    color: #555555;
+    display: block;
+    font-size: 0.857em;
+    line-height: 1.75em; }
+  body.install-options #installer-form .form-field {
+    margin-bottom: 0.75em;
+    position: relative; }
+    body.install-options #installer-form .form-field .name, body.install-options #installer-form .form-field .help-text {
+      max-width: 22em; }
+    body.install-options #installer-form .form-field input, body.install-options #installer-form .form-field select {
+      display: block;
+      position: absolute;
+      left: 22em;
+      top: 0; }
+  body.install-options #installer-form .form-field.error input, body.install-options #installer-form .form-field.error select {
+    top: 2.25em; }
+  body.install-options #installer-form #id-fields #id_slug {
+    width: 6em; }
+  body.install-options #installer-form #id-fields #id_title {
+    width: 12em; }
+  body.install-options #installer-form #id-fields #id_description {
+    width: 18em; }
+  body.install-options #installer-form #wp-fields input {
+    width: 9em; }
+  body.install-options #installer-form #user-fields textarea {
+    height: 7.5em;
+    width: 22.5em; }
+
+/* Management */
+body.manage-blogs #current-version {
+  background: #fafafa;
+  float: right;
+  margin: -3em 0;
+  padding: 0.75em 1.5em;
+  border-radius: 0.75em;
+  -moz-border-radius: 0.75em;
+  -webkit-border-radius: 0.75em;
+  text-shadow: #d5d5d5 1px 1px 0; }
+  body.manage-blogs #current-version strong {
+    font-weight: bold; }
+body.manage-blogs #all-blogs {
+  margin-top: 3em; }
+  body.manage-blogs #all-blogs .title {
+    width: 20%; }
+  body.manage-blogs #all-blogs tbody .blog.locked td {
+    background: #dddddd; }
+  body.manage-blogs #all-blogs tbody .blog .change .actions {
+    font-size: 0.857em;
+    line-height: 1.75em; }
+    body.manage-blogs #all-blogs tbody .blog .change .actions .action {
+      background-color: #dfdfda;
+      background-repeat: no-repeat;
+      background-position: 0.75em center;
+      border: 1px solid #bbbbbb;
+      display: inline-block;
+      margin-right: 0.75em;
+      padding: 0 0.75em;
+      border-radius: 0.5em;
+      -moz-border-radius: 0.5em;
+      -webkit-border-radius: 0.5em; }
+      body.manage-blogs #all-blogs tbody .blog .change .actions .action a {
+        color: #5f5f5a;
+        padding-left: 1.75em; }
+      body.manage-blogs #all-blogs tbody .blog .change .actions .action.rollback {
+        background-image: url("../images/icon-arrow-refresh.png"); }
+      body.manage-blogs #all-blogs tbody .blog .change .actions .action.lock {
+        background-image: url("../images/icon-lock-closed.png"); }
+      body.manage-blogs #all-blogs tbody .blog .change .actions .action.unlock {
+        background-image: url("../images/icon-lock-open.png"); }
+      body.manage-blogs #all-blogs tbody .blog .change .actions .action:hover {
+        background-color: #ebebe8;
+        border-color: #777777; }
+
+/* Lockdown */
+body.lockdown-confirmation #prompt {
+  margin-top: 1em; }
+body.lockdown-confirmation .buttons {
+  margin-top: 1.5em; }
+  body.lockdown-confirmation .buttons .button {
+    border: 3px double #efefec;
+    display: inline-block;
+    margin-right: 3em;
+    padding: 0.75em 1.5em;
+    border-radius: 0.75em;
+    -moz-border-radius: 0.75em;
+    -webkit-border-radius: 0.75em; }
+    body.lockdown-confirmation .buttons .button.confirm {
+      background: #afafaa;
+      color: white;
+      font-weight: bold;
+      text-shadow: #969690 1px 1px 0; }
+      body.lockdown-confirmation .buttons .button.confirm:hover {
+        background: #bbbbb7; }
+    body.lockdown-confirmation .buttons .button.reject {
+      background: #dfdfda;
+      color: #5f5f5a; }
+      body.lockdown-confirmation .buttons .button.reject:hover {
+        background: #e4e4df; }

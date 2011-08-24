@@ -1,0 +1,81 @@
+{% extends "pressgang/revert/base.html" %}
+
+{% load i18n %}
+{% load pressgang_core %}
+
+{% block title %}
+	{% blocktrans with blog.title as blog %}
+		Revert {{ blog }}
+	{% endblocktrans %}
+{% endblock %}
+
+{% block page_title %}
+	{% blocktrans with blog.title as blog %}
+		Revert {{ blog }}
+	{% endblocktrans %}
+{% endblock %}
+
+{% block body_classes %}revert-options{% endblock %}
+
+{% block body %}
+
+	<form action="{% url reversion-options blog_id=blog.pk %}" method="post" id="reversion-form">
+
+		{{ revert_form.snapshot.errors }}
+
+		<fieldset id="version-fields">
+			<table id="snapshots">
+
+				<thead>
+					<tr>
+						<th class="select"></th>
+						<th class="date">{% trans "Date Created" %}</th>
+						<th class="time">{% trans "Time Created" %}</th>
+						<th class="version">{% trans "WordPress Version" %}</th>
+						<th class="reason">{% trans "Reason" %}</th>
+					</tr>
+				</thead>
+
+				<tbody>
+					{% for snapshot in revert_form.fields.snapshot.queryset %}
+						<tr>
+							<td class="select">
+								<input type="radio" name="snapshot" value="{{ snapshot.pk }}" id="id_snapshot_{{ snapshot.pk }}" />
+							</td>
+							<td class="date">
+								<label for="id_snapshot_{{ snapshot.pk }}">
+									{{ snapshot.created|date }}
+								</label>
+							</td>
+							<td class="time">
+								<label for="id_snapshot_{{ snapshot.pk }}">
+									{{ snapshot.created|time }}
+								</label>
+							</td>
+							<td class="version">
+								<label for="id_snapshot_{{ snapshot.pk }}">
+									{{ snapshot.wp_version }}
+								</label>
+							</td>
+							<td class="reason">
+								{% if snapshot.reason %}
+									<label for="id_snapshot_{{ snapshot.pk }}">
+										{{ snapshot.reason }}
+									</label>
+								{% endif %}
+							</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+
+			</table>
+		</fieldset>
+
+		<fieldset class="buttons">
+			{% csrf_token %}
+			<input type="submit" value="{% trans "Revert Blog" %}" />
+		</fieldset>
+
+	</form>
+
+{% endblock %}

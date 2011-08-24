@@ -1,0 +1,312 @@
+
+@import "mixins";
+@import "settings";
+
+/*------------------------------------------------------------------------------
+	Document
+------------------------------------------------------------------------------*/
+
+body {
+	background: $color-bg-header;
+	color: $color-text;
+	font-size: 100%;
+	@include sans-serif;
+}
+
+html>body {
+	font-size: 14px;
+}
+
+a {
+	color: $color-link;
+	text-decoration: none;
+}
+a:visited {
+	color: darken($color-link, 10%);
+}
+a:hover {
+	color: lighten($color-link, 10%);
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-weight: bold;
+}
+
+h1 {
+	font-size: 2em;
+	line-height: 1.5em;
+}
+h2 {
+	font-size: 1.75em;
+	line-height: 1.714em;
+}
+h3 {
+	font-size: 1.5em;
+	line-height: 2em;
+}
+h4 {
+	font-size: 1.25em;
+	line-height: 1.2em;
+}
+h5 {
+	font-size: 1em;
+	line-height: 1.5em;
+}
+h6 {
+	font-size: 0.75em;
+	line-height: 1.5em;
+}
+
+code {
+	font-family: monospace;
+}
+
+form {
+
+	fieldset {
+		margin: 0.75em 0;
+	}
+
+	input,
+	select,
+	textarea {
+		@include sans-serif;
+		font-size: 1em;
+		line-height: 1.5em;
+	}
+
+	// Formwide errors
+	.errorlist {
+			background: $color-bg-error url("../images/icon-error.png") no-repeat 0.75em center;
+			color: $color-text-error;
+			margin-bottom: 1.5em;
+			padding: 0.75em 3em;
+			@include rounded(all, 0.75em);
+	}
+
+	// Field errors
+	.form-field.error {
+		color: $color-text-error;
+
+		.name {
+			display: block;
+			clear: both;
+		}
+
+		.errorlist {
+			background: $color-bg-error url("../images/icon-error.png") no-repeat 0.75em center;
+			float: left;
+			margin-bottom: 0;
+			padding: 0;
+			padding: 0.375em 3em;
+			@include rounded(all, 0.75em);
+		}
+	}
+
+	.buttons input {
+		border: 3px double $color-bg-page;
+		background: $color-bg-button;
+		color: $color-text-button;
+		cursor: pointer;
+		padding: 0.75em 1.5em;
+		@include rounded(all, 0.75em);
+		text-shadow: darken($color-bg-button, 20%) 1px 1px 0;
+
+		&:hover,
+		&:focus {
+			background: lighten($color-bg-button, 10%);
+		}
+
+		&:active {
+			background: lighten($color-bg-button, 20%);
+		}
+	}
+}
+
+/*------------------------------------------------------------------------------
+	Header
+------------------------------------------------------------------------------*/
+
+#header {
+	background: $color-bg-header;
+	border-bottom: 1px solid $color-border;
+	height: 3em;
+	padding: 1.5em;
+
+	// The PressGang logo
+	#branding {
+		float: left;
+		color: $color-text-header;
+	}
+
+	// Navigation menu
+	#pages {
+		float: left;
+		font-weight: bold;
+		line-height: 3em;
+		margin-left: 3em;
+
+		.page {
+			display: inline;
+			margin-left: 1.5em;
+
+			a {
+				color: $color-link-weak;
+			}
+			a:hover {
+				color: $color-link;
+			}
+		}
+	}
+
+	// Information about the currently logged-in user
+	#user-info {
+		color: $color-text-header;
+		font-size: 0.857em;
+		line-height: 3.5em;
+		float: right;
+
+		.info {
+			border-left: 1px solid $color-border-light;
+			display: inline;
+			margin-left: 0.875em;
+			padding-left: 0.875em;
+
+			// Wrapper for the name of the currently logged-in user
+			.username {
+				font-weight: bold;
+			}
+
+			a {
+				color: $color-text-header;
+			}
+			a:hover {
+				color: $color-text-header-accent;
+			}
+		}
+		.info:first-child {
+			border-left: none;
+		}
+	}
+}
+
+/*------------------------------------------------------------------------------
+	Body
+------------------------------------------------------------------------------*/
+
+#body {
+	background: $color-bg-page;
+	clear: both;
+	font-size: 1em;
+	padding: 1.5em 1.5em 3em;
+	line-height: 1.5em;
+
+	// The current page's title
+	#title {
+		color: $color-text-strong;
+	}
+
+	strong {
+		font-weight: bold;
+	}
+
+	// Tables in the body
+	table {
+		border-bottom: 2px solid $color-border-strong;
+		position: relative;
+		width: 100%;
+
+		// Headers
+		thead {
+			th {
+				border-bottom: 2px solid $color-border-strong;
+				font-weight: bold;
+				text-align: left;
+			}
+		}
+
+		// Basic cell styling
+		td,
+		th {
+			padding-right: 0.75em;
+		}
+
+		tbody {
+
+			td {
+				border-bottom: 1px solid $color-border;
+				padding-bottom: 0.75em;
+				padding-top: 0.75em;
+			}
+
+			// Highlight a row on mouseover
+			tr:hover {
+				td {
+					background: $color-bg-notice;
+					color: $color-text-strong;
+				}
+			}
+		}
+	}
+
+	// Sortable tables
+	table.sortable {
+
+		// Customize table headers based upon current sort order
+		th.header {
+			cursor: pointer;
+
+			&.headerSortDown,
+			&.headerSortUp {
+				color: $color-link;
+				background-position: 95% center;
+				background-repeat: no-repeat;
+			}
+			&.headerSortDown {
+				background-image: url("../images/icon-arrow-up-small.png");
+			}
+			&.headerSortUp {
+				background-image: url("../images/icon-arrow-down-small.png");
+			}
+		}
+	}
+}
+
+/*------------------------------------------------------------------------------
+	Footer
+------------------------------------------------------------------------------*/
+
+#footer {
+	border-top: 1px solid $color-border;
+	background: $color-bg-header;
+	color: lighten($color-text-weak, 30%);
+	line-height: 1.5em;
+	padding: 0 1.5em;
+
+	// Information on how many blogs are being managed
+	#stats {
+		float: left;
+		padding: 1.5em 0;
+
+		.blogs {
+			background: url("../images/icon-wp.png") no-repeat left center;
+			padding-left: 1.5em;
+
+			.count {
+				color: $color-link-weak;
+				font-weight: bold;
+			}
+		}
+	}
+
+	// Creation credits
+	#credits {
+		padding: 1.5em 0;
+		text-align: right;
+
+		a {
+			color: $color-link-weak;
+			font-weight: bold;
+		}
+	}
+}

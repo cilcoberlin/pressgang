@@ -1,0 +1,27 @@
+{% extends "pressgang/actions/execute.html" %}
+
+{% load i18n %}
+
+{% block title %}
+	{% blocktrans with blog.title as blog %}
+		Reverting {{ blog }}
+	{% endblocktrans %}
+{% endblock %}
+{% block page_title %}
+	{% blocktrans with blog.title as blog %}
+		Reverting {{ blog }}
+	{% endblocktrans %}
+{% endblock %}
+
+{% block body_classes %}{{ block.super }} revert{% endblock %}
+
+{% block body %}
+
+	<dl id="action-info" title="{% trans "Reversion Information" %}">
+		<dt>{% trans "Version Created" %}</dt>
+		<dd>{{ action.snapshot.created|date:"DATETIME_FORMAT" }}</dd>
+	</dl>
+
+	{{ block.super }}
+
+{% endblock %}

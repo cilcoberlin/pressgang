@@ -1,0 +1,47 @@
+{% extends "pressgang/install/base.html" %}
+
+{% load i18n %}
+{% load pressgang_core %}
+
+{% block title %}{% trans "Install Blog" %}{% endblock %}
+{% block page_title %}{% trans "Install Blog" %}{% endblock %}
+
+{% block body_classes %}install-options{% endblock %}
+
+{% block body %}
+
+	<form action="{% url install-options %}" method="post" id="installer-form">
+
+		{% if install_form.non_field_errors %}
+			{{ install_form.non_field_errors }}
+		{% else %}
+			{% if install_form.errors %}
+				<ul class="errorlist"><li>{% trans "Errors occurred while validating this form." %}</li></ul>
+			{% endif %}
+		{% endif %}
+
+		<fieldset id="id-fields">
+			{% form_field install_form.slug %}
+			{% form_field install_form.title %}
+			{% form_field install_form.description %}
+		</fieldset>
+
+		<fieldset id="wp-fields">
+			{% form_field install_form.password %}
+			{% form_field install_form.password_verify %}
+			{% form_field install_form.installer %}
+		</fieldset>
+
+		<fieldset id="user-fields">
+			{% form_field install_form.admins %}
+			{% form_field install_form.users %}
+		</fieldset>
+
+		<fieldset class="buttons">
+			{% csrf_token %}
+			<input type="submit" value="{% trans "Install Blog" %}" />
+		</fieldset>
+
+	</form>
+
+{% endblock %}

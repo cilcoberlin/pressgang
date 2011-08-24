@@ -1,0 +1,4 @@
+Django==1.2
+lxml
+pycrypto
+titlecase==0.5.1

@@ -1,0 +1,116 @@
+
+@import "../core/settings";
+
+// Information on the action
+#action-info {
+	color: $color-text-weak;
+	margin-bottom: 1.5em;
+
+	dd, dt {
+		display: inline;
+	}
+	dt {
+		font-weight: bold;
+	}
+	dd {
+		margin-right: 3em;
+	}
+}
+
+// Wrapper for an action log
+.action-log {
+
+	// Wrapper for the installation steps
+	.steps {
+
+		// Wrapper for an installation step with multiple actions
+		.step {
+			margin-bottom: 1.5em;
+			border-top: 1px solid $color-border;
+			padding-top: 1.5em;
+
+			// Wrapper for information on the start and end time of the step
+			.timing {
+				float: right;
+				margin-top: -2.25em;
+				text-align: right;
+				width: 40%;
+
+				.key,
+				.value {
+					display: inline;
+				}
+				.key {
+					background: url('../images/icon-clock.png') no-repeat center left;
+					font-weight: bold;
+					margin-left: 3em;
+					padding-left: 1.5em;
+				}
+			}
+
+			// The list of actions performed as part of the step
+			.actions {
+
+				// Wrapper for a single action performed
+				.action {
+					margin: 0.75em 0;
+
+					.start,
+					.end {
+						padding-left: 1.5em;
+					}
+					.end {
+						background: url('../images/icon-accept.png') no-repeat center left;
+						color: $color-text-success;
+					}
+				}
+
+				// Show a loader for the in-progress step
+				.action.in-progress {
+					font-weight: bold;
+					.start {
+						background: url('../images/loader-small.gif') no-repeat center left;
+					}
+				}
+
+				// Used for creating a pulsing animation for the in-progress step
+				.action.pulse {
+					color: #a00;
+				}
+			}
+		}
+
+		// Display the last step in a failed action as an error
+		&.failure {
+			.step .actions .action.in-progress .start {
+				background: url('../images/icon-error.png') no-repeat center left;
+				color: $color-text-error;
+			}
+		}
+	}
+
+	// Wrapper for an action error
+	.action-error {
+		background: $color-bg-error;
+		padding: 0.75em;
+		padding-bottom: 1.5em;
+
+		// The text of the Python exception
+		.exception code {
+			font-weight: bold;
+		}
+	}
+
+	// Wrapper for the installation-complete message
+	.action-completed {
+		background: $color-bg-notice;
+		margin-top: 1.5em;
+		padding: 0.75em;
+		padding-bottom: 1.5em;
+
+		.blog-link {
+			font-weight: bold;
+		}
+	}
+
+}

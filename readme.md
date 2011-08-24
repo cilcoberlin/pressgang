@@ -69,13 +69,13 @@ Any user that you add to your site must have certain permissions to be able
 to use PressGang.  The possible permissions, given as how they show up in the
 list of permissions available to users and groups, are:
 
-*pressgang | blog | can install blogs*
+`pressgang | blog | can install blogs`
 Allows the user to install blogs
 
-*pressgang | blog | can manage blogs*
+`pressgang | blog | can manage blogs`
 Allows the user to make changes to the blogs.
 
-*pressgang | blog | can view blogs*
+`pressgang | blog | can view blogs`
 Allows the user to view a list of all installed blogs.
 
 Generally, a user will have all of the above permissions, but it is possible to

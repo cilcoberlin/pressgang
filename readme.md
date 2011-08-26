@@ -29,8 +29,7 @@ Installation
 
 1. Add 'pressgang' to settings.INSTALLED_APPS.
 2. Include 'pressgang.urls' in your URL configuration.
-3. If you're running PressGang as your only app, set values for `LOGIN_URL` AND `LOGOUT_URL` to 'YOUR_PRESSGANG_URL/accounts/login' and 'YOUR_PRESSGANG_URL/accounts/logout', respectively.
-4. Provide values for the settings below.
+3. Provide values for the settings below.
 
 `PRESSGANG_APACHE_CONFIGS_DIR`
 A string of the absolute path to the directory that you created to hold per-blog Apache configuration files.
@@ -62,6 +61,21 @@ The full path to your mysqldump executable.
 
 `PRESSGANG_SERVER_BASE`
 A string of the network location (i.e., 'subdomain.server.tld') of the server hosting your blogs.
+
+**Standalone Settings***
+
+If PressGang is the only application that you are running, you can use the following
+values for your settings.py variables, replacing **PRESSGANG_PREFIX** with the optional
+URL prefix of your PressGang site, if it is running in a subdirectory.
+
+        LOGIN_URL  = '**PRESSGANG_PREFIX**/accounts/login'
+        LOGOUT_URL = '**PRESSGANG_PREFIX**/accounts/logout'
+
+To have PressGang handle any 404 or 500 errors, you can set the following values
+in your main URL configuration.
+
+        handler404 = 'pressgang.core.views.handle_404'
+        handler500 = 'pressgang.core.views.handle_500'
 
 **Permissions**
 

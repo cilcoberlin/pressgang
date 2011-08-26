@@ -1,0 +1,16 @@
+{% extends "pressgang/accounts/base.html" %}
+
+{% load i18n %}
+
+{% block title %}{% trans "Page Not Found" %}{% endblock %}
+{% block page_title %}{% trans "Page Not Found" %}{% endblock %}
+
+{% block body_classes %}{{ block.super }} error-404{% endblock %}
+
+{% block body %}
+
+    <p>
+		{% trans "The page that you requested could not be found." %}
+    </p>
+
+{% endblock %}

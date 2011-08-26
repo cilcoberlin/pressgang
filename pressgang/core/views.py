@@ -11,6 +11,16 @@ from pressgang.utils.pages import Page
 # The name of the GET parameter defining a page to redirect to
 NEXT_PAGE_PARAM = "next"
 
+def handle_404(request):
+	"""Handle a page-not-found error."""
+	page = Page(request)
+	return page.render('pressgang/core/error404.html')
+
+def handle_500(request):
+	"""Handle a server error."""
+	page = Page(request)
+	return page.render('pressgang/core/error500.html')
+
 @can_manage_blogs
 def get_admin_info(request, blog_id=None):
 	"""Allows the user to provide admin login information for a blog.

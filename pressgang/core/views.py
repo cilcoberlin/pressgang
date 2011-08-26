@@ -1,9 +1,11 @@
 
+from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 
 from pressgang.accounts.decorators import can_manage_blogs
+from pressgang.accounts.models import PressGangUser
 from pressgang.core.forms import AdminLoginInfoForm
 from pressgang.core.models import Blog
 from pressgang.utils.pages import Page
@@ -20,6 +22,24 @@ def handle_500(request):
 	"""Handle a server error."""
 	page = Page(request)
 	return page.render('pressgang/core/error500.html')
+
+@login_required
+def pressgang_home(request):
+	"""Base page for PressGang that redirects an authenticated user."""
+
+	# Figure out a redirection URL based on the user's permissions
+	user = PressGangUser.objects.get(pk=request.user.pk)
+	redirect_to = None
+	if user.can_manage_blogs() or user.can_view_blogs():
+		redirect_to = reverse("pressgang:list-blogs")
+	elif user.can_install_blogs():
+		redirect_to = reverse("pressgang:install-blog")
+
+	# Redirect the user or prevent them access if they have no PressGang permissions
+	if not redirect_to:
+		return HttpResponseRedirect(reverse('pressgang:access-denied'))
+	else:
+		return HttpResponseRedirect(redirect_to)
 
 @can_manage_blogs
 def get_admin_info(request, blog_id=None):

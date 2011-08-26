@@ -1,0 +1,20 @@
+{% extends "pressgang/accounts/base.html" %}
+
+{% load i18n %}
+{% load pressgang_core %}
+
+{% block title %}{% trans "Access Denied" %}{% endblock %}
+{% block page_title %}{% trans "Access Denied" %}{% endblock %}
+
+{% block body_classes %}{{ block.super }} access-denied{% endblock %}
+
+{% block body %}
+
+	<p>
+		{% blocktrans %}
+			Your do not have the proper permissions to use PressGang.  Please contact
+			your site administrator to request permission to use PressGang.
+		{% endblocktrans %}
+	</p>
+
+{% endblock %}

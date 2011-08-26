@@ -15,7 +15,7 @@ class InstallBlogForm(forms.Form):
 	users = EmailListField(label=_("user emails"), help_text=_("a list of normal user emails, one per line"), required=False)
 	password = forms.CharField(widget=forms.PasswordInput, label=_("admin password"), help_text=_("the admin password for the blog"))
 	password_verify = forms.CharField(widget=forms.PasswordInput, label=_("admin password (verify)"), help_text=_("the admin password for the blog"))
-	installer = InstallerSelectField(label=_("WordPress installation"), help_text=_("the installer package to use to create this blog"))
+	installer = InstallerSelectField(label=_("blog type"), help_text=_("the type of blog to install"))
 
 	def clean(self):
 		"""Verify formwide input."""

@@ -58,9 +58,9 @@
 	<p class="buttons">
 
 		{% if lock %}
-			{% url start-lockdown blog_id=blog.pk as confirm_url %}
+			{% url pressgang:start-lockdown blog_id=blog.pk as confirm_url %}
 		{% else %}
-			{% url start-unlock blog_id=blog.pk as confirm_url %}
+			{% url pressgang:start-unlock blog_id=blog.pk as confirm_url %}
 		{% endif %}
 
 		<a class="button confirm" href="{{ confirm_url }}">
@@ -70,7 +70,7 @@
 				{% trans "Yes, I want to unlock this blog" %}
 			{% endif %}
 		</a>
-		<a class="button reject" href="{% url list-blogs %}">
+		<a class="button reject" href="{% url pressgang:list-blogs %}">
 			{% if lock %}
 				{% trans "No, I do not want to lock down this blog" %}
 			{% else %}

@@ -19,7 +19,7 @@
 
 {% block body %}
 
-	<form action="{% url reversion-options blog_id=blog.pk %}" method="post" id="reversion-form">
+	<form action="{% url pressgang:reversion-options blog_id=blog.pk %}" method="post" id="reversion-form">
 
 		{{ revert_form.snapshot.errors }}
 

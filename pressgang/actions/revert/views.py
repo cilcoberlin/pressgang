@@ -26,7 +26,7 @@ def reversion_options(request, blog_id=None):
 		revert_form = ReversionForm(blog, request.POST)
 		if revert_form.is_valid():
 			store_action(request, RevertAction(blog, snapshot=revert_form.cleaned_data['snapshot']))
-			return HttpResponseRedirect(reverse("revert-blog", kwargs={'blog_id': blog.pk}))
+			return HttpResponseRedirect(reverse("pressgang:revert-blog", kwargs={'blog_id': blog.pk}))
 	else:
 		revert_form = ReversionForm(blog)
 

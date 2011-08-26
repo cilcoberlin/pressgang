@@ -33,10 +33,10 @@
 			{% if user.is_authenticated %}
 				<ul id="pages">
 					{% if user|can_install_blogs %}
-						<li class="page"><a href="{% url install-options %}">{% trans "Install Blog" %}</a></li>
+						<li class="page"><a href="{% url pressgang:install-options %}">{% trans "Install Blog" %}</a></li>
 					{% endif %}
 					{% if user|can_manage_blogs or user|can_view_blogs %}
-						<li class="page"><a href="{% url list-blogs %}">
+						<li class="page"><a href="{% url pressgang:list-blogs %}">
 							{% if user|can_manage_blogs %}
 								{% trans "Manage Blogs" %}
 							{% else %}

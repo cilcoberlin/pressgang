@@ -10,7 +10,7 @@
 
 {% block body %}
 
-	<form action="{% url install-options %}" method="post" id="installer-form">
+	<form action="{% url pressgang:install-options %}" method="post" id="installer-form">
 
 		{% if install_form.non_field_errors %}
 			{{ install_form.non_field_errors }}

@@ -43,7 +43,7 @@ def create_action(request, blog_id=None, lock=None):
 
 	# Create the proper type of lockdown action and go to the execution page
 	store_action(request, LockdownAction(blog, lock=lock))
-	lock_view = 'lock-blog' if lock else 'unlock-blog'
+	lock_view = 'pressgang:lock-blog' if lock else 'pressgang:unlock-blog'
 	return HttpResponseRedirect(reverse(lock_view, kwargs={'blog_id': blog_id}))
 
 

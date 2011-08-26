@@ -64,9 +64,9 @@
 								<ul class="actions">
 									<li class="action {{ blog.is_locked|yesno:"unlock,lock" }}">
 										{% if blog.is_locked %}
-											{% url confirm-unlock blog_id=blog.pk as lockdown_url %}
+											{% url pressgang:confirm-unlock blog_id=blog.pk as lockdown_url %}
 										{% else %}
-											{% url confirm-lockdown blog_id=blog.pk as lockdown_url %}
+											{% url pressgang:confirm-lockdown blog_id=blog.pk as lockdown_url %}
 										{% endif %}
 										<a title="{% if blog.is_locked %}{% trans "Reopen the blog" %}{% else %}{% trans "Lock down the blog" %}{% endif %}" href="{{ lockdown_url }}">
 											{% if blog.is_locked %}
@@ -78,7 +78,7 @@
 									</li>
 									{% if blog.has_version_snapshots %}
 										<li class="action rollback">
-											<a href="{% url reversion-options blog_id=blog.pk %}" title="{% trans "Revert to an older version of the blog" %}">{% trans "Revert" %}</a>
+											<a href="{% url pressgang:reversion-options blog_id=blog.pk %}" title="{% trans "Revert to an older version of the blog" %}">{% trans "Revert" %}</a>
 										</li>
 									{% endif %}
 								</ul>

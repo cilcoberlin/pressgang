@@ -13,8 +13,8 @@
 
 				// Execute the action via the JavaScript executer
 				var executer = new pressgang.actions.Executer({
-					execute_url:        "{% url begin-action %}",
-					progress_url:       "{% url action-progress %}",
+					execute_url:        "{% url pressgang:begin-action %}",
+					progress_url:       "{% url pressgang:action-progress %}",
 					progress_container: "#action-log"
 				});
 				executer.execute();

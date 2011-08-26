@@ -10,7 +10,7 @@
 
 {% block body %}
 
-    <form id="login-form" method="post" action="{% url django.contrib.auth.views.login %}">
+    <form id="login-form" method="post" action="{% url pressgang:django.contrib.auth.views.login %}">
 
         {% if form.errors %}
 	        <fieldset class="errors">

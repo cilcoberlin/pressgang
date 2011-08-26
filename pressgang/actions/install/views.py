@@ -15,7 +15,7 @@ def install_options(request):
 		install_form = InstallBlogForm(request.POST)
 		if install_form.is_valid():
 			store_action(request, install_form.create_installer())
-			return HttpResponseRedirect(reverse('install-blog', kwargs={'slug': install_form.cleaned_data['slug']}))
+			return HttpResponseRedirect(reverse('pressgang:install-blog', kwargs={'slug': install_form.cleaned_data['slug']}))
 	else:
 		install_form = InstallBlogForm()
 

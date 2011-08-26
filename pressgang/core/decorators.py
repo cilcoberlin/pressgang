@@ -37,7 +37,7 @@ def admin_info_required(view_function):
 		# page that asks the user for this information
 		if not blog.admin_user or not blog.admin_password:
 			return HttpResponseRedirect("%(url)s?%(param)s=%(next)s" % {
-				'url': reverse('get-admin-info', kwargs={'blog_id': blog.pk}),
+				'url': reverse('pressgang:get-admin-info', kwargs={'blog_id': blog.pk}),
 				'param': NEXT_PAGE_PARAM,
 				'next': urlquote(request.get_full_path())
 			})

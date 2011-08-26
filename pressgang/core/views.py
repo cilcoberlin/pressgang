@@ -33,7 +33,7 @@ def get_admin_info(request, blog_id=None):
 		if admin_form.is_valid():
 			admin_form.update_admin_info()
 			if not next_page:
-				next_page = reverse('list-blogs')
+				next_page = reverse('pressgang:list-blogs')
 			return HttpResponseRedirect(next_page)
 	else:
 		admin_form = AdminLoginInfoForm(blog)

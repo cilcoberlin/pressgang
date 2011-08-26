@@ -6,7 +6,8 @@ body.manage-blogs {
 
 	// Current version notice
 	#current-version {
-		background: $color-bg-notice;
+		background: $color-bg-highlight;
+		border: 1px solid darken($color-bg-highlight, 20%);
 		float: right;
 		margin: -3em 0;
 		padding: 0.75em 1.5em;
@@ -20,12 +21,17 @@ body.manage-blogs {
 
 	// Wrapper for the table of all installed blogs
 	#all-blogs {
+		margin-bottom: 1.5em;
 		margin-top: 3em;
 
 		// General styling and sizing for columns
 		.title {
-			width: 20%;
+			width: 25%;
 		}
+		.change {
+			width: 7em;
+		}
+
 
 		// Individual blog listings
 		tbody {
@@ -42,26 +48,17 @@ body.manage-blogs {
 				.change {
 
 					.actions {
-						font-size: 0.857em;
-						line-height: 1.75em;
+						font-weight: bold;
 
 						// A single action
 						.action {
-							background-color: $color-bg-button-small;
 							background-repeat: no-repeat;
-							background-position: 0.75em center;
-							border: 1px solid $color-border;
-							display: inline-block;
-							margin-right: 0.75em;
-							padding: 0 0.75em;
-							@include rounded(all, 0.5em);
+							background-position: left center;
+							padding-left: 1.5em;
+							text-shadow: $color-shadow-bright 1px 1px 0;
 
-							a {
-								color: $color-text-header;
-								padding-left: 1.75em;
-							}
 
-							// Make each action to look different
+							// Make each action button look different
 							&.rollback {
 								background-image: url("../images/icon-arrow-refresh.png");
 							}
@@ -70,11 +67,6 @@ body.manage-blogs {
 							}
 							&.unlock {
 								background-image: url("../images/icon-lock-open.png");
-							}
-
-							&:hover {
-								background-color: lighten($color-bg-button-small, 5%);
-								border-color: $color-border-strong;
 							}
 						}
 					}

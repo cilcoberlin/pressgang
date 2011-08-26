@@ -11,7 +11,6 @@
 
 	{% block all_css %}
 
-		<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Raleway:100">
 		<link type="text/css" rel="stylesheet" media="all" href="{{ MEDIA_URL }}pressgang/css/pressgang.css" />
 		{% block css %}{% endblock %}
 
@@ -28,7 +27,19 @@
 
 		<div id="header">
 
-			<h3 id="branding">PressGang</h3>
+			<h3 id="branding">
+				{% if user|can_manage_blogs or user|can_view_blogs %}
+					{% url pressgang:list-blogs as home_url %}
+				{% endif %}
+
+				{% if home_url %}
+					<a href="{{ home_url }}">
+				{% endif %}
+				PressGang
+				{% if home_url %}
+					</a>
+				{% endif %}
+			</h3>
 
 			{% if user.is_authenticated %}
 				<ul id="pages">
@@ -74,6 +85,11 @@
 			<ul id="credits">
 				<li class="credit app"><a href="http://languages.oberlin.edu/cilc/projects/pressgang/">{% trans "PressGang" %}</a> {% trans "WordPress installation manager" %}</li>
 				<li class="credit creator">{% trans "Created by" %} <a href="http://languages.oberlin.edu">{% trans "the Cooper International Learning Center" %}</a></li>
+				<li class="credit icons">
+					{% blocktrans with "<a href='http://www.famfamfam.com/lab/icons/silk/'>Silk</a>" as icons %}
+						Icons taken from the {{ icons }} icon set
+					{% endblocktrans %}
+				</li>
 			</ul>
 		</div>
 

@@ -19,6 +19,12 @@ body.login {
 			.form-field {
 				margin: 0.75em 0;
 
+				.errorlist {
+					float: none;
+					margin: 1.5em 0 0.75em;
+					width: 12em;
+				}
+
 				// Make the fields be vertically aligned
 				.name {
 					display: inline-block;

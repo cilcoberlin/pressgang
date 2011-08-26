@@ -12,25 +12,32 @@
 // 24.5      1.75       42         1.714
 // 28        2          42         1.5
 
-$color-bg-button: #afafaa;
+// Colors
 $color-bg-button-small: #dfdfda;
-$color-bg-page: #efefec;
+$color-bg-button: #afafaa;
 $color-bg-error: #ecc;
-$color-bg-muted: #ddd;
 $color-bg-header: #dfdfda;
+$color-bg-highlight: #fafada;
+$color-bg-muted: #ddd;
 $color-bg-notice: #fafafa;
+$color-bg-page: #efefec;
 $color-border: #bbb;
+$color-border-highlight: #efefec;
 $color-border-light: #bbb;
 $color-border-strong: #777;
-$color-link: #a00;
 $color-link-weak: #a66;
-$color-text: #333;
+$color-link: #a00;
+$color-shadow-bright: #f5f5f5;
+$color-shadow-header: #fff;
+$color-shadow-light: #d5d5d5;
 $color-text-button: #fff;
-$color-text-header: #5f5f5a;
-$color-text-header-accent: #a22;
 $color-text-error: #a00;
+$color-text-header-accent: #a22;
+$color-text-header: #5f5f5a;
 $color-text-strong: #000;
 $color-text-success: #090;
 $color-text-weak: #555;
-$color-shadow-header: #fff;
-$color-shadow-light: #d5d5d5;
+$color-text: #333;
+
+// Dimensions
+$dimension-body-padding-x: 3em;

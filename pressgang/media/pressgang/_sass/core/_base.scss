@@ -129,20 +129,30 @@ form {
 
 #header {
 	background: $color-bg-header;
-	border-bottom: 1px solid $color-border;
+	border-bottom: 1px solid lighten($color-bg-header, 4%);
 	height: 3em;
-	padding: 1.5em;
+	padding: 1.5em $dimension-body-padding-x;
 
 	// The PressGang logo
 	#branding {
-		float: left;
+		background: url("../images/pressgang-logo.png") no-repeat right center;
 		color: $color-text-header;
+		float: left;
+		font-weight: normal;
+		font-size: 1em;
+		line-height: 3em;
+		text-transform: uppercase;
+		padding-right: 42px;
+		text-shadow: $color-shadow-bright 1px 1px 0;
+
+		a {
+			color: $color-text-header;
+		}
 	}
 
 	// Navigation menu
 	#pages {
 		float: left;
-		font-weight: bold;
 		line-height: 3em;
 		margin-left: 3em;
 
@@ -196,9 +206,10 @@ form {
 
 #body {
 	background: $color-bg-page;
+	border-top: 1px solid $color-border;
 	clear: both;
 	font-size: 1em;
-	padding: 1.5em 1.5em 3em;
+	padding: 1.5em $dimension-body-padding-x 3em;
 	line-height: 1.5em;
 
 	// The current page's title
@@ -214,6 +225,7 @@ form {
 	table {
 		border-bottom: 2px solid $color-border-strong;
 		position: relative;
+		margin: 1.5em -0.75em;
 		width: 100%;
 
 		// Headers
@@ -228,7 +240,7 @@ form {
 		// Basic cell styling
 		td,
 		th {
-			padding-right: 0.75em;
+			padding: 0 0.75em;
 		}
 
 		tbody {
@@ -239,10 +251,17 @@ form {
 				padding-top: 0.75em;
 			}
 
+			// Zebra-stripe tables if on a modern browser
+			tr:nth-child(2n + 1) {
+				td {
+					background: lighten($color-bg-page, 5%);
+				}
+			}
+
 			// Highlight a row on mouseover
 			tr:hover {
 				td {
-					background: $color-bg-notice;
+					background: $color-bg-highlight !important;
 					color: $color-text-strong;
 				}
 			}
@@ -281,12 +300,11 @@ form {
 	background: $color-bg-header;
 	color: lighten($color-text-weak, 30%);
 	line-height: 1.5em;
-	padding: 0 1.5em;
+	padding: 1.5em $dimension-body-padding-x;
 
 	// Information on how many blogs are being managed
 	#stats {
 		float: left;
-		padding: 1.5em 0;
 
 		.blogs {
 			background: url("../images/icon-wp.png") no-repeat left center;
@@ -301,7 +319,6 @@ form {
 
 	// Creation credits
 	#credits {
-		padding: 1.5em 0;
 		text-align: right;
 
 		a {

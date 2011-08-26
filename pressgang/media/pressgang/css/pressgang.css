@@ -148,15 +148,23 @@ form .buttons input {
 ------------------------------------------------------------------------------*/
 #header {
   background: #dfdfda;
-  border-bottom: 1px solid #bbbbbb;
+  border-bottom: 1px solid #e8e8e5;
   height: 3em;
-  padding: 1.5em; }
+  padding: 1.5em 3em; }
   #header #branding {
+    background: url("../images/pressgang-logo.png") no-repeat right center;
+    color: #5f5f5a;
     float: left;
-    color: #5f5f5a; }
+    font-weight: normal;
+    font-size: 1em;
+    line-height: 3em;
+    text-transform: uppercase;
+    padding-right: 42px;
+    text-shadow: #f5f5f5 1px 1px 0; }
+    #header #branding a {
+      color: #5f5f5a; }
   #header #pages {
     float: left;
-    font-weight: bold;
     line-height: 3em;
     margin-left: 3em; }
     #header #pages .page {
@@ -190,9 +198,10 @@ form .buttons input {
 ------------------------------------------------------------------------------*/
 #body {
   background: #efefec;
+  border-top: 1px solid #bbbbbb;
   clear: both;
   font-size: 1em;
-  padding: 1.5em 1.5em 3em;
+  padding: 1.5em 3em 3em;
   line-height: 1.5em; }
   #body #title {
     color: black; }
@@ -201,6 +210,7 @@ form .buttons input {
   #body table {
     border-bottom: 2px solid #777777;
     position: relative;
+    margin: 1.5em -0.75em;
     width: 100%; }
     #body table thead th {
       border-bottom: 2px solid #777777;
@@ -208,13 +218,15 @@ form .buttons input {
       text-align: left; }
     #body table td,
     #body table th {
-      padding-right: 0.75em; }
+      padding: 0 0.75em; }
     #body table tbody td {
       border-bottom: 1px solid #bbbbbb;
       padding-bottom: 0.75em;
       padding-top: 0.75em; }
+    #body table tbody tr:nth-child(2n + 1) td {
+      background: #fbfbfa; }
     #body table tbody tr:hover td {
-      background: #fafafa;
+      background: #fafada !important;
       color: black; }
   #body table.sortable th.header {
     cursor: pointer; }
@@ -235,10 +247,9 @@ form .buttons input {
   background: #dfdfda;
   color: #a2a2a2;
   line-height: 1.5em;
-  padding: 0 1.5em; }
+  padding: 1.5em 3em; }
   #footer #stats {
-    float: left;
-    padding: 1.5em 0; }
+    float: left; }
     #footer #stats .blogs {
       background: url("../images/icon-wp.png") no-repeat left center;
       padding-left: 1.5em; }
@@ -246,7 +257,6 @@ form .buttons input {
         color: #aa6666;
         font-weight: bold; }
   #footer #credits {
-    padding: 1.5em 0;
     text-align: right; }
     #footer #credits a {
       color: #aa6666;
@@ -274,6 +284,10 @@ body.login #login-form .data-entry {
   margin: 1.5em 0; }
   body.login #login-form .data-entry .form-field {
     margin: 0.75em 0; }
+    body.login #login-form .data-entry .form-field .errorlist {
+      float: none;
+      margin: 1.5em 0 0.75em;
+      width: 12em; }
     body.login #login-form .data-entry .form-field .name {
       display: inline-block;
       font-weight: bold;
@@ -378,7 +392,8 @@ body.install-options #installer-form {
 
 /* Management */
 body.manage-blogs #current-version {
-  background: #fafafa;
+  background: #fafada;
+  border: 1px solid #eeee80;
   float: right;
   margin: -3em 0;
   padding: 0.75em 1.5em;
@@ -389,37 +404,27 @@ body.manage-blogs #current-version {
   body.manage-blogs #current-version strong {
     font-weight: bold; }
 body.manage-blogs #all-blogs {
+  margin-bottom: 1.5em;
   margin-top: 3em; }
   body.manage-blogs #all-blogs .title {
-    width: 20%; }
+    width: 25%; }
+  body.manage-blogs #all-blogs .change {
+    width: 7em; }
   body.manage-blogs #all-blogs tbody .blog.locked td {
     background: #dddddd; }
   body.manage-blogs #all-blogs tbody .blog .change .actions {
-    font-size: 0.857em;
-    line-height: 1.75em; }
+    font-weight: bold; }
     body.manage-blogs #all-blogs tbody .blog .change .actions .action {
-      background-color: #dfdfda;
       background-repeat: no-repeat;
-      background-position: 0.75em center;
-      border: 1px solid #bbbbbb;
-      display: inline-block;
-      margin-right: 0.75em;
-      padding: 0 0.75em;
-      border-radius: 0.5em;
-      -moz-border-radius: 0.5em;
-      -webkit-border-radius: 0.5em; }
-      body.manage-blogs #all-blogs tbody .blog .change .actions .action a {
-        color: #5f5f5a;
-        padding-left: 1.75em; }
+      background-position: left center;
+      padding-left: 1.5em;
+      text-shadow: #f5f5f5 1px 1px 0; }
       body.manage-blogs #all-blogs tbody .blog .change .actions .action.rollback {
         background-image: url("../images/icon-arrow-refresh.png"); }
       body.manage-blogs #all-blogs tbody .blog .change .actions .action.lock {
         background-image: url("../images/icon-lock-closed.png"); }
       body.manage-blogs #all-blogs tbody .blog .change .actions .action.unlock {
         background-image: url("../images/icon-lock-open.png"); }
-      body.manage-blogs #all-blogs tbody .blog .change .actions .action:hover {
-        background-color: #ebebe8;
-        border-color: #777777; }
 
 /* Lockdown */
 body.lockdown-confirmation #prompt {

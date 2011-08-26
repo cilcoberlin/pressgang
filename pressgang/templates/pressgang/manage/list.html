@@ -42,23 +42,19 @@
 
 			<thead>
 				<tr>
+					{% if user|can_manage_blogs %}
+						<th class="change">{% trans "Actions" %}</th>
+					{% endif %}
 					<th class="title">{% trans "Title" %}</th>
 					<th class="path">{% trans "Path" %}</th>
 					<th class="version">{% trans "Version" %}</th>
 					<th class="created">{% trans "Created" %}</th>
-					{% if user|can_manage_blogs %}
-						<th class="change">{% trans "Actions" %}</th>
-					{% endif %}
 				</tr>
 			</thead>
 
 			<tbody>
 				{% for blog in blogs %}
 					<tr class="blog {% if blog.is_locked %}locked{% endif %}">
-						<td class="title"><a href="{{ blog.url }}" title="{% trans "Visit blog" %}">{{ blog.title }}</a></td>
-						<td class="path">{{ blog.path }}</td>
-						<td class="version">{{ blog.version }}</td>
-						<td class="created sort__{{ blog.created|date:"Ymd" }}">{{ blog.created|date }}</td>
 						{% if user|can_manage_blogs %}
 							<td class="change">
 								<ul class="actions">
@@ -84,6 +80,10 @@
 								</ul>
 							</td>
 						{% endif %}
+						<td class="title"><a href="{{ blog.url }}" title="{% trans "Visit blog" %}">{{ blog.title }}</a></td>
+						<td class="path">{{ blog.path }}</td>
+						<td class="version">{{ blog.version }}</td>
+						<td class="created sort__{{ blog.created|date:"Ymd" }}">{{ blog.created|date }}</td>
 					</tr>
 				{% endfor %}
 			</tbody>

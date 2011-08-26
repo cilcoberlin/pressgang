@@ -25,7 +25,8 @@
 
         <fieldset class="buttons">
             <input type="submit" value="{% trans "Log in to PressGang" %}" />
-            <input type="hidden" name="next" value="{{ next }}" />
+            {% url pressgang:home as home_url %}
+            <input type="hidden" name="next" value="{{ next|default:home_url }}" />
 			{% csrf_token %}
         </fieldset>
     </form>

@@ -13,4 +13,4 @@ def sitewide_activate_plugin(plugin, blog):
 	"""
 	Options = BlogOptions if blog.version.is_multi else AllBlogOptions
 	options = Options({'plugins': [plugin]})
-	options.apply(blog)
+	options.apply(blog, force=True)

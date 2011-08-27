@@ -36,10 +36,16 @@ function {{ options_setter }}() {
 	{% endif %}
 
 	// Only apply the options if the options haven't already been set
-	if ( ! get_option( '{{ options }}_set', false ) ) {
-		update_option( '{{ options }}_set', true );
+	{% if not force %}
+		if ( ! get_option( '{{ options }}_set', false ) ) {
+			update_option( '{{ options }}_set', true );
+	{% endif %}
+
 		{{ code|safe }}
-	}
+
+	{% if not force %}
+		}
+	{% endif %}
 
 	{% if blog.version.is_multi %}
 			restore_current_blog();

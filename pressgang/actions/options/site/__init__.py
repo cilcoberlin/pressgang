@@ -58,8 +58,9 @@ class SiteOptions(Options):
 		except ValueError:
 			return None
 
-	def render_plugin_code(self, blog, code):
+	def render_plugin_code(self, blog, code, force):
 		return render_to_string('pressgang/options/site_options.php', {
 			'code': code,
+			'force': force,
 			'options': self.__class__.__name__.lower()
 		})

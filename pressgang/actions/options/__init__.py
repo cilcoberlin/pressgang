@@ -114,16 +114,26 @@ class Options(object):
 		return options
 
 	def apply(self, blog):
+	def apply(self, blog, force=False):
 		"""Applies the options to a blog.
+
+		The `force` kwarg is important, as it overrides some of the safety checks
+		that PressGang performs before applying options.  By default, if a blog
+		is unmanaged, or if a blog or site has already had options applied to
+		it, no further customization is done.  Passing a value of True for `force`,
+		however, bypasses these checks and forces the options to be applied.
 
 		Arguments:
 		blog -- an instance of a Blog object
+
+		Keyword Arguments:
+		force -- a boolean of whether or not to force application of options
 
 		"""
 
 		# If the blog is not managed, don't bother applying options, as the
 		# potential for destruction is simply too great
-		if not blog.is_managed:
+		if not force and not blog.is_managed:
 			return
 
 		# Build a list of all generated code to set each option
@@ -137,7 +147,7 @@ class Options(object):
 
 		# Apply the options, if there are any to apply
 		if code:
-			blog.apply_changes(self.render_plugin_code(blog, "\n".join(code)))
+			blog.apply_changes(self.render_plugin_code(blog, "\n".join(code), force))
 
 	def render_plugin_code(self, blog, code):
 		"""Render the PHP code used for the plugin.

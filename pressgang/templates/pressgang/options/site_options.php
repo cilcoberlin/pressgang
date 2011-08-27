@@ -8,16 +8,24 @@
 
 {% load pressgang_options %}
 
-// Only apply the site options if the blog hasn't already been customized
-if ( ! get_site_option( 'pressgang_site_customized', false ) ) {
-	update_site_option( 'pressgang_site_customized', true );
 
-	// Apply each option to the site
-	{% setter_function options as options_setter %}
-	add_action( 'init', '{{ options_setter }}' );
-	function {{ options_setter }}() {
+// Apply each option to the site
+{% setter_function options as options_setter %}
+add_action( 'init', '{{ options_setter }}' );
+function {{ options_setter }}() {
+
+	// Only apply the site options if the blog hasn't already been customized
+	{% if not force %}
+		if ( ! get_site_option( 'pressgang_site_customized', false ) ) {
+			update_site_option( 'pressgang_site_customized', true );
+	{% endif %}
+
 		{{ code|safe }}
-	}
+
+	{% if not force %}
+		}
+	{% endif %}
 }
+
 
 ?>

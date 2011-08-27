@@ -66,12 +66,13 @@ class BlogOptions(Options):
 		except ValueError:
 			return None
 
-	def render_plugin_code(self, blog, code):
+	def render_plugin_code(self, blog, code, force):
 		return render_to_string('pressgang/options/blog_options.php', {
 			'blog':         blog,
 			'code':         code,
 			'for_root':     self.for_root,
 			'for_non_root': self.for_non_root,
+			'force':        force,
 			'options':      self.__class__.__name__.lower()
 		})
 

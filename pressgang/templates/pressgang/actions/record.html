@@ -113,6 +113,7 @@
 					<li class="action">
 						<a href="{% url pressgang:list-blogs %}">{% trans "Manage Blogs" %}</a>
 					</li>
+					{% block extra_actions %}{% endblock %}
 				</ul>
 
 			</div>

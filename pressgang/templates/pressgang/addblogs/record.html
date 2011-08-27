@@ -12,3 +12,9 @@
 		The blog {{ title }} had {{ blog_count }} new blogs added to it.
 	{% endblocktrans %}
 {% endblock %}
+
+{% block extra_actions %}
+	<li class="action">
+		<a href="{% url pressgang:add-blogs-options blog_id=blog.pk %}">{% trans "Add More Child Blogs to This Blog" %}</a>
+	</li>
+{% endblock %}

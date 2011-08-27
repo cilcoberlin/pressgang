@@ -29,3 +29,21 @@
 		{% endblocktrans %}
 	{% endif %}
 {% endblock %}
+
+{% block extra_actions %}
+	<li class="action">
+		{% if action.locking %}
+			{% url pressgang:confirm-unlock blog_id=blog.pk as action_url %}
+		{% else %}
+			{% url pressgang:confirm-lockdown blog_id=blog.pk as action_url %}
+		{% endif %}
+
+		<a href="{{ action_url }}">
+			{% if action.locking %}
+				{% trans "Unlock This Blog" %}
+			{% else %}
+				{% trans "Lock This Blog" %}
+			{% endif %}
+		</a>
+	</li>
+{% endblock %}

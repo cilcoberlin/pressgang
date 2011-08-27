@@ -10,3 +10,9 @@
 		The blog {{ title }} was successfully installed.
 	{% endblocktrans %}
 {% endblock %}
+
+{% block extra_actions %}
+	<li class="action">
+		<a href="{% url pressgang:install-options %}">{% trans "Install Another Blog" %}</a>
+	</li>
+{% endblock %}

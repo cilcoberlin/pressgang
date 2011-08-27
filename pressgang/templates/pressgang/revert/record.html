@@ -10,3 +10,9 @@
 		The blog {{ title }} was successfully reverted to the version created on {{ created }}.
 	{% endblocktrans %}
 {% endblock %}
+
+{% block extra_actions %}
+	<li class="action">
+		<a href="{% url pressgang:reversion-options blog_id=blog.pk %}">{% trans "Revert to Another Version" %}</a>
+	</li>
+{% endblock %}

@@ -1,4 +1,4 @@
-from django.conf.urls.defaults import *
+from django.conf.urls.defaults import include, patterns, url
 
 revert_patterns = patterns('pressgang.actions.revert.views',
 	url(r'^version/$', 'reversion_options', name="reversion-options"),

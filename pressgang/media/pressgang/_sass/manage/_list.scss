@@ -39,6 +39,21 @@ body.manage-blogs {
 			// A single blog
 			.blog {
 
+				// Emphasize any managed blogs
+				&.managed {
+					font-weight: bold;
+				}
+
+				// Show an icon to indicate management status
+				.managed {
+
+					&.yes {
+						background-image: url("../images/favicon.png");
+						background-position: 3em 1em;
+						background-repeat: no-repeat;
+					}
+				}
+
 				// Fade locked-down blogs
 				&.locked td {
 					background: $color-bg-muted;
@@ -48,15 +63,22 @@ body.manage-blogs {
 				.change {
 
 					.actions {
-						font-weight: bold;
+						font-size: 0.857em;
+						line-height: 1.75em;
 
 						// A single action
 						.action {
 							background-repeat: no-repeat;
 							background-position: left center;
-							padding-left: 1.5em;
+							padding-left: 1.75em;
 							text-shadow: $color-shadow-bright 1px 1px 0;
 
+							a {
+								color: $color-text-very-weak;
+							}
+							a:hover {
+								color: $color-text-strong;
+							}
 
 							// Make each action button look different
 							&.rollback {
@@ -72,6 +94,16 @@ body.manage-blogs {
 								background-image: url("../images/icon-page-add.png");
 							}
 						}
+					}
+				}
+
+				// Emphasize actions on rollover
+				&:hover .actions {
+					a {
+						color: $color-text-weak !important;
+					}
+					a:hover {
+						color: $color-text-strong !important;
 					}
 				}
 			}

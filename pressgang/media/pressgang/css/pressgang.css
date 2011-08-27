@@ -453,15 +453,26 @@ body.manage-blogs #all-blogs {
     width: 25%; }
   body.manage-blogs #all-blogs .change {
     width: 9em; }
+  body.manage-blogs #all-blogs tbody .blog.managed {
+    font-weight: bold; }
+  body.manage-blogs #all-blogs tbody .blog .managed.yes {
+    background-image: url("../images/favicon.png");
+    background-position: 3em 1em;
+    background-repeat: no-repeat; }
   body.manage-blogs #all-blogs tbody .blog.locked td {
     background: #dddddd; }
   body.manage-blogs #all-blogs tbody .blog .change .actions {
-    font-weight: bold; }
+    font-size: 0.857em;
+    line-height: 1.75em; }
     body.manage-blogs #all-blogs tbody .blog .change .actions .action {
       background-repeat: no-repeat;
       background-position: left center;
-      padding-left: 1.5em;
+      padding-left: 1.75em;
       text-shadow: #f5f5f5 1px 1px 0; }
+      body.manage-blogs #all-blogs tbody .blog .change .actions .action a {
+        color: #999999; }
+      body.manage-blogs #all-blogs tbody .blog .change .actions .action a:hover {
+        color: black; }
       body.manage-blogs #all-blogs tbody .blog .change .actions .action.rollback {
         background-image: url("../images/icon-arrow-refresh.png"); }
       body.manage-blogs #all-blogs tbody .blog .change .actions .action.lock {
@@ -470,6 +481,10 @@ body.manage-blogs #all-blogs {
         background-image: url("../images/icon-lock-open.png"); }
       body.manage-blogs #all-blogs tbody .blog .change .actions .action.add-blogs {
         background-image: url("../images/icon-page-add.png"); }
+  body.manage-blogs #all-blogs tbody .blog:hover .actions a {
+    color: #555555 !important; }
+  body.manage-blogs #all-blogs tbody .blog:hover .actions a:hover {
+    color: black !important; }
 
 /* Reversion */
 .revert-options.js .version {

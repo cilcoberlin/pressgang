@@ -50,12 +50,13 @@
 					<th class="path">{% trans "Path" %}</th>
 					<th class="version">{% trans "Version" %}</th>
 					<th class="created">{% trans "Created" %}</th>
+					<th class="managed">{% trans "Managed" %}</th>
 				</tr>
 			</thead>
 
 			<tbody>
 				{% for blog in blogs %}
-					<tr class="blog {% if blog|is_locked %}locked{% endif %}">
+					<tr class="blog {% if blog|is_locked %}locked{% endif %} {% if blog.is_managed %}managed{% endif %}">
 						{% if user|can_manage_blogs %}
 							<td class="change">
 								<ul class="actions">
@@ -90,6 +91,13 @@
 						<td class="path">{{ blog.path }}</td>
 						<td class="version">{{ blog.version }}</td>
 						<td class="created sort__{{ blog.created|date:"Ymd" }}">{{ blog.created|date }}</td>
+						<td class="managed {{ blog.is_managed|yesno:"yes,no" }} sort__{{ blog.is_managed|yesno:"1,0" }}" title="{% if blog.is_managed %}{% trans "Managed" %}{% else %}{% trans "Unmanaged" %}{% endif %}">
+							{% if blog.is_managed %}
+								{% trans "Yes" %}
+							{% else %}
+								{% trans "No" %}
+							{% endif %}
+						</td>
 					</tr>
 				{% endfor %}
 			</tbody>

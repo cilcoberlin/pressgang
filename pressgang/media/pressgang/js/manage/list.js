@@ -13,7 +13,7 @@ $(document).ready(function() {
 
 		// Disable sorting on the actions column
 		headers: {
-			4: { sorter: false }
+			0: { sorter: false }
 		},
 
 		// Search for date meta on the date columns

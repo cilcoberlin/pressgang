@@ -7,7 +7,7 @@ class Install(InstallAction):
 	display_name = "Multisite"
 	wp_version = "3.1"
 	multiple_blogs = True
-	admin_email = "admin@test.com"
+	admin_email = "admin@example.com"
 
 	class SiteOptions:
 
@@ -53,7 +53,7 @@ Login Link: BLOG_URLwp-login.php
 		send_admin_registration_notifications = False
 
 		allowed_email_domains = [
-			"test.com"
+			"example.com"
 		]
 
 		per_blog_upload_space_mbs = 100000

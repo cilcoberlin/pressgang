@@ -6,7 +6,7 @@ class Install(InstallAction):
 
 	display_name = "Single"
 	wp_version = "3.1"
-	admin_email = "admin@test.com"
+	admin_email = "admin@example.com"
 
 	class SiteOptions:
 
@@ -35,7 +35,7 @@ Login Link: LOGINLINK
 		send_admin_registration_notifications = False
 
 		allowed_email_domains = [
-			"test.com"
+			"example.com"
 		]
 
 		max_file_upload_size_kbs = 15000

@@ -12,7 +12,7 @@ class SiteOptions:
 
 	# A list of email domains that can be used to register a new blog
 	# ----
-	# Example: allowed_email_domains = ["test.com", "test2.com"]
+	# Example: allowed_email_domains = ["example.com", "example.com"]
 	allowed_email_domains = None
 
 	# A list of allowed file extensions as strings without a dot for uploading

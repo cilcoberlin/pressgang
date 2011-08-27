@@ -180,9 +180,9 @@ class LogStep(models.Model):
 		return LogAction.objects.create(log=self.log, step=self, start_message=message)
 
 	@property
-	def actions_by_date(self):
-		"""All actions that are part of this step, sorted by their start datetime."""
-		return self.actions.order_by('started')
+	def ordered_actions(self):
+		"""All actions that are part of this step in their proper order."""
+		return self.actions.order_by('order')
 
 	@property
 	def start_dt(self):
@@ -239,6 +239,7 @@ class LogAction(models.Model):
 	started       = models.DateTimeField(auto_now_add=True, verbose_name=_("started"))
 	end_message   = models.TextField(blank=True, null=True, verbose_name=_("end message"))
 	ended         = models.DateTimeField(blank=True, null=True, verbose_name=_("completed"))
+	order         = models.PositiveSmallIntegerField(verbose_name=_("order"))
 
 	class Meta:
 
@@ -248,6 +249,15 @@ class LogAction(models.Model):
 
 	def __unicode__(self):
 		return self.start_message
+
+	def save(self, *args, **kwargs):
+		"""Keep track of the action's order."""
+
+		# Update the action's order if we're inserting it
+		if self.order is None:
+			self.order = LogAction.objects.filter(step=self.step).count()
+
+		super(LogAction, self).save(*args, **kwargs)
 
 	def end(self, message):
 		"""Logs the end of the action.

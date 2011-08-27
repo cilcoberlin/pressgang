@@ -32,7 +32,7 @@
 
 					<ol class="actions">
 
-						{% for action in step.actions_by_date %}
+						{% for action in step.ordered_actions %}
 							<li class="action {% if not action.is_complete %}in-progress {% if not log.error_message %}follow{% endif %}{% endif %}">
 								<ul class="parts">
 									<li class="start">{{ action.start_message }}&hellip;</li>

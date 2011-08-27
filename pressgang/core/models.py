@@ -255,7 +255,6 @@ class Blog(models.Model):
 	admin_user     = models.CharField(max_length=40, verbose_name=_("the name of the administrator account"), null=True, blank=True)
 	admin_password = EncryptedCharField(verbose_name=_("administrator password"), null=True, blank=True)
 	is_nascent     = models.BooleanField(verbose_name=_("installation in progress"), default=False)
-	is_locked      = models.BooleanField(verbose_name=_("is in lockdown mode"), default=False)
 
 	# The name of the WordPress configuration file
 	WP_CONFIG_FILE = "wp-config.php"

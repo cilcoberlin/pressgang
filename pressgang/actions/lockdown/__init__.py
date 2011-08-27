@@ -2,7 +2,7 @@
 from django.utils.translation import ugettext_lazy as _
 
 from pressgang.actions import Action
-from pressgang.actions.lockdown.models import LockdownRecord
+from pressgang.actions.lockdown.models import LockdownRecord, LockdownStatus
 from pressgang.core.exceptions import PressGangError
 
 class LockdownAction(Action):
@@ -37,7 +37,7 @@ class LockdownAction(Action):
 
 		# Throw an error if the blog has already had the lockdown action
 		# performed on it
-		if self.blog.is_locked == self.locking:
+		if LockdownStatus.objects.is_blog_locked(self.blog) == self.locking:
 			if self.locking:
 				raise PressGangError(_("The blog %(blog)s is already locked down.") % {'blog': self.blog.title})
 			else:
@@ -45,5 +45,4 @@ class LockdownAction(Action):
 
 	def on_success(self, blog):
 		"""Change the blog's lockdown state once the action has completed."""
-		blog.is_locked = self.locking
-		blog.save()
+		LockdownStatus.objects.update_status(blog, self.locking)

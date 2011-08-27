@@ -2,6 +2,7 @@
 
 {% load i18n %}
 {% load pressgang_accounts %}
+{% load pressgang_lockdown %}
 
 {% block title %}
 	{% if user|can_manage_blogs %}
@@ -54,18 +55,18 @@
 
 			<tbody>
 				{% for blog in blogs %}
-					<tr class="blog {% if blog.is_locked %}locked{% endif %}">
+					<tr class="blog {% if blog|is_locked %}locked{% endif %}">
 						{% if user|can_manage_blogs %}
 							<td class="change">
 								<ul class="actions">
-									<li class="action {{ blog.is_locked|yesno:"unlock,lock" }}">
-										{% if blog.is_locked %}
+									<li class="action {% if blog|is_locked %}unlock{% else %}lock{% endif %}">
+										{% if blog|is_locked %}
 											{% url pressgang:confirm-unlock blog_id=blog.pk as lockdown_url %}
 										{% else %}
 											{% url pressgang:confirm-lockdown blog_id=blog.pk as lockdown_url %}
 										{% endif %}
-										<a title="{% if blog.is_locked %}{% trans "Reopen the blog" %}{% else %}{% trans "Lock down the blog" %}{% endif %}" href="{{ lockdown_url }}">
-											{% if blog.is_locked %}
+										<a title="{% if blog|is_locked %}{% trans "Reopen the blog" %}{% else %}{% trans "Lock down the blog" %}{% endif %}" href="{{ lockdown_url }}">
+											{% if blog|is_locked %}
 												{% trans "Unlock" %}
 											{% else %}
 												{% trans "Lock" %}

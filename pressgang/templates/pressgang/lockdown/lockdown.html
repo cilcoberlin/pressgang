@@ -1,9 +1,10 @@
 {% extends "pressgang/actions/execute.html" %}
 
 {% load i18n %}
+{% load pressgang_lockdown %}
 
 {% block title %}
-	{% if blog.is_locked %}
+	{% if blog|is_locked %}
 		{% blocktrans with blog.title as blog %}
 			Unlocking {{ blog }}
 		{% endblocktrans %}
@@ -15,7 +16,7 @@
 {% endblock %}
 
 {% block page_title %}
-	{% if blog.is_locked %}
+	{% if blog|is_locked %}
 		{% blocktrans with blog.title as blog %}
 			Unlocking {{ blog }}
 		{% endblocktrans %}

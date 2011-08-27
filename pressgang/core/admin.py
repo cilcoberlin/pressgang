@@ -5,7 +5,7 @@ from pressgang.core.models import Blog, VersionSnapshot, WordPressVersion
 
 class BlogAdmin(admin.ModelAdmin):
 
-	list_display = ('path', 'title', 'version', 'created', 'is_locked')
+	list_display = ('path', 'title', 'version', 'created', 'is_managed')
 	ordering = ('path',)
 
 class VersionSnapshotAdmin(admin.ModelAdmin):

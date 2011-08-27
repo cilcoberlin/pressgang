@@ -176,7 +176,8 @@ class InstallAction(Action):
 				version = self.version,
 				created = datetime.datetime.now(),
 				admin_user = self.admin_username,
-				admin_password = self.password)
+				admin_password = self.password,
+				is_managed = True)
 
 		# Move forward using either the existing blog or the new one
 		super(InstallAction, self).__init__(blog)

@@ -189,7 +189,7 @@ class BlogManager(models.Manager):
 			try:
 				blog = self.get(path=blog_dir)
 			except Blog.DoesNotExist:
-				blog = Blog(path=blog_dir, is_nascent=False)
+				blog = Blog(path=blog_dir)
 			if blog.is_valid:
 				if interactive:
 					if blog.pk:
@@ -205,7 +205,7 @@ class BlogManager(models.Manager):
 
 		"""
 		deleted = []
-		blogs = list(self.all_active())
+		blogs = list(self.all())
 		for blog in blogs:
 			if not blog.is_valid:
 				deleted.append(blog.pk)
@@ -233,28 +233,20 @@ class BlogManager(models.Manager):
 		Returns: a Blog queryset, ordered by the path
 
 		"""
-		return self.all_active().order_by('path')
-
-	def all_active(self):
-		"""Get a list of all blogs that are fully installed.
-
-		Returns: a Blog queryset of all active blogs
-
-		"""
-		return self.filter(is_nascent=False)
+		return self.all().order_by('path')
 
 class Blog(models.Model):
 	"""An installed WordPress blog."""
 
 	objects = BlogManager()
 
-	path    	   = models.TextField(verbose_name=_("path to directory"))
+	path    	   = models.CharField(max_length=255, verbose_name=_("path to directory"), unique=True)
 	title   	   = models.CharField(max_length=255, verbose_name=_("display name"))
 	version 	   = models.ForeignKey(WordPressVersion, verbose_name=_("WordPress version"))
 	created        = models.DateTimeField(verbose_name=_("installation date and time"))
 	admin_user     = models.CharField(max_length=40, verbose_name=_("the name of the administrator account"), null=True, blank=True)
 	admin_password = EncryptedCharField(verbose_name=_("administrator password"), null=True, blank=True)
-	is_nascent     = models.BooleanField(verbose_name=_("installation in progress"), default=False)
+	is_managed     = models.BooleanField(verbose_name=_("is managed by PressGang"), default=False)
 
 	# The name of the WordPress configuration file
 	WP_CONFIG_FILE = "wp-config.php"
@@ -301,6 +293,9 @@ class Blog(models.Model):
 		'options'
 	]
 
+	# The name of a file that acts as a flag that the blog is managed by PressGang
+	_MANAGEMENT_FLAG = ".pressgang"
+
 	class Meta:
 
 		app_label = "pressgang"
@@ -316,14 +311,31 @@ class Blog(models.Model):
 	def __unicode__(self):
 		return self.title
 
+	def save(self, *args, **kwargs):
+		"""Make sure that the database is coherent with the blog's file structure."""
+
+		# If the blog is marked as managed but does not have a management flag
+		# created, make the flag file now, provided that the directory containing
+		# the flag file exists, which will not be the case when the blog is
+		# first being installed.
+		management_flag = self._get_management_flag_path()
+		if self.is_managed and not self._get_current_managed_status():
+			if os.path.isdir(os.path.dirname(management_flag)):
+				open(management_flag, 'w').close()
+
+		super(Blog, self).save(*args, **kwargs)
+
 	@property
 	def is_valid(self):
 		"""True if the blog's path and database both exist."""
 		valid = os.path.isdir(self.path)
 		if valid:
+			db_name = self._get_db_info()['db_name']
+			if not db_name:
+				return False
 			conn = connect_to_db_as_admin()
 			cursor = conn.cursor()
-			cursor.execute("SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = %s", (self._get_db_info()['db_name'],))
+			cursor.execute("SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = %s", (db_name,))
 			valid = bool(cursor.fetchone())
 			cursor.close()
 			conn.close()
@@ -475,13 +487,30 @@ class Blog(models.Model):
 		parts.append(name)
 		return "".join(parts)
 
+	def _get_management_flag_path(self):
+		"""Get the path of the PressGang management flag file.
+
+		Returns: the full path to the PressGang management flag file
+
+		"""
+		return os.path.join(self.wp_content_path, self._MANAGEMENT_FLAG)
+
 	def update_values(self):
 		"""Update the blog's values based on the current database and files."""
 		self.version = self._get_current_version()
 		self.title = self._get_current_title()
 		self.created = self._get_current_created()
+		self.is_managed = self._get_current_managed_status()
 		self.save()
 		self.create_standalone_apache_conf()
+
+	def _get_current_managed_status(self):
+		"""Get the current management status of the blog.
+
+		Returns: a bool of the current management status.
+
+		"""
+		return os.path.isfile(self._get_management_flag_path())
 
 	def _get_current_title(self):
 		"""Get the title of the blog based on the title's database value.

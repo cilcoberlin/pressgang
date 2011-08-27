@@ -66,11 +66,6 @@ class ActionRecord(models.Model):
 	def finalize(self, blog):
 		"""Finalize the record."""
 
-		# Since an action has been fully performed on a blog, we can flag with
-		# certainty that it is now fully installed
-		blog.is_nascent = False
-		blog.save()
-
 		# Seal the record
 		self.succeeded = True
 		self.ended = datetime.datetime.now()

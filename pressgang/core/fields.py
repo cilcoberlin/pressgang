@@ -36,3 +36,16 @@ class EmailListField(NewlineSeparatedTextField):
 			if not self._VALID_EMAIL.search(line):
 				raise forms.ValidationError(_("%(value)s is not a valid email address.") % {'value': line})
 		return data
+
+class BooleanRadioField(forms.TypedChoiceField):
+	"""A boolean field represented as a series of radio buttons."""
+
+	def __init__(self, *args, **kwargs):
+		"""Customize the text for the True and False options."""
+		defaults = {
+			'coerce': lambda x: bool(int(x)),
+			'choices': ((0, kwargs.pop('false_text', _("no")).title()), (1, kwargs.pop('true_text', _("yes")).title())),
+			'widget': forms.RadioSelect
+		}
+		defaults.update(kwargs)
+		super(BooleanRadioField, self).__init__(*args, **defaults)

@@ -734,7 +734,6 @@ class Blog(models.Model):
 			'rememberme': 1
 		}
 		response = opener.open(self.login_url, urllib.urlencode(login_data))
-		response.read()
 		response.close()
 		return opener
 

@@ -2,6 +2,7 @@
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 
+from pressgang.actions.install.exceptions import InstallationError
 from pressgang.actions.install.fields import InstallerSelectField
 from pressgang.core.fields import EmailListField
 
@@ -25,6 +26,23 @@ class InstallBlogForm(forms.Form):
 		# Verify that the two passwords match
 		if data.get('password') != data.get('password_verify'):
 			raise forms.ValidationError(_("The admin passwords must match."))
+
+		# Verify that the blog's installation path is available.  They KeyError
+		# is caught because the form might not be entirely valid, and the
+		# `create_installer` method expects it to be so, and thus have a value
+		# for every key of the form's cleaned data.
+		#
+		# The InstallationError, in turn, is caught because that will be raised
+		# when initializing an installer if the installation path is invalid.
+		# While oddly structured, this code works this way due to the fact that
+		# the installer provides the installation path dynamically, and can do
+		# so only when it has all the values from this installation form.
+		try:
+			installer = self.create_installer()
+		except KeyError:
+			pass
+		except InstallationError, e:
+			raise forms.ValidationError(e.message)
 
 		return data
 

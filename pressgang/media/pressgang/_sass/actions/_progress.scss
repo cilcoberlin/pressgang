@@ -111,6 +111,30 @@
 		.blog-link {
 			font-weight: bold;
 		}
+
+		// Wrapper for other actions the user can perform when the action is complete
+		.next-steps {
+			border-top: 2px solid $color-bg-page;
+			margin-top: 0.75em;
+			padding-top: 0.75em;
+
+			// The action title
+			.title {
+				display: inline;
+				font-size: 1em;
+				line-height: 1.5em;
+			}
+
+			// The list of actions
+			.other-actions {
+				display: inline;
+
+				.action {
+					display: inline;
+					margin-left: 1.5em;
+				}
+			}
+		}
 	}
 
 }

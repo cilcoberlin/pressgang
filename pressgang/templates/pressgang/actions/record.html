@@ -1,5 +1,6 @@
 
 {% load i18n %}
+{% load pressgang_accounts %}
 
 <div class="action-log">
 
@@ -98,6 +99,23 @@
 					<a href="{{ blog.url }}" title="{% trans "Blog URL" %}" class="blog-link"">{{ blog.url }}</a>.
 				</p>
 			{% endblock %}
+
+			<div class="next-steps">
+
+				<h4 class="title">{% trans "Other Actions" %}</h4>
+
+				<ul class="other-actions">
+					{% if user|can_install_blogs %}
+						<li class="action">
+							<a href="{% url pressgang:install-options %}">{% trans "Install Blog" %}</a>
+						</li>
+					{% endif %}
+					<li class="action">
+						<a href="{% url pressgang:list-blogs %}">{% trans "Manage Blogs" %}</a>
+					</li>
+				</ul>
+
+			</div>
 
 		</div>
 

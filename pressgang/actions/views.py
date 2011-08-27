@@ -76,7 +76,8 @@ def action_progress(request):
 				'blog': action.blog,
 				'log': record.log,
 				'record': record,
-				'succeeded': record.succeeded
+				'succeeded': record.succeeded,
+				'user': request.user
 			})
 		}
 	}

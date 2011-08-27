@@ -106,6 +106,8 @@ form textarea {
   font-family: "Helvetica Neue", Arial, sans-serif;
   font-size: 1em;
   line-height: 1.5em; }
+form label {
+  cursor: pointer; }
 form .errorlist {
   background: #eecccc url("../images/icon-error.png") no-repeat 0.75em center;
   color: #aa0000;
@@ -226,7 +228,7 @@ form .buttons input {
     #body table tbody tr:nth-child(2n + 1) td {
       background: #fbfbfa; }
     #body table tbody tr:hover td {
-      background: #fafada !important;
+      background-color: #fafada !important;
       color: black; }
   #body table.sortable th.header {
     cursor: pointer; }

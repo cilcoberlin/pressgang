@@ -75,6 +75,11 @@ form {
 		line-height: 1.5em;
 	}
 
+	// Indicate that labels give focus to their field
+	label {
+		cursor: pointer;
+	}
+
 	// Formwide errors
 	.errorlist {
 			background: $color-bg-error url("../images/icon-error.png") no-repeat 0.75em center;
@@ -261,7 +266,7 @@ form {
 			// Highlight a row on mouseover
 			tr:hover {
 				td {
-					background: $color-bg-highlight !important;
+					background-color: $color-bg-highlight !important;
 					color: $color-text-strong;
 				}
 			}

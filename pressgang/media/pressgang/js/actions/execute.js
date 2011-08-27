@@ -33,6 +33,9 @@ var ProgressMonitor = function(url, container) {
 
 	// Whether or not to keep polling for updates
 	this.keep_updating = false;
+
+	// Keep track of the content length of the returned markup
+	this.contentLength = 0;
 };
 
 // CSS identifiers
@@ -51,21 +54,26 @@ ProgressMonitor.SCROLL_SPEED_MS = 250;
 // Display the installation progress to the user
 ProgressMonitor.prototype._render_update = function(data) {
 
-	// Update the progress log
-	this.$log.html(data.markup.log);
+	// Update the markup if the content has changed
+	if (data.size != this.contentLength) {
+		this.contentLength = data.size;
 
-	// Pulse the text of the current step
-	this.$log.find(ProgressMonitor.CSS.currentAction).stop().
-		switchClass("", ProgressMonitor.CSS.pulseClass, ProgressMonitor.POLL_INTERVAL_MS / 2).
-		switchClass(ProgressMonitor.CSS.pulseClass, "", ProgressMonitor.POLL_INTERVAL_MS / 2);
+		// Update the progress log
+		this.$log.html(data.markup.log);
 
-	// Scroll the page to the most recent step
-	var $follow = this.$log.find(ProgressMonitor.CSS.activeStep);
-	if ($follow.length) {
-		var followBottom = $follow.offset().top + $follow.outerHeight();
-		var scrollTo = followBottom - this.windowHeight;
-		$("html:not(:animated),body:not(:animated)").animate(
-			{scrollTop: scrollTo + 50}, ProgressMonitor.SCROLL_SPEED_MS);
+		// Pulse the text of the current step
+		this.$log.find(ProgressMonitor.CSS.currentAction).stop().
+			switchClass("", ProgressMonitor.CSS.pulseClass, ProgressMonitor.POLL_INTERVAL_MS / 2).
+			switchClass(ProgressMonitor.CSS.pulseClass, "", ProgressMonitor.POLL_INTERVAL_MS / 2);
+
+		// Scroll the page to the most recent step
+		var $follow = this.$log.find(ProgressMonitor.CSS.activeStep);
+		if ($follow.length) {
+			var followBottom = $follow.offset().top + $follow.outerHeight();
+			var scrollTo = followBottom - this.windowHeight;
+			$("html:not(:animated),body:not(:animated)").animate(
+				{scrollTop: scrollTo + 50}, ProgressMonitor.SCROLL_SPEED_MS);
+		}
 	}
 
 	// If the installation has ended, stop refreshing the log, otherwise

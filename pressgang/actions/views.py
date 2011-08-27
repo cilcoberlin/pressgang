@@ -67,17 +67,20 @@ def action_progress(request):
 	if record.is_ended:
 		clear_action(request)
 
+	# Generate the markup and pass its length  to the client so that it can
+	# determine if the contents have changed
+	log_markup = render_to_string(action.log_template, {
+		'action': action,
+		'blog': action.blog,
+		'log': record.log,
+		'record': record,
+		'succeeded': record.succeeded,
+		'user': request.user})
+	markup_size = len(log_markup)
+
 	return {
 		'ended': record.is_ended,
 		'failed': record.is_failed,
-		'markup': {
-			'log': render_to_string(action.log_template, {
-				'action': action,
-				'blog': action.blog,
-				'log': record.log,
-				'record': record,
-				'succeeded': record.succeeded,
-				'user': request.user
-			})
-		}
+		'markup': {'log': log_markup},
+		'size': markup_size
 	}

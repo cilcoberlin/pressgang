@@ -1,0 +1,5 @@
+include README.md
+include pip_requirements.txt
+recursive-include pressgang/media *
+recursive-include pressgang/templates *
+prune pressgang/media/pressgang/_sass/

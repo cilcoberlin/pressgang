@@ -131,7 +131,7 @@ class InstallAction(Action):
 
 		# Get dummy install values from an existing blog
 		if blog:
-			self.slug = os.path.dirname(blog.path)
+			self.slug = os.path.basename(blog.path)
 			self.title = blog.title
 			self.description = None
 			self.admins = []
@@ -155,9 +155,23 @@ class InstallAction(Action):
 			self.version = self._determine_version()
 			self.path = self._determine_installer_path()
 
+			# Remove any blogs in the database sharing this path that no longer
+			# actually exist on the file system.  If there is a blog sharing
+			# the path that exists, however, raise an error indicating this.
+			install_path = self._get_installation_path()
+			try:
+				old_blog = Blog.objects.get(path=install_path)
+			except Blog.DoesNotExist:
+				pass
+			else:
+				if not old_blog.is_valid:
+					old_blog.delete()
+				else:
+					raise InstallationError(_("The installation directory for this blog (%(dir)s) is not available.") % {'dir': install_path})
+
 			# Create a new blog and pass it to the installer
 			blog = Blog.objects.create(
-				path = self._get_installation_path(),
+				path = install_path,
 				title = self.title,
 				version = self.version,
 				created = datetime.datetime.now(),

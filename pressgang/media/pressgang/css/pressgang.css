@@ -352,6 +352,23 @@ body.login #login-form .data-entry {
   .action-log .action-completed .blog-link {
     font-weight: bold; }
 
+/* Blog Addition */
+.add-blogs-options #add-blogs-form .options-fields {
+  border: 1px solid #bbbbbb;
+  border-left: none;
+  border-right: none;
+  margin: 1.5em 0; }
+  .add-blogs-options #add-blogs-form .options-fields .form-field {
+    margin: 1.5em 0; }
+  .add-blogs-options #add-blogs-form .options-fields .name {
+    font-weight: bold; }
+  .add-blogs-options #add-blogs-form .options-fields .help-text {
+    color: #555555;
+    display: block; }
+  .add-blogs-options #add-blogs-form .options-fields #id_users {
+    height: 9em;
+    width: 27em; }
+
 /* Installation */
 body.install-options #installer-form {
   margin-top: 1.5em; }

@@ -1,0 +1,36 @@
+{% extends "pressgang/addblogs/base.html" %}
+
+{% load i18n %}
+{% load pressgang_core %}
+
+{% block title %}
+	{% blocktrans with blog.title as blog %}
+		Add child blogs to {{ blog }}
+	{% endblocktrans %}
+{% endblock %}
+
+{% block page_title %}
+	{% blocktrans with blog.title as blog %}
+		Add child blogs to {{ blog }}
+	{% endblocktrans %}
+{% endblock %}
+
+{% block body_classes %}add-blogs-options{% endblock %}
+
+{% block body %}
+
+	<form action="{% url pressgang:add-blogs-options blog_id=blog.pk %}" method="post" id="add-blogs-form">
+
+		<fieldset class="options-fields">
+			{% form_field add_form.blog_type %}
+			{% form_field add_form.users %}
+		</fieldset>
+
+		<fieldset class="buttons">
+			{% csrf_token %}
+			<input type="submit" value="{% trans "Add Child Blogs" %}" />
+		</fieldset>
+
+	</form>
+
+{% endblock %}

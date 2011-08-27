@@ -1,0 +1,38 @@
+
+@import "../core/settings";
+
+.add-blogs-options {
+
+	// Wrapper for the blog-addition options form
+	#add-blogs-form {
+
+		// The main options fieldset
+		.options-fields {
+			border: 1px solid $color-border;
+			border-left: none;
+			border-right: none;
+			margin: 1.5em 0;
+
+			// Stack the fields
+			.form-field {
+				margin: 1.5em 0;
+			}
+			.name {
+				font-weight: bold;
+			}
+			.help-text {
+				color: $color-text-weak;
+				display: block;
+			}
+
+			// Resize the user input
+			#id_users {
+				height: 9em;
+				width: 27em;
+			}
+
+		}
+
+	}
+
+}

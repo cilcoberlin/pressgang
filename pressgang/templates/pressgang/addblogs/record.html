@@ -1,0 +1,14 @@
+{% extends "pressgang/actions/record.html" %}
+
+{% load i18n %}
+
+{% block error_title %}{% trans "An error occurred during child blog addition!" %}{% endblock %}
+{% block completed_title %}{% trans "Child blog addition successful!" %}{% endblock %}
+
+{% block completion_text %}
+	{% blocktrans with blog.title as title count action.new_blog_count as blog_count %}
+		The blog {{ title }} had {{ blog_count }} new blog added to it.
+	{% plural %}
+		The blog {{ title }} had {{ blog_count }} new blogs added to it.
+	{% endblocktrans %}
+{% endblock %}

@@ -93,6 +93,9 @@ class InstallAction(Action):
 		'pressgang.actions.install.steps.customization'
 	]
 
+	# Since we're installing a blog, there is nothing to revert back to
+	supports_reversion = False
+
 	# A search for unsafe characters in a WordPress username
 	_UNSAFE_USERNAME_CHARS = re.compile(r'[^a-zA-Z0-9]')
 

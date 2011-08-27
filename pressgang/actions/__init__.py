@@ -91,6 +91,9 @@ class Action(object):
 	# The steps to perform as part of the action
 	steps = []
 
+	# Whether or not the action can support version snapshots to revert back to
+	supports_reversion = True
+
 	def __init__(self, blog):
 		"""Create a new Action instance.
 
@@ -117,8 +120,9 @@ class Action(object):
 		ActionError, which can then be handled by higher-level code.
 		"""
 
-		# If the blog is not being installed, add the backup-creation step
-		if not self.blog.is_nascent:
+		# If the blog supports version snapshots for reversion, take a snapshot
+		# as the first step of the action
+		if self.supports_reversion:
 			self._steps = ['pressgang.actions.revert.steps.snapshot'] + self._steps
 
 		# Execute each step in sequence, halting on any errors

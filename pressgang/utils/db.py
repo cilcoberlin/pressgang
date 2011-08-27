@@ -20,5 +20,5 @@ def connect_to_db_as_admin():
 			user = _settings.DB_ADMIN_USER,
 			passwd = _settings.DB_ADMIN_PASSWORD
 		)
-	except MySQLdb.OperationalError, e:
+	except MySQLdb.OperationalError:
 		raise PressGangConfigurationError(_("The database admin username and password specified in your %(file)s file are incorrect.") % {'file': 'settings.py'})

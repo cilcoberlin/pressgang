@@ -1,6 +1,5 @@
 
 from pressgang.actions.options.blog import BlogOptions, AllBlogOptions
-from pressgang.core.exceptions import PressGangError
 
 def sitewide_activate_plugin(plugin, blog):
 	"""Activates a per-blog plugin on every blog on the given blog's network.

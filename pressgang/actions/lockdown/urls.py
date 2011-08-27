@@ -1,4 +1,4 @@
-from django.conf.urls.defaults import *
+from django.conf.urls.defaults import include, patterns, url
 
 lock_patterns = patterns('pressgang.actions.lockdown.views',
 	url(r'^confirm/$', 'confirm_lockdown', {'lock': True}, "confirm-lockdown"),

@@ -1,4 +1,4 @@
-from django.conf.urls.defaults import *
+from django.conf.urls.defaults import include, patterns, url
 
 blog_patterns = patterns('pressgang.actions.install.addblogs.views',
 	url(r'^options/$', 'add_blogs_options', name="add-blogs-options"),

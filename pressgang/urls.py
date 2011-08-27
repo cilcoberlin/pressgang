@@ -1,4 +1,4 @@
-from django.conf.urls.defaults import *
+from django.conf.urls.defaults import patterns, include
 
 pressgang_patterns = patterns('',
 	(r'^', include('pressgang.core.urls')),

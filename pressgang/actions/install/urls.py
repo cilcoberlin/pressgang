@@ -1,4 +1,4 @@
-from django.conf.urls.defaults import *
+from django.conf.urls.defaults import patterns, url
 
 urlpatterns = patterns('pressgang.actions.install.views',
 	url(r'^/?$', 'install_options', name="install-options"),

@@ -35,9 +35,11 @@ function {{ options_setter }}() {
 			switch_to_blog( $blog_id );
 	{% endif %}
 
-			// Note that, for non-multi-blog installs, this will not actually
-			// be wrapped in the foreach loop of blog IDs
-			{{ code|safe }}
+	// Only apply the options if the options haven't already been set
+	if ( ! get_option( '{{ options }}_set', false ) ) {
+		update_option( '{{ options }}_set', true );
+		{{ code|safe }}
+	}
 
 	{% if blog.version.is_multi %}
 			restore_current_blog();

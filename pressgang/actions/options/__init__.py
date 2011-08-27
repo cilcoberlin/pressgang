@@ -121,6 +121,11 @@ class Options(object):
 
 		"""
 
+		# If the blog is not managed, don't bother applying options, as the
+		# potential for destruction is simply too great
+		if not blog.is_managed:
+			return
+
 		# Build a list of all generated code to set each option
 		code = []
 		for name, value in self._options.iteritems():

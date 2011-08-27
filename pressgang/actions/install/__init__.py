@@ -116,7 +116,7 @@ class InstallAction(Action):
 		admins -- a list of admin email addresses
 		users -- a list of user email addresses
 		password -- the password to use with the admin account
-		is_public -- whether or not the blog is findable by crawlers
+		is_public -- whether or not the blog is visible to search engines
 
 		"""
 

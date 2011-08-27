@@ -62,8 +62,47 @@ body.install-options {
 		}
 
 		// Fieldset containing WordPress information fields
-		#wp-fields input {
-			width: 9em;
+		#wp-fields {
+			#form-field-password,
+			#form-field-password_verify {
+				input {
+					width: 9em;
+				}
+			}
+		}
+
+		// Make the blog public radio buttons display properly
+		#form-field-is_public {
+			input {
+				position: relative;
+				display: inline;
+				left: 0;
+			}
+			ul {
+				position: absolute;
+				left: 22em;
+				top: 0;
+
+				li {
+					display: inline;
+					margin-right: 1.5em;
+				}
+			}
+
+			// Make the errorlist appear normal, and push the boolean labels down to
+			// compensate for the presence of the error indicator
+			&.error ul {
+				top: 2.25em;
+
+				li input {
+					top: 0;
+				}
+			}
+			ul.errorlist {
+				position: relative;
+				left: 0;
+				top: 0;
+			}
 		}
 
 		// Fieldset with user-list fields

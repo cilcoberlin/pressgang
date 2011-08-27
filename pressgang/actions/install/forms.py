@@ -4,7 +4,7 @@ from django.utils.translation import ugettext_lazy as _
 
 from pressgang.actions.install.exceptions import InstallationError
 from pressgang.actions.install.fields import InstallerSelectField
-from pressgang.core.fields import EmailListField
+from pressgang.core.fields import BooleanRadioField, EmailListField
 
 class InstallBlogForm(forms.Form):
 	"""A form allowing the user to install a new blog."""
@@ -17,6 +17,7 @@ class InstallBlogForm(forms.Form):
 	password = forms.CharField(widget=forms.PasswordInput, label=_("admin password"), help_text=_("the admin password for the blog"))
 	password_verify = forms.CharField(widget=forms.PasswordInput, label=_("admin password (verify)"), help_text=_("the admin password for the blog"))
 	installer = InstallerSelectField(label=_("blog type"), help_text=_("the type of blog to install"))
+	is_public = BooleanRadioField(label=_("blog visibility"), help_text=_("whether the blog is visible to search engines"), initial=0, true_text=_("public"), false_text=_("private"))
 
 	def clean(self):
 		"""Verify formwide input."""
@@ -38,7 +39,7 @@ class InstallBlogForm(forms.Form):
 		# the installer provides the installation path dynamically, and can do
 		# so only when it has all the values from this installation form.
 		try:
-			installer = self.create_installer()
+			self.create_installer()
 		except KeyError:
 			pass
 		except InstallationError, e:
@@ -61,5 +62,5 @@ class InstallBlogForm(forms.Form):
 			description = data['description'],
 			admins = data['admins'],
 			users = data['users'],
-			password = data['password']
-		)
+			password = data['password'],
+			is_public = data['is_public'])

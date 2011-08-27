@@ -401,8 +401,28 @@ body.install-options #installer-form {
     width: 12em; }
   body.install-options #installer-form #id-fields #id_description {
     width: 18em; }
-  body.install-options #installer-form #wp-fields input {
+  body.install-options #installer-form #wp-fields #form-field-password input,
+  body.install-options #installer-form #wp-fields #form-field-password_verify input {
     width: 9em; }
+  body.install-options #installer-form #form-field-is_public input {
+    position: relative;
+    display: inline;
+    left: 0; }
+  body.install-options #installer-form #form-field-is_public ul {
+    position: absolute;
+    left: 22em;
+    top: 0; }
+    body.install-options #installer-form #form-field-is_public ul li {
+      display: inline;
+      margin-right: 1.5em; }
+  body.install-options #installer-form #form-field-is_public.error ul {
+    top: 2.25em; }
+    body.install-options #installer-form #form-field-is_public.error ul li input {
+      top: 0; }
+  body.install-options #installer-form #form-field-is_public ul.errorlist {
+    position: relative;
+    left: 0;
+    top: 0; }
   body.install-options #installer-form #user-fields textarea {
     height: 7.5em;
     width: 22.5em; }

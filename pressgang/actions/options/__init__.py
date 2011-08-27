@@ -113,7 +113,21 @@ class Options(object):
 				pass
 		return options
 
-	def apply(self, blog):
+	def update_option(self, id, value):
+		"""Updates the value of an option.
+
+		Since all options are populated with all possible keys, if the given
+		id is not found in those options, an OptionsError is raised.
+
+		Arguments:
+		id -- the ID of an option
+		value -- the value of the option
+
+		"""
+		if id not in self._options:
+			raise OptionsError(_("%(id)s is not a valid %(type)s option ID") % {'id': id, 'type': self.__class__.__name__})
+		self._options[id] = value
+
 	def apply(self, blog, force=False):
 		"""Applies the options to a blog.
 

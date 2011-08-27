@@ -25,6 +25,14 @@ Installation
 2. Create a directory that is writable by your app to contain per-blog Apache configuration files.
 3. Copy the contents of the media/ directory to your site's media directory.
 
+**Apache**
+
+Somewhere in your Apache configuration file, add the following line, replacing
+`CONFIG_DIR` with the full path to the directory created in step 2 of the
+previous section:
+
+        Include CONFIG_DIR/*.conf
+
 **Settings**
 
 1. Add 'pressgang' to settings.INSTALLED_APPS.

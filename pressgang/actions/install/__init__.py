@@ -99,10 +99,17 @@ class InstallAction(Action):
 	# A search for unsafe characters in a WordPress username
 	_UNSAFE_USERNAME_CHARS = re.compile(r'[^a-zA-Z0-9]')
 
-	def __init__(self, slug=None, title=None, description=None, admins=[], users=[], password=None, is_public=False):
+	def __init__(self, blog=None, slug=None, title=None, description=None, admins=[], users=[], password=None, is_public=False):
 		"""Creates a new installer
 
+		This can be passed an existing Blog instance, which will treat the installer
+		more as a guide for how to configure additiona components of an already
+		installed blog.  For example, adding child blogs to an already installed
+		blog might make use of this installer to provide configuration settings,
+		but would not actually require a blog to be installed
+
 		Keyword Arguments:
+		blog -- a Blog instance
 		slug -- the URL slug for the blog
 		title -- the full title of the blog
 		description -- the full description of the blog
@@ -122,28 +129,42 @@ class InstallAction(Action):
 		if not self.wp_version:
 			raise PressGangConfigurationError(_("The installer %(installer)s must define a version of WordPress to install by setting a value for wp_version.") % {'installer': module_name})
 
-		# Store the blog information obtained from the user-facing form
-		self.slug = slug
-		self.title = title
-		self.description = description
-		self.admins = admins
-		self.users = users
-		self.password = password
-		self.is_public = is_public
+		# Get dummy install values from an existing blog
+		if blog:
+			self.slug = os.path.dirname(blog.path)
+			self.title = blog.title
+			self.description = None
+			self.admins = []
+			self.users = []
+			self.password = blog.admin_password
+			self.is_public = True
+			self.version = blog.version
+			self.path = blog.path
 
-		# Determine internally used version and path information
-		self.version = self._determine_version()
-		self.path = self._determine_installer_path()
+		# Get actual installation values from the user's form data
+		else:
+			self.slug = slug
+			self.title = title
+			self.description = description
+			self.admins = admins
+			self.users = users
+			self.password = password
+			self.is_public = is_public
 
-		# Create a new blog and pass it to the installer
-		blog = Blog.objects.create(
-			path = self._get_installation_path(),
-			title = self.title,
-			version = self.version,
-			created = datetime.datetime.now(),
-			admin_user = self.admin_username,
-			admin_password = self.password,
-			is_nascent = True)
+			# Determine internally used version and path information
+			self.version = self._determine_version()
+			self.path = self._determine_installer_path()
+
+			# Create a new blog and pass it to the installer
+			blog = Blog.objects.create(
+				path = self._get_installation_path(),
+				title = self.title,
+				version = self.version,
+				created = datetime.datetime.now(),
+				admin_user = self.admin_username,
+				admin_password = self.password)
+
+		# Move forward using either the existing blog or the new one
 		super(InstallAction, self).__init__(blog)
 
 	@classmethod

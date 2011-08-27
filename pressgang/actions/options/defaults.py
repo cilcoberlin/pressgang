@@ -134,6 +134,11 @@ class BlogOptions:
 	# Example: enable_threaded_comments = True
 	enable_threaded_comments = None
 
+	# Whether or not the blog is visible to search engines
+	# ----
+	# Example: is_public = True
+	is_public = None
+
 	# A list of plugins to enable, given as the path to the plugin's .php file
 	# relative to the wp-content/plugins directory
 	# ----

@@ -38,6 +38,17 @@ class EnableThreadedComments(BlogOption):
 	name = _("enable threaded comments")
 	template = "enable_threaded_comments.php"
 
+class IsPublic(BlogOption):
+	"""Whether or not the blog is visible to search engines."""
+
+	id = "is_public"
+	name = _("blog is visible to search engines")
+	template = "is_public.php"
+
+	def provide_wp_value(self, value):
+		"""Convert boolean values to integers."""
+		return int(value)
+
 class Plugins(BlogOption):
 	"""Which plugins to activate."""
 

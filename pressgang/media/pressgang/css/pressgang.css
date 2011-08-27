@@ -426,7 +426,8 @@ body.install-options #installer-form {
   body.install-options #installer-form #form-field-is_public ul {
     position: absolute;
     left: 22em;
-    top: 0; }
+    top: 0;
+    min-width: 22em; }
     body.install-options #installer-form #form-field-is_public ul li {
       display: inline;
       margin-right: 1.5em; }

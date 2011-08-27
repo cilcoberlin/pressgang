@@ -1,0 +1,12 @@
+
+.revert-options {
+
+	// Indicate that a whole version row is clickable
+	&.js .version {
+		cursor: pointer;
+		label {
+			cursor: pointer;
+		}
+	}
+
+}

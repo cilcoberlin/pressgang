@@ -15,6 +15,11 @@
 	{% endblocktrans %}
 {% endblock %}
 
+{% block javascript %}
+	{{ block.super }}
+	<script type="text/javascript" src="{{ MEDIA_URL }}pressgang/js/revert/revert.js"></script>
+{% endblock %}
+
 {% block body_classes %}revert-options{% endblock %}
 
 {% block body %}
@@ -31,14 +36,14 @@
 						<th class="select"></th>
 						<th class="date">{% trans "Date Created" %}</th>
 						<th class="time">{% trans "Time Created" %}</th>
-						<th class="version">{% trans "WordPress Version" %}</th>
+						<th class="wp_version">{% trans "WordPress Version" %}</th>
 						<th class="reason">{% trans "Reason" %}</th>
 					</tr>
 				</thead>
 
 				<tbody>
 					{% for snapshot in revert_form.fields.snapshot.queryset %}
-						<tr>
+						<tr class="version">
 							<td class="select">
 								<input type="radio" name="snapshot" value="{{ snapshot.pk }}" id="id_snapshot_{{ snapshot.pk }}" />
 							</td>
@@ -52,7 +57,7 @@
 									{{ snapshot.created|time }}
 								</label>
 							</td>
-							<td class="version">
+							<td class="wp_version">
 								<label for="id_snapshot_{{ snapshot.pk }}">
 									{{ snapshot.wp_version }}
 								</label>

@@ -136,8 +136,16 @@ class Action(object):
 					step.run(self.blog, self, self.record)
 			except ActionError, e:
 				self._handle_error(e)
+
+		# Allow a child action to run its own code on success
 		self.on_success(self.blog)
+
+		# End the record of the action
 		self.record.finalize(self.blog)
+
+		# Save the blog to make sure that the blog's file structure is in line
+		# with its database representation
+		self.blog.save()
 
 	def on_error(self, blog, error):
 		"""Handle an error that occured during execution.

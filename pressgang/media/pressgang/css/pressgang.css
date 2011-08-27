@@ -407,42 +407,6 @@ body.install-options #installer-form {
     height: 7.5em;
     width: 22.5em; }
 
-/* Management */
-body.manage-blogs #current-version {
-  background: #fafada;
-  border: 1px solid #eeee80;
-  float: right;
-  margin: -3em 0;
-  padding: 0.75em 1.5em;
-  border-radius: 0.75em;
-  -moz-border-radius: 0.75em;
-  -webkit-border-radius: 0.75em;
-  text-shadow: #d5d5d5 1px 1px 0; }
-  body.manage-blogs #current-version strong {
-    font-weight: bold; }
-body.manage-blogs #all-blogs {
-  margin-bottom: 1.5em;
-  margin-top: 3em; }
-  body.manage-blogs #all-blogs .title {
-    width: 25%; }
-  body.manage-blogs #all-blogs .change {
-    width: 7em; }
-  body.manage-blogs #all-blogs tbody .blog.locked td {
-    background: #dddddd; }
-  body.manage-blogs #all-blogs tbody .blog .change .actions {
-    font-weight: bold; }
-    body.manage-blogs #all-blogs tbody .blog .change .actions .action {
-      background-repeat: no-repeat;
-      background-position: left center;
-      padding-left: 1.5em;
-      text-shadow: #f5f5f5 1px 1px 0; }
-      body.manage-blogs #all-blogs tbody .blog .change .actions .action.rollback {
-        background-image: url("../images/icon-arrow-refresh.png"); }
-      body.manage-blogs #all-blogs tbody .blog .change .actions .action.lock {
-        background-image: url("../images/icon-lock-closed.png"); }
-      body.manage-blogs #all-blogs tbody .blog .change .actions .action.unlock {
-        background-image: url("../images/icon-lock-open.png"); }
-
 /* Lockdown */
 body.lockdown-confirmation #prompt {
   margin-top: 1em; }
@@ -468,3 +432,47 @@ body.lockdown-confirmation .buttons {
       color: #5f5f5a; }
       body.lockdown-confirmation .buttons .button.reject:hover {
         background: #e4e4df; }
+
+/* Management */
+body.manage-blogs #current-version {
+  background: #fafada;
+  border: 1px solid #eeee80;
+  float: right;
+  margin: -3em 0;
+  padding: 0.75em 1.5em;
+  border-radius: 0.75em;
+  -moz-border-radius: 0.75em;
+  -webkit-border-radius: 0.75em;
+  text-shadow: #d5d5d5 1px 1px 0; }
+  body.manage-blogs #current-version strong {
+    font-weight: bold; }
+body.manage-blogs #all-blogs {
+  margin-bottom: 1.5em;
+  margin-top: 3em; }
+  body.manage-blogs #all-blogs .title {
+    width: 25%; }
+  body.manage-blogs #all-blogs .change {
+    width: 9em; }
+  body.manage-blogs #all-blogs tbody .blog.locked td {
+    background: #dddddd; }
+  body.manage-blogs #all-blogs tbody .blog .change .actions {
+    font-weight: bold; }
+    body.manage-blogs #all-blogs tbody .blog .change .actions .action {
+      background-repeat: no-repeat;
+      background-position: left center;
+      padding-left: 1.5em;
+      text-shadow: #f5f5f5 1px 1px 0; }
+      body.manage-blogs #all-blogs tbody .blog .change .actions .action.rollback {
+        background-image: url("../images/icon-arrow-refresh.png"); }
+      body.manage-blogs #all-blogs tbody .blog .change .actions .action.lock {
+        background-image: url("../images/icon-lock-closed.png"); }
+      body.manage-blogs #all-blogs tbody .blog .change .actions .action.unlock {
+        background-image: url("../images/icon-lock-open.png"); }
+      body.manage-blogs #all-blogs tbody .blog .change .actions .action.add-blogs {
+        background-image: url("../images/icon-page-add.png"); }
+
+/* Reversion */
+.revert-options.js .version {
+  cursor: pointer; }
+  .revert-options.js .version label {
+    cursor: pointer; }

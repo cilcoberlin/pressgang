@@ -78,6 +78,11 @@
 											<a href="{% url pressgang:reversion-options blog_id=blog.pk %}" title="{% trans "Revert to an older version of the blog" %}">{% trans "Revert" %}</a>
 										</li>
 									{% endif %}
+									{% if blog.version.is_multi %}
+										<li class="action add-blogs">
+											<a href="{% url pressgang:add-blogs-options blog_id=blog.pk %}" title="{% trans "Add child blogs" %}">{% trans "Add Blogs" %}</a>
+										</li>
+									{% endif %}
 								</ul>
 							</td>
 						{% endif %}

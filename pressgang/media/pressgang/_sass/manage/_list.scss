@@ -29,7 +29,7 @@ body.manage-blogs {
 			width: 25%;
 		}
 		.change {
-			width: 7em;
+			width: 9em;
 		}
 
 
@@ -67,6 +67,9 @@ body.manage-blogs {
 							}
 							&.unlock {
 								background-image: url("../images/icon-lock-open.png");
+							}
+							&.add-blogs {
+								background-image: url("../images/icon-page-add.png");
 							}
 						}
 					}

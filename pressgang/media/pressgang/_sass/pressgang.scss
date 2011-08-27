@@ -16,8 +16,11 @@
 /* Installation */
 @import "install/options";
 
+/* Lockdown */
+@import "lockdown/confirm";
+
 /* Management */
 @import "manage/list";
 
-/* Lockdown */
-@import "lockdown/confirm";
+/* Reversion */
+@import "revert/options";

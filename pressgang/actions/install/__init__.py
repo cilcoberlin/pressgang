@@ -169,6 +169,16 @@ class InstallAction(Action):
 				else:
 					raise InstallationError(_("The installation directory for this blog (%(dir)s) is not available.") % {'dir': install_path})
 
+			# Since the installer form provides a user with a choice of description
+			# and search-engine visibility for the root blog, apply those choices
+			# to the options now, overriding whatever is specified by the installer
+			if self.version.is_multi:
+				override_options = self.options.root_blog
+			else:
+				override_options = self.options.blog
+			override_options.update_option('description', self.description)
+			override_options.update_option('is_public', self.is_public)
+
 			# Create a new blog and pass it to the installer
 			blog = Blog.objects.create(
 				path = install_path,

@@ -8,7 +8,7 @@ from pressgang.utils.apache import reload_apache
 
 class Step(BlogAdditionStep):
 
-	name = _("blog creation")
+	name = _("Blog creation")
 
 	def execute(self, blog, adder):
 		"""Creates child blogs for the specified users."""

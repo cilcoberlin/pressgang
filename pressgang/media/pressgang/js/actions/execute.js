@@ -4,19 +4,19 @@
 var Executer = function(options) {
 
 	// Get the URL to start the action
-	this.execute_url = options.execute_url;
+	this.executeURL = options.executeURL;
 
 	// Create a progress monitor to track the execution of the action
-	this.monitor = new ProgressMonitor(options.progress_url, options.progress_container)
+	this.monitor = new ProgressMonitor(options.progressURL, options.progressContainer)
 };
 
 //Set the action in motion and poll for updates
 Executer.prototype.execute = function() {
 	$.ajax({
 		dataType: 'json',
-		url: this.execute_url
+		url: this.executeURL
 	});
-	this.monitor.begin_updating();
+	this.monitor.beginUpdating();
 };
 
 // A class to display progress updates for an action
@@ -32,7 +32,7 @@ var ProgressMonitor = function(url, container) {
 	this.windowHeight = $(window).height();
 
 	// Whether or not to keep polling for updates
-	this.keep_updating = false;
+	this.keepUpdating = false;
 
 	// Keep track of the content length of the returned markup
 	this.contentLength = 0;
@@ -52,7 +52,7 @@ ProgressMonitor.POLL_INTERVAL_MS = 1000;
 ProgressMonitor.SCROLL_SPEED_MS = 250;
 
 // Display the installation progress to the user
-ProgressMonitor.prototype._render_update = function(data) {
+ProgressMonitor.prototype._renderUpdate = function(data) {
 
 	// Update the markup if the content has changed
 	if (data.size != this.contentLength) {
@@ -79,32 +79,32 @@ ProgressMonitor.prototype._render_update = function(data) {
 	// If the installation has ended, stop refreshing the log, otherwise
 	// continue polling for updates
 	if (data.ended) {
-		this._end_updating();
-	} else if (this.keep_updating) {
-		setTimeout(this._request_update_proxy, ProgressMonitor.POLL_INTERVAL_MS);
+		this._endUpdating();
+	} else if (this.keepUpdating) {
+		setTimeout(this._requestUpdateProxy, ProgressMonitor.POLL_INTERVAL_MS);
 	}
 };
 
 // Request an update on the installation
-ProgressMonitor.prototype._request_update = function() {
+ProgressMonitor.prototype._requestUpdate = function() {
 	$.ajax({
 		dataType: 'json',
-		success: this._render_update_proxy,
+		success: this._renderUpdateProxy,
 		url: this.url
 	});
 };
 
 // Stop polling for updates
-ProgressMonitor.prototype._end_updating = function() {
-	this.keep_updating = false;
+ProgressMonitor.prototype._endUpdating = function() {
+	this.keepUpdating = false;
 };
 
 // Begin polling for installation progress updates
-ProgressMonitor.prototype.begin_updating = function() {
-	this.keep_updating = true;
-	this._render_update_proxy = $.proxy(this._render_update, this);
-	this._request_update_proxy = $.proxy(this._request_update, this);
-	this._request_update();
+ProgressMonitor.prototype.beginUpdating = function() {
+	this.keepUpdating = true;
+	this._renderUpdateProxy = $.proxy(this._renderUpdate, this);
+	this._requestUpdateProxy = $.proxy(this._requestUpdate, this);
+	this._requestUpdate();
 };
 
 // Make the executer available to other scripts

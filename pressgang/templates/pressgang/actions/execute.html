@@ -13,9 +13,9 @@
 
 				// Execute the action via the JavaScript executer
 				var executer = new pressgang.actions.Executer({
-					execute_url:        "{% url pressgang:begin-action %}",
-					progress_url:       "{% url pressgang:action-progress %}",
-					progress_container: "#action-log"
+					executeURL:        "{% url pressgang:begin-action %}",
+					progressURL:       "{% url pressgang:action-progress %}",
+					progressContainer: "#action-log"
 				});
 				executer.execute();
 			});

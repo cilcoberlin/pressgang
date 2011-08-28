@@ -8,7 +8,7 @@ var pressgang = {
 // The prefix used to indicate sorting metadata
 pressgang.utils.SORT_META_PREFIX = "sort__";
 
-/*
+/**
  * A function that can be assigned as the value of textExtraction in the options
  * of a sortable table created using the jQuery tablesorter plugin.
  *

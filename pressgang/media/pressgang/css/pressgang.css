@@ -296,15 +296,21 @@ body.login #login-form .data-entry {
       width: 6em; }
 
 /* Actions */
-#action-info {
+.execute-action #action-info {
   color: #555555;
   margin-bottom: 1.5em; }
-  #action-info dd, #action-info dt {
+  .execute-action #action-info dd, .execute-action #action-info dt {
     display: inline; }
-  #action-info dt {
+  .execute-action #action-info dt {
     font-weight: bold; }
-  #action-info dd {
+  .execute-action #action-info dd {
     margin-right: 3em; }
+.execute-action .action-pending {
+  background: url("../images/loader-small.gif") no-repeat left 1.6em;
+  border-top: 1px solid #bbbbbb;
+  font-weight: bold;
+  margin-bottom: 1.5em;
+  padding: 1.5em 0 0 1.5em; }
 
 .action-log .steps .step {
   margin-bottom: 1.5em;

@@ -130,6 +130,26 @@ class ActionRecordLog(models.Model):
 		"""The steps in the log in numerical order."""
 		return self.steps.order_by('order')
 
+	@property
+	def between_steps(self):
+		"""True if the log has finished all open steps but is not yet complete."""
+		try:
+			last_step = self.steps.order_by('-order')[0]
+		except IndexError:
+			return False
+		else:
+			return not last_step.actions.count() and not self.record.is_ended
+
+	@property
+	def has_actions(self):
+		"""True if the log has any actions logged."""
+		try:
+			first_step = self.steps.order_by('order')[0]
+		except IndexError:
+			return False
+		else:
+			return first_step.actions.count() > 0
+
 class LogStepManager(models.Manager):
 	"""Custom manager for the LogStep model."""
 

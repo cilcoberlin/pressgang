@@ -1,19 +1,32 @@
 
 @import "../core/settings";
 
-// Information on the action
-#action-info {
-	color: $color-text-weak;
-	margin-bottom: 1.5em;
+// Wrapper for the execution page
+.execute-action {
 
-	dd, dt {
-		display: inline;
+	// Information on the action
+	#action-info {
+		color: $color-text-weak;
+		margin-bottom: 1.5em;
+
+		dd, dt {
+			display: inline;
+		}
+		dt {
+			font-weight: bold;
+		}
+		dd {
+			margin-right: 3em;
+		}
 	}
-	dt {
+
+	// The message shown when waiting for the next action to begin
+	.action-pending {
+		background: url('../images/loader-small.gif') no-repeat left 1.6em;
+		border-top: 1px solid $color-border;
 		font-weight: bold;
-	}
-	dd {
-		margin-right: 3em;
+		margin-bottom: 1.5em;
+		padding: 1.5em 0 0 1.5em;
 	}
 }
 

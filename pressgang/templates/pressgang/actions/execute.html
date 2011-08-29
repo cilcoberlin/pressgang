@@ -15,7 +15,8 @@
 				var executer = new pressgang.actions.Executer({
 					executeURL:        "{% url pressgang:begin-action %}",
 					progressURL:       "{% url pressgang:action-progress %}",
-					progressContainer: "#action-log"
+					progressContainer: "#action-log",
+					errorMessage:      "{% trans "An error occurred.  Try returning to the previous page and performing the action again." %}"
 				});
 				executer.execute();
 			});

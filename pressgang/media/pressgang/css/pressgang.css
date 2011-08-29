@@ -341,8 +341,6 @@ body.login #login-form .data-entry {
     font-weight: bold; }
     .action-log .steps .step .actions .action.in-progress .start {
       background: url("../images/loader-small.gif") no-repeat center left; }
-  .action-log .steps .step .actions .action.pulse {
-    color: #a00; }
 .action-log .steps.failure .step .actions .action.in-progress .start {
   background: url("../images/icon-error.png") no-repeat center left;
   color: #aa0000; }

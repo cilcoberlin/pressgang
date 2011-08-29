@@ -63,7 +63,7 @@ class AsynchronousAction(threading.Thread):
 	def run(self):
 		"""Perform the action."""
 
-		# Since this threaded action will only be run through an Ajax call  via
+		# Since this threaded action will only be run through an Ajax call via
 		# the web-based interface, which uses Ajax polling to display the logged
 		# action events, we ignore any exceptions raised during the action,
 		# as they will be handled by the logger.

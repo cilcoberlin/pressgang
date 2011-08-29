@@ -25,3 +25,14 @@ pressgang.utils.sortTableWithMeta = function(node) {
 	}
 	return text;
 };
+
+/**
+ * Get the error text from a jqXHR response if there is response text.  If there
+ * isn't any, use the default error message.
+ */
+pressgang.utils.getErrorText = function(xhr, errorText) {
+	if (xhr.hasOwnProperty('responseText') && xhr.responseText) {
+		errorText = xhr.responseText;
+	}
+	return errorText;
+};

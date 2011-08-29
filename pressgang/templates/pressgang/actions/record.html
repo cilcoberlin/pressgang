@@ -4,65 +4,55 @@
 
 <div class="action-log">
 
-	{% if log.has_actions %}
+	<ol class="steps {% if record.is_failed %}failure{% endif %}">
 
-		<ol class="steps {% if record.is_failed %}failure{% endif %}">
+		{% for step in log.ordered_steps %}
 
-			{% for step in log.ordered_steps %}
+			<li class="step {{ step.is_complete|yesno:"complete,incomplete" }}">
 
-				<li class="step {{ step.is_complete|yesno:"complete,incomplete" }}">
+				<h3 class="title">{{ step.name }}</h3>
 
-					<h3 class="title">{{ step.name }}</h3>
+				{% if step.start_dt %}
+					<dl class="timing">
+						<dt class="key">{% trans "Started" %}</dt>
+						<dd class="value">{{ step.start_dt|time:"H:i:s" }}</dd>
+						{% if step.is_complete %}
+							<dt class="key">{% trans "Ended" %}</dt>
+							<dd class="value">
+								{% if step.end_dt %}
+									{{ step.end_dt|time:"H:i:s" }}
+								{% else %}
+									{% now "H:i:s" %}
+								{% endif %}
+							</dd>
+						{% endif %}
+					</dl>
+				{% endif %}
 
-					{% if step.start_dt %}
-						<dl class="timing">
-							<dt class="key">{% trans "Started" %}</dt>
-							<dd class="value">{{ step.start_dt|time:"H:i:s" }}</dd>
-							{% if step.is_complete %}
-								<dt class="key">{% trans "Ended" %}</dt>
-								<dd class="value">
-									{% if step.end_dt %}
-										{{ step.end_dt|time:"H:i:s" }}
-									{% else %}
-										{% now "H:i:s" %}
+				{% if step.actions %}
+
+					<ol class="actions">
+
+						{% for action in step.ordered_actions %}
+							<li class="action {% if not action.is_complete %}in-progress {% if not log.error_message %}follow{% endif %}{% endif %}">
+								<ul class="parts">
+									<li class="start">{{ action.start_message }}&hellip;</li>
+									{% if action.is_complete %}
+										<li class="end">{{ action.end_message }}</li>
 									{% endif %}
-								</dd>
-							{% endif %}
-						</dl>
-					{% endif %}
+								</ul>
+							</li>
+						{% endfor %}
 
-					{% if step.actions %}
+					</ol>
 
-						<ol class="actions">
+				{% endif %}
 
-							{% for action in step.ordered_actions %}
-								<li class="action {% if not action.is_complete %}in-progress {% if not log.error_message %}follow{% endif %}{% endif %}">
-									<ul class="parts">
-										<li class="start">{{ action.start_message }}&hellip;</li>
-										{% if action.is_complete %}
-											<li class="end">{{ action.end_message }}</li>
-										{% endif %}
-									</ul>
-								</li>
-							{% endfor %}
+			</li>
 
-						</ol>
+		{% endfor %}
 
-					{% endif %}
-
-				</li>
-
-			{% endfor %}
-
-		</ol>
-	{% endif %}
-
-	<!-- If we're between actions or waiting for an action to start, show a message -->
-	{% if not log.has_actions or log.between_steps %}
-		<p class="follow action-pending">
-			{% trans "Waiting for the next action" %}&hellip;
-		</p>
-	{% endif %}
+	</ol>
 
 	{% if log.error_message %}
 

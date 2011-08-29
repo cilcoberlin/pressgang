@@ -1,6 +1,5 @@
 
 from django.db import models
-from django.conf import settings
 from django.utils.encoding import force_unicode
 from django.utils.translation import ugettext_lazy as _
 
@@ -107,8 +106,6 @@ class ActionRecordLog(models.Model):
 		"""
 		step = LogStep.objects.get_step(self, force_unicode(step_name))
 		step.start_action(force_unicode(message))
-		if settings.DEBUG:
-			print _("Starting action: %(message)s") % {'message': message}
 
 	def end_action(self, message):
 		"""Logs the end of an action that is part of a larger, multi-step action.
@@ -121,9 +118,6 @@ class ActionRecordLog(models.Model):
 		if not last_action:
 			raise PressGangError(_("You must call %(first)s after calling %(second)s") % {'first': 'start_action', 'second': 'end_action'})
 		last_action.end(force_unicode(message))
-		if settings.DEBUG:
-			print _("Ending action: %(message)s") % {'message': message}
-			print
 
 	@property
 	def ordered_steps(self):

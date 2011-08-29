@@ -54,6 +54,12 @@ class Step(InstallationStep):
 		# Move the source files to the blog's installation path
 		self.start(_("Installing WordPress source files."))
 		wp_source_dir = os.path.join(download_dir, "wordpress")
+		blog_parent_dir = os.path.normpath(os.path.join(blog.path, os.pardir))
+		if not os.path.isdir(blog_parent_dir):
+			try:
+				os.makedirs(blog_parent_dir, 0755)
+			except OSError, e:
+				raise InstallationError(_("Unable to create the parent directories for the blog at %(blog_dir)s.") % {'blog_dir': blog.path}, e)
 		try:
 			os.rename(wp_source_dir, blog.path)
 		except OSError, e:

@@ -7,6 +7,8 @@ from pressgang.core.exceptions import PressGangError
 from pressgang.core.models import Blog, VersionSnapshot
 
 import datetime
+import filecmp
+import os
 
 class ActionRecord(models.Model):
 	"""A record of an action performed on a blog."""
@@ -70,6 +72,25 @@ class ActionRecord(models.Model):
 		self.ended = datetime.datetime.now()
 		self.save()
 
+	def _get_blog(self):
+		"""Get a Blog instance for the record.
+
+		This either uses an already linked Blog instance, or tries to fetch one
+		from the stored blog path.  Since there might be times when a log remains
+		but the blog that it was for no longer exists, this can return None if
+		no blog can found.
+
+		Returns: a Blog instance or None
+
+		"""
+		blog = self.blog
+		if not blog:
+			try:
+				blog = Blog.objects.get(path=self.blog_path)
+			except Blog.DoesNotExist:
+				blog = None
+		return blog
+
 	@property
 	def is_ended(self):
 		"""True when the action has been ended, either from an error or success."""
@@ -79,6 +100,33 @@ class ActionRecord(models.Model):
 	def is_failed(self):
 		"""True when the action performed failed."""
 		return self.is_ended and not self.succeeded
+
+	@property
+	def apache_restart_required(self):
+		"""True when Apache must be restarted to complete this action.
+
+		The only time that Apache needs to be restarted is when the blog's
+		Apache .conf configuration file has changed, so this checks for differences
+		between the pre-action configuration file and the post-action one.
+		"""
+
+		# If there is no backup for the blog, that means that it did not exist
+		# before this action, which means that a new configuration file was made.
+		# The same holds true for if there is no actual Blog instance linked
+		# with this record, which means that the blog no longer exists.
+		blog = self._get_blog()
+		if not self.backup or not blog:
+			return True
+
+		# If the backup for some reason has no Apache config file and we now have
+		# one, indicate that we should restart
+		if not os.path.isfile(self.backup.apache_conf_path) and os.path.isfile(blog.apache_conf_path):
+			return True
+
+		# If there are config files for both the backup and current versions
+		# of the blog, determine whether or not we need to restart based upon
+		# whether or not the files have changed
+		return not filecmp.cmp(self.backup.apache_conf_path, blog.apache_conf_path, shallow=False)
 
 class ActionRecordLog(models.Model):
 	"""A log of steps and actions that occurred during an action."""

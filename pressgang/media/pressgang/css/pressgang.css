@@ -347,15 +347,24 @@ body.login #login-form .data-entry {
   color: #aa0000; }
 .action-log .action-error {
   background: #eecccc;
+  margin-top: 1.5em;
   padding: 0.75em;
   padding-bottom: 1.5em; }
   .action-log .action-error .exception code {
     font-weight: bold; }
 .action-log .action-completed {
   background: #fafafa;
+  border: 1px solid #bbbbbb;
   margin-top: 1.5em;
   padding: 0.75em;
   padding-bottom: 1.5em; }
+  .action-log .action-completed .restart-required {
+    background: #fafaee url("../images/icon-warning.png") no-repeat 0.5em center;
+    border-bottom: 1px solid #bbbbbb;
+    color: #777744;
+    font-weight: bold;
+    padding: 0.75em 2.25em;
+    margin: -0.75em -0.75em 0.75em; }
   .action-log .action-completed .blog-link {
     font-weight: bold; }
   .action-log .action-completed .next-steps {

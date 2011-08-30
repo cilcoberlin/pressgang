@@ -77,6 +77,12 @@
 
 		<div class="action-completed follow">
 
+			{% if record.apache_restart_required %}
+				<p class="restart-required">
+					{% trans "To fully complete this action, you must restart Apache." %}
+				</p>
+			{% endif %}
+
 			<h3 class="title">
 				{% block completed_title %}
 					{% blocktrans with action.display_name as action %}

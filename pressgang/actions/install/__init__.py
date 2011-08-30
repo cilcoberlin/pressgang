@@ -256,11 +256,31 @@ class InstallAction(Action):
 			self._make_db_prefix_from_version(),
 			self.slug])
 
+	def provide_wp_username(self, email):
+		"""Provide a WordPress username for the given email.
+
+		This is used by the installer when adding new users.  By default, the
+		username will be the slug of the non-domain part of the email.
+
+		This function, unlike `provide_username`, can safely be overridden by
+		a child installer.
+
+		Arguments:
+		email -- a new user's email address
+
+		Returns: a WordPress username
+
+		"""
+		return slugify(email.split("@")[0])
+
 	def provide_username(self, email):
-		"""Provide a username to use for the given email.
+		"""Provide a safe WordPress username to use for the given email.
 
 		This is used by the installer when adding new users.  By default, the
 		username will be the safe slugified version of the non-domain part of the email.
+
+		This function, unlike `provide_wp_username`, should not be overridden
+		by a child installer.
 
 		Arguments:
 		email -- a new user's email address
@@ -268,7 +288,7 @@ class InstallAction(Action):
 		Returns: a valid WordPress username
 
 		"""
-		return re.sub(self._UNSAFE_USERNAME_CHARS, '', slugify(email.split("@")[0]))
+		return re.sub(self._UNSAFE_USERNAME_CHARS, '', slugify(self.provide_wp_username(email)))
 
 	def provide_user_blog_slug(self, email):
 		"""Provide the value of the slug for the blog to be created for the user.

@@ -919,6 +919,11 @@ class VersionSnapshot(models.Model):
 		"""The directory containing Apache files."""
 		return os.path.join(self._get_backup_dir(), 'apache')
 
+	@property
+	def apache_conf_path(self):
+		"""The full path to the backed up Apache config file for the blog."""
+		return os.path.join(self.apache_files_dir, self._APACHE_FILE_NAME)
+
 	def take_snapshot(self):
 		"""Take a version snapshot of the blog."""
 		self.prepare_for_snapshot()
@@ -967,15 +972,10 @@ class VersionSnapshot(models.Model):
 
 	def take_apache_snapshot(self):
 		"""Take a snapshot of the blog's Apache configuration file."""
-
-		# Since blogs not installed via PressGang might not conform to its
-		# expected structure, only copy Apache files if they exactly match
-		# PressGang's expectations, to avoid breaking things
-		if os.path.isfile(self.blog.apache_conf_path):
+		apache_conf = self.blog.apache_conf_path
+		if os.path.isfile(apache_conf):
 			os.mkdir(self.apache_files_dir)
-			apache_conf = self.blog.apache_conf_path
-			if os.path.isfile(apache_conf):
-				shutil.copyfile(apache_conf, os.path.join(self.apache_files_dir, self._APACHE_FILE_NAME))
+			shutil.copyfile(apache_conf, self.apache_conf_path)
 
 	def revert_db(self):
 		"""Revert the database."""
@@ -993,12 +993,9 @@ class VersionSnapshot(models.Model):
 
 	def revert_apache_files(self):
 		"""Revert to this version's Apache configuration files."""
-
-		# If there are Apache files associated with this version, restore them
-		apache_file = os.path.join(self.apache_files_dir, self._APACHE_FILE_NAME)
-		if os.path.isfile(apache_file):
-			shutil.copyfile(apache_file, self.blog.apache_conf_path)
-			reload_apache()
+		backup_conf = self.apache_conf_path
+		if os.path.isfile(backup_conf):
+			shutil.copyfile(backup_conf, self.blog.apache_conf_path)
 
 	def _mysql_call_args(self, command, db=True):
 		"""Generate the arguments for running the given MySQL command as an admin.

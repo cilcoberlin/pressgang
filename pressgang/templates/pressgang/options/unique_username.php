@@ -12,7 +12,7 @@ if ( $email_exists ) {
 		$user_exists = true;
 		while ( $user_exists ) {
 			$user_count++;
-			$username = '{{ username }}$user_count';
+			$username = '{{ username }}' . $user_count;
 			$user_exists = username_exists( $username );
 		}
 	}

@@ -340,7 +340,8 @@ body.login #login-form .data-entry {
   .action-log .steps .step .actions .action.in-progress {
     font-weight: bold; }
     .action-log .steps .step .actions .action.in-progress .start {
-      background: url("../images/loader-small.gif") no-repeat center left; }
+      background: url("../images/loader-small.gif") no-repeat center left;
+      color: black; }
 .action-log .steps.failure .step .actions .action.in-progress .start {
   background: url("../images/icon-error.png") no-repeat center left;
   color: #aa0000; }

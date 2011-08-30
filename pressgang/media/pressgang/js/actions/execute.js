@@ -60,15 +60,12 @@ var ProgressMonitor = function(url, container, errorMessage) {
 
 	// The error message to display when updating breaks
 	this.errorMessage = errorMessage;
-
-	this._pulseCurrentActionProxy = $.proxy(this._pulseCurrentAction, this);
 };
 
 // CSS identifiers
 ProgressMonitor.CSS = {
 	activeStep:    ".follow",
-	currentAction: ".action.in-progress",
-	pulseClass:    "pulse"
+	currentAction: ".action.in-progress"
 };
 
 // How often to poll for updates
@@ -76,13 +73,6 @@ ProgressMonitor.POLL_INTERVAL_MS = 1000;
 
 // How fast to scroll to the newest log step
 ProgressMonitor.SCROLL_SPEED_MS = 250;
-
-// How fast to pulse the current action
-ProgressMonitor.PULSE_DURATION_MS = 250;
-
-// Pulsing colors
-ProgressMonitor.PULSE_START_COLOR = "#000000";
-ProgressMonitor.PULSE_END_COLOR   = "#aa0000";
 
 // Display the installation progress to the user
 ProgressMonitor.prototype._renderUpdate = function(data) {
@@ -96,7 +86,6 @@ ProgressMonitor.prototype._renderUpdate = function(data) {
 
 		// Pulse the current action
 		this.$log.find(ProgressMonitor.CSS.currentAction).stop();
-		this._pulseCurrentAction();
 
 		// Scroll the page to the most recent step
 		var $follow = this.$log.find(ProgressMonitor.CSS.activeStep);
@@ -114,23 +103,6 @@ ProgressMonitor.prototype._renderUpdate = function(data) {
 		this.endUpdating();
 	} else if (this.keepUpdating) {
 		setTimeout(this._requestUpdateProxy, ProgressMonitor.POLL_INTERVAL_MS);
-	}
-};
-
-// Pulse the current action
-ProgressMonitor.prototype._pulseCurrentAction = function() {
-	var $action = this.$log.find(ProgressMonitor.CSS.currentAction);
-	var pulseClass = ProgressMonitor.CSS.pulseClass;
-	var toColor;
-	if ($action.hasClass(pulseClass)) {
-		$action.removeClass(pulseClass);
-		toColor = ProgressMonitor.PULSE_START_COLOR;
-	} else {
-		$action.addClass(pulseClass);
-		toColor = ProgressMonitor.PULSE_END_COLOR;
-	}
-	if (this.keepUpdating) {
-		$action.animate({'color': toColor}, ProgressMonitor.PULSE_DURATION_MS, this._pulseCurrentActionProxy);
 	}
 };
 

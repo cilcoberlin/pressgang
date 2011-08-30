@@ -4,7 +4,6 @@ from django.utils.translation import ugettext_lazy as _
 from pressgang.actions.install.steps import InstallationStep
 from pressgang.actions.install.exceptions import InstallationError
 from pressgang.actions.options.exceptions import OptionsError
-from pressgang.utils.apache import reload_apache
 
 class Step(InstallationStep):
 
@@ -72,8 +71,3 @@ class Step(InstallationStep):
 			except OptionsError, e:
 				raise InstallationError(_("Blog customizations could not be applied."), e)
 			self.complete(_("Blog customizations applied."))
-
-		# Restart Apache in the end to ensure a clean install
-		self.start(_("Reloading Apache."))
-		reload_apache()
-		self.complete(_("Apache successfully reloaded."))

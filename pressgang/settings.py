@@ -41,11 +41,6 @@ APACHE_DOCUMENT_ROOT = _get_app_setting('APACHE_DOCUMENT_ROOT')
 if not APACHE_DOCUMENT_ROOT:
 	raise PressGangConfigurationError(_("You must provide the value of Apache's DocumentRoot via %(var)s.") % {'var': _setting_name('APACHE_DOCUMENT_ROOT')})
 
-# The command that will gracefully reload Apache
-APACHE_RELOAD_CMD = _get_app_setting('APACHE_RELOAD_CMD')
-if not APACHE_RELOAD_CMD:
-	raise PressGangConfigurationError(_("You must provide the command that will gracefully reload Apache via %(var)s.") % {'var': _setting_name('APACHE_RELOAD_CMD')})
-
 # The directory used for storing blog backups
 BACKUPS_DIR = _get_app_setting('BACKUPS_DIR')
 if not BACKUPS_DIR:

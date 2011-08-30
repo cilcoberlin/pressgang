@@ -7,7 +7,6 @@ from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext as __, ugettext_lazy as _
 
 from pressgang.core.modelfields import EncryptedCharField
-from pressgang.utils.apache import reload_apache
 from pressgang.utils.constants import WP_ROLES
 from pressgang.utils.db import connect_to_db_as_admin
 from pressgang.utils.urls import url_join

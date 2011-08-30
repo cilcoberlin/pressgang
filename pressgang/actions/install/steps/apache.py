@@ -3,7 +3,6 @@ from django.utils.translation import ugettext_lazy as _
 
 from pressgang.actions.install.steps import InstallationStep
 from pressgang.actions.install.exceptions import InstallationError
-from pressgang.utils.apache import reload_apache
 
 class Step(InstallationStep):
 
@@ -19,11 +18,3 @@ class Step(InstallationStep):
 		except Exception, e:
 			raise InstallationError(_("An Apache configuration file for the blog could not be created."), e)
 		self.complete(_("Apache configuration file created."))
-
-		# Reload the Apache configuration files
-		self.start(_("Gracefully restarting Apache."))
-		try:
-			reload_apache()
-		except OSError, e:
-			raise InstallationError(_("Apache could not be restarted."), e)
-		self.complete(_("Apache gracefully reloaded."))

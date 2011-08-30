@@ -6,7 +6,6 @@ from pressgang.actions.lockdown.exceptions import LockdownError
 from pressgang.actions.lockdown.steps import LockdownStep
 from pressgang.actions.options.utils import sitewide_activate_plugin
 from pressgang.core.exceptions import PressGangError
-from pressgang.utils.apache import reload_apache
 from pressgang.utils.templates import get_template_dir
 from pressgang.utils.urls import url_join
 
@@ -298,5 +297,4 @@ class Step(LockdownStep):
 			os.remove(temp_htaccess_path)
 
 		# Reload Apache and visit the plugin's admin page to seal the configuration
-		reload_apache()
 		self._visit_plugin_admin_page()

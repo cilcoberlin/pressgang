@@ -45,9 +45,6 @@ A string of the absolute path to the directory that you created to hold per-blog
 `PRESSGANG_APACHE_DOCUMENT_ROOT`
 A string that should match the value of Apache's DocumentRoot.
 
-`PRESSGANG_APACHE_RELOAD_CMD`
-A string of the full command that will gracefully reload Apache on your server.
-
 `PRESSGANG_BACKUPS_DIR`
 A string of the absolute path to the directory that you created to hold the blog backup files.
 

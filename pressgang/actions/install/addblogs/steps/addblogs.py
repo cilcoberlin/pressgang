@@ -4,7 +4,6 @@ from django.utils.translation import ugettext_lazy as _
 from pressgang.actions.install.addblogs.steps import BlogAdditionStep
 from pressgang.actions.install.addblogs.exceptions import BlogAdditionError
 from pressgang.actions.options.exceptions import OptionsError
-from pressgang.utils.apache import reload_apache
 
 class Step(BlogAdditionStep):
 
@@ -40,8 +39,3 @@ class Step(BlogAdditionStep):
 		except OptionsError, e:
 			raise BlogAdditionError(_("Child-blog customizations could not be applied."), e)
 		self.complete(_("Child-blog customizations applied."))
-
-		# Restart Apache in the end to ensure a clean install
-		self.start(_("Reloading Apache."))
-		reload_apache()
-		self.complete(_("Apache successfully reloaded."))

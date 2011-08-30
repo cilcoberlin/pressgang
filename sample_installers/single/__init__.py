@@ -1,12 +1,43 @@
 
 from pressgang.actions.install import InstallAction
 
+import datetime
+import os
+
 class Install(InstallAction):
 	"""Sample installer for a standard WordPress installation."""
 
 	display_name = "Single"
 	wp_version = "3.1"
 	admin_email = "admin@example.com"
+
+	def provide_blog_dir(self):
+		"""Place all blogs in a date-based single-blog directory."""
+		now = datetime.datetime.now()
+		parts = ['single', now.year, now.month, now.day]
+		return os.path.join(*[str(part) for part in parts])
+
+	def provide_db_base_name(self):
+		"""Use a database name influenced by the first initial of the blog's slug."""
+		return self.slug[0]
+
+	def provide_db_user_base_name(self):
+		"""Have the database user's name influenced by the blog slug."""
+		return "%s_admin" % self.slug
+
+	def provide_wp_username(self, email):
+		"""
+		Give a user a WordPress username that attempts to create a user ID from
+		the first initial of a user's first name and the first five letters of
+		their last name, if their email address appears to be a first.last@example.com
+		email address, or simply uses their whole non-domain email address.
+		"""
+		name = email.split("@")[0]
+		name_parts = name.split(".")
+		if len(name_parts) > 1:
+			return "%s%s" % (name_parts[0][0], name_parts[-1][:5])
+		else:
+			return name
 
 	class SiteOptions:
 

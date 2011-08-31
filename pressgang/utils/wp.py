@@ -14,9 +14,21 @@ class TemporaryPlugin(object):
 
 		"""
 
-		# Create the file and store a writable reference to it
-		plugin_name = "pressgang_%s.php" % "".join([random.choice(string.ascii_lowercase) for i in xrange(0, 10)])
-		self._plugin_path = os.path.join(base_dir, plugin_name)
+		# Create the file and store its path
+		conflicts = True
+		while conflicts:
+			self._plugin_path = os.path.join(base_dir, self._generate_file_name())
+			if not os.path.isfile(self._plugin_path):
+				open(self._plugin_path, 'w').close()
+				conflicts = False
+
+	def _generate_file_name(self):
+		"""Create a random file name for a plugin.
+
+		Returns: a string of the full path to a plugin file name
+
+		"""
+		return "pressgang_%s.php" % "".join([random.choice(string.ascii_lowercase) for i in xrange(0, 10)])
 
 	def write(self, data):
 		"""Write data to the plugin file.
@@ -31,4 +43,5 @@ class TemporaryPlugin(object):
 
 	def remove(self):
 		"""Removes the plugin file."""
-		os.remove(self._plugin_path)
+		if os.path.isfile(self._plugin_path):
+			os.remove(self._plugin_path)

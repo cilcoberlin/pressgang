@@ -78,7 +78,7 @@ ProgressMonitor.SCROLL_SPEED_MS = 250;
 ProgressMonitor.prototype._renderUpdate = function(data) {
 
 	// Update the markup if the content has changed
-	if (data.size !== this.contentLength) {
+	if (data && data.size !== this.contentLength) {
 		this.contentLength = data.size;
 
 		// Update the progress log
@@ -98,9 +98,13 @@ ProgressMonitor.prototype._renderUpdate = function(data) {
 	}
 
 	// If the installation has ended, stop refreshing the log, otherwise
-	// continue polling for updates
-	if (data.ended) {
+	// continue polling for updates.  If the installation was ended because
+	// the response somehow returned no data, alert the user with an error message.
+	if (!data || data.ended) {
 		this.endUpdating();
+		if (!data) {
+			execute.showError(this.errorMessage);
+		}
 	} else if (this.keepUpdating) {
 		setTimeout(this._requestUpdateProxy, ProgressMonitor.POLL_INTERVAL_MS);
 	}

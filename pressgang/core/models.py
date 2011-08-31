@@ -842,12 +842,15 @@ class Blog(models.Model):
 		blog_title -- the title for the new blog
 
 		"""
+		if not self.version.is_multi:
+			return
 		self.apply_changes(
 			render_to_string('pressgang/options/create_blog.php', {
+				'blog':     self,
 				'blog_id':  blog_id,
 				'email':    email,
 				'domain':   _settings.SERVER_BASE,
-				'path':     url_join(self.relative_url, blog_id),
+				'path':     url_join(self.relative_url, "%s"),
 				'title':    blog_title,
 				'username': username
 			})

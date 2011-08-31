@@ -8,9 +8,7 @@
 
 {% load pressgang_options %}
 
-{% setter_function blog_id as blog_setter %}
-add_action( 'init', '{{ blog_setter }}' );
-function {{ blog_setter }}() {
+{% execute_once %}
 
 	// Get a username for the user, which will be available as $username
 	{% get_username username email %}
@@ -26,13 +24,32 @@ function {{ blog_setter }}() {
 		);
 	}
 
+	// Make sure that the blog doesn't conflict with other users' blogs, using
+	// the fact that the blog's path is passed from PressGang with a "%s" in it
+	// that will contain the child blog's ID
+	$blog_path = sprintf( '{{ path }}', '{{ blog_id }}' );
+	{% if blog.version.is_multi %}
+		global $wpdb;
+		$conflicts = true;
+		$counter = 0;
+		while ( $conflicts ) {
+			if ( $wpdb->get_results( $wpdb->prepare( "SELECT path FROM $wpdb->blogs WHERE path=%s", $blog_path ) ) ) {
+				$counter++;
+				$blog_path = sprintf( '{{ path }}', '{{ blog_id }}' . $counter );
+			} else {
+				$conflicts = false;
+			}
+		}
+	{% endif %}
+
 	// Create the new blog for the user
 	$blog_id = wpmu_create_blog(
 		'{{ domain }}',
-		'{{ path }}',
+		$blog_path,
 		{{ title|as_php }},
 		$user_id
 	);
-}
+
+{% endexecute_once %}
 
 ?>

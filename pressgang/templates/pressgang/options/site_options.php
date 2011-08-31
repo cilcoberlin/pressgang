@@ -8,11 +8,7 @@
 
 {% load pressgang_options %}
 
-
-// Apply each option to the site
-{% setter_function options as options_setter %}
-add_action( 'init', '{{ options_setter }}' );
-function {{ options_setter }}() {
+{% execute_once %}
 
 	// Only apply the site options if the blog hasn't already been customized
 	{% if not force %}
@@ -25,7 +21,8 @@ function {{ options_setter }}() {
 	{% if not force %}
 		}
 	{% endif %}
-}
+
+{% endexecute_once %}
 
 
 ?>

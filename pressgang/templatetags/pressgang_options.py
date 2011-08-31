@@ -1,64 +1,88 @@
 
 from django import template
 from django.contrib.auth.models import User
+from django.template.loader import render_to_string
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
 
 from pressgang.utils.php import python_to_php
 
+import datetime
+import hashlib
 import random
 import re
 import string
 
 register = template.Library()
 
-@register.tag
-def setter_function(parser, token):
-	"""Generate a name for a setter function for a given value.
+def _create_pseudo_unique_function_name(code):
+	"""Return the name of a pseudo-unique function in which to wrap the given code.
 
-	This expects an argument of a string that will be used as the basis for
-	the setter function name.
+	Arguments:
+	code -- a string of PHP code
 
-	Returns: the name of a function to set the value
+	Returns: a pseudo-unique function name.
 
 	"""
+	hasher = hashlib.md5()
+	hasher.update(code)
+	return "_pressgang_wrapper_%(date)s_%(hash)s_%(uid)s" % {
+		'date': datetime.datetime.now().strftime("%Y%m%d%H%M%S"),
+		'hash': hasher.hexdigest(),
+		'uid': "".join(random.sample(string.ascii_letters, 20)),
+	}
 
-	try:
-		tag_name, arg = token.contents.split(None, 1)
-	except ValueError:
-		raise template.TemplateSyntaxError(_("%(tag)s tag requires a string as its only argument") % {'tag': 'setter_function'})
+@register.tag
+def safe_scope(parser, token):
+	"""Wraps a block of PHP code in a function to avoid variable name clashes."""
+	nodelist = parser.parse(('endsafe_scope',))
+	parser.delete_first_token()
+	return SafeScopeNode(nodelist)
 
-	m = re.search(r'(.*?) as (\w+)', arg)
-	if not m:
-		raise template.TemplateSyntaxError(_("%(tags)s tag has invalid arguments") % {'tag': tag_name })
+class SafeScopeNode(template.Node):
+	"""The node to render the safe_scope tag."""
 
-	to_set, var_name = m.groups()
-	return SetterFunctionNode(to_set, var_name)
-
-class SetterFunctionNode(template.Node):
-	"""Node for determining the name of a setter function."""
-
-	def __init__(self, to_set, var_name):
-		self.to_set = template.Variable(to_set)
-		self.var_name = var_name
-
-	def _make_setter_name(self, value):
-		"""Generate a name for a setter function for a given value.
-
-		Arguments:
-		option -- the name of a value to set
-
-		Returns: the name of a function to set the value
-
-		"""
-		return "_pressgang_setter_%(value)s_%(uid)s" % {
-			'uid':   "".join(random.sample(string.ascii_letters, 20)),
-			'value': value
-		}
+	def __init__(self, nodelist):
+		self.nodelist = nodelist
 
 	def render(self, context):
-		context[self.var_name] = self._make_setter_name(self.to_set.resolve(context))
-		return ''
+		return self._wrap_code(self.nodelist.render(context))
+
+	def _wrap_code(self, code):
+		"""Wrap the given code in a self-calling function to prevent name clashes."""
+		return render_to_string('pressgang/options/safe_scope.php', {
+			'code': code,
+			'function': _create_pseudo_unique_function_name(code)
+		})
+
+@register.tag
+def execute_once(parser, token):
+	"""Makes the PHP code wrapped in this block tag only execute once.
+
+	Since the method that PressGang uses to set options is to simply create
+	MU plugins for each bit of code that needs to be run, this makes sure that
+	the code is not actually executed every time that a page is loaded.
+
+	"""
+	nodelist = parser.parse(('endexecute_once',))
+	parser.delete_first_token()
+	return ExecuteOnceNode(nodelist)
+
+class ExecuteOnceNode(template.Node):
+	"""The node to parse the execute_once tag."""
+
+	def __init__(self, nodelist):
+		self.nodelist = nodelist
+
+	def render(self, context):
+		return self._wrap_code(self.nodelist.render(context))
+
+	def _wrap_code(self, code):
+		"""Wraps the given code in a block that makes it execute only once."""
+		return render_to_string('pressgang/options/execute_once.php', {
+			'code': code,
+			'function': _create_pseudo_unique_function_name(code)
+		})
 
 @register.filter
 def as_php(value):

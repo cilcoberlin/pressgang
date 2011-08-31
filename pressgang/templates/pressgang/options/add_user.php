@@ -8,9 +8,7 @@
 
 {% load pressgang_options %}
 
-{% setter_function username as username_setter %}
-add_action( 'init', '{{ username_setter }}' );
-function {{ username_setter }}() {
+{% execute_once %}
 
 	// Get a username for the user, which will be available as $username
 	{% get_username username email %}
@@ -29,6 +27,7 @@ function {{ username_setter }}() {
 			'role' => '{{ role }}'
 		)
 	);
-}
+
+{% endexecute_once %}
 
 ?>

@@ -8,9 +8,7 @@
 
 {% load pressgang_options %}
 
-{% setter_function options as options_setter %}
-add_action( 'init', '{{ options_setter }}' );
-function {{ options_setter }}() {
+{% execute_once %}
 
 	// Apply the option-setting code to each blog if on multisite / WPMU, or
 	// simply to the only blog on a non-multi-blog installation
@@ -52,6 +50,6 @@ function {{ options_setter }}() {
 		endforeach;
 	{% endif %}
 
-}
+{% endexecute_once %}
 
 ?>

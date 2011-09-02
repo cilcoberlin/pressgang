@@ -36,7 +36,8 @@ class Step(InstallationStep):
 		try:
 			conn = MySQLdb.connect(
 				user = _settings.DB_ADMIN_USER,
-				passwd = _settings.DB_ADMIN_PASSWORD)
+				passwd = _settings.DB_ADMIN_PASSWORD,
+				charset = installer.db_charset)
 		except MySQLdb.OperationalError, e:
 			raise InstallationError(_("A connection to the database server could not be established."), e)
 		else:

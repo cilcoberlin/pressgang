@@ -600,7 +600,9 @@ class Blog(models.Model):
 				db = db_info['db_name'],
 				user = db_info['user'],
 				passwd = db_info['password'],
-				host = db_info['host']
+				host = db_info['host'],
+				charset = db_info['charset'],
+				use_unicode = True
 			)
 		except MySQLdb.Error:
 			return None
@@ -610,6 +612,7 @@ class Blog(models.Model):
 
 		The keys available in the dict of info are as follows:
 
+			charset  - the database's character set
 			db_name  - the name of the database used
 			host     - the database host
 			password - the password that goes with the username
@@ -621,6 +624,7 @@ class Blog(models.Model):
 		"""
 		config = self.config
 		return {
+			'charset':  config.get('DB_CHARSET'),
 			'db_name':  config.get('DB_NAME'),
 			'host':     config.get('DB_HOST'),
 			'password': config.get('DB_PASSWORD'),

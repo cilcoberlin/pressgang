@@ -3,32 +3,23 @@ from django import template
 from django.contrib.auth.models import User
 from django.template.loader import render_to_string
 from django.utils.safestring import mark_safe
-from django.utils.translation import ugettext_lazy as _
 
 from pressgang.utils.php import python_to_php
 
 import datetime
-import hashlib
 import random
-import re
 import string
 
 register = template.Library()
 
-def _create_pseudo_unique_function_name(code):
+def _create_pseudo_unique_function_name():
 	"""Return the name of a pseudo-unique function in which to wrap the given code.
-
-	Arguments:
-	code -- a string of PHP code
 
 	Returns: a pseudo-unique function name.
 
 	"""
-	hasher = hashlib.md5()
-	hasher.update(code)
-	return "_pressgang_wrapper_%(date)s_%(hash)s_%(uid)s" % {
+	return "_pressgang_wrapper_%(date)s_%(uid)s" % {
 		'date': datetime.datetime.now().strftime("%Y%m%d%H%M%S"),
-		'hash': hasher.hexdigest(),
 		'uid': "".join(random.sample(string.ascii_letters, 20)),
 	}
 
@@ -52,7 +43,7 @@ class SafeScopeNode(template.Node):
 		"""Wrap the given code in a self-calling function to prevent name clashes."""
 		return render_to_string('pressgang/options/safe_scope.php', {
 			'code': code,
-			'function': _create_pseudo_unique_function_name(code)
+			'function': _create_pseudo_unique_function_name()
 		})
 
 @register.tag
@@ -81,7 +72,7 @@ class ExecuteOnceNode(template.Node):
 		"""Wraps the given code in a block that makes it execute only once."""
 		return render_to_string('pressgang/options/execute_once.php', {
 			'code': code,
-			'function': _create_pseudo_unique_function_name(code)
+			'function': _create_pseudo_unique_function_name()
 		})
 
 @register.filter

@@ -174,12 +174,15 @@ class BlogManager(models.Manager):
 
 		"""
 
-		# Get a list of all directories on the server containing blogs
+		# Get a list of all directories on the server containing blogs.  This
+		# attempts to speed things up by ignoring any child directories of a
+		# directory that contains a blog, unless that directory is the root dir.
 		blogs = []
 		for root, dirs, files in os.walk(_settings.APACHE_DOCUMENT_ROOT):
 			if self._path_contains_blog(root, files):
-				dirs[:] = []
 				blogs.append(root)
+				if root != _settings.APACHE_DOCUMENT_ROOT:
+					dirs[:] = []
 
 		# Sync the current blog list with what we just found, ignoring any
 		# blogs that are in the process of being installed

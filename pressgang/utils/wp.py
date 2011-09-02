@@ -1,4 +1,5 @@
 
+import codecs
 import os
 import random
 import string
@@ -30,14 +31,17 @@ class TemporaryPlugin(object):
 		"""
 		return "pressgang_%s.php" % "".join([random.choice(string.ascii_lowercase) for i in xrange(0, 10)])
 
-	def write(self, data):
+	def write(self, data, append=False):
 		"""Write data to the plugin file.
 
 		Arguments:
 		data -- a string of data to write to the file
 
+		Keyword Arguments:
+		append -- whether to append or simply overwrite existing data
+
 		"""
-		file = open(self._plugin_path, 'w')
+		file = codecs.open(self._plugin_path, encoding='utf-8', mode='a' if append else 'w')
 		file.write(data)
 		file.close()
 

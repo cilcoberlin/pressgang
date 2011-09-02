@@ -29,12 +29,22 @@
 
 {% block body %}
 
+	<ul id="management-actions">
+		<li>
+			<a href="{% url pressgang:sync-blogs %}" title="{% trans "Refresh the list of blogs installed on the server" %}" class="button sync">{% trans "Sync Blogs" %}</a>
+		</li>
+	</ul>
+
 	{% if current_version %}
 		<p id="current-version">
-			{% blocktrans with current_version.full as version %}
-				Current WordPress version is <strong>{{ version }}</strong>
-			{% endblocktrans %}
+			{% trans "Latest WordPress version" %} &mdash; <strong>{{ current_version.full }}</strong>
 		</p>
+	{% endif %}
+
+	{% if synced %}
+		<ul class="messages">
+			<li class="message success">{% trans "All Blogs were successfully synced." %}</li>
+		</ul>
 	{% endif %}
 
 	{% if blogs %}
@@ -103,6 +113,17 @@
 			</tbody>
 
 		</table>
+
+	{% else %}
+
+		<p id="sync-suggestion">
+			{% url pressgang:sync-blogs as sync_url %}
+			{% blocktrans with sync_url as sync_url %}
+				No blogs were found on the server.  You can try
+				<a href="{{ sync_url }}">refreshing the list of blogs</a> to
+				see if any are discovered.
+			{% endblocktrans %}
+		</p>
 
 	{% endif %}
 

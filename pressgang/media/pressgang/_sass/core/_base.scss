@@ -128,6 +128,21 @@ form {
 	}
 }
 
+// A prominent link that should be rendered as a large button
+a.button {
+	background: $color-bg-button;
+	border: 3px double $color-bg-page;
+	color: $color-text-button;
+	display: inline-block;
+	padding: 0.75em 1.5em;
+	@include rounded(all, 0.75em);
+	text-shadow: darken($color-bg-button, 10%) 1px 1px 0;
+
+	&:hover {
+		background: lighten($color-bg-button, 5%);
+	}
+}
+
 /*------------------------------------------------------------------------------
 	Header
 ------------------------------------------------------------------------------*/
@@ -224,6 +239,24 @@ form {
 
 	strong {
 		font-weight: bold;
+	}
+
+	// Messages
+	.messages {
+		.message {
+			background-position: 0.5em center;
+			background-repeat: no-repeat;
+			border-style: solid;
+			border-width: 1px;
+			padding: 0.75em 0 0.75em 2.25em;
+			@include rounded(all, 0.375em);
+			margin: 0.75em 0;
+		}
+		.success {
+			background-color: $color-bg-highlight;
+			background-image: url("../images/icon-accept.png");
+			border-color: darken($color-bg-highlight, 20%);
+		}
 	}
 
 	// Tables in the body

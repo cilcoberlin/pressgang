@@ -145,6 +145,19 @@ form .buttons input {
   form .buttons input:active {
     background: #e0e0df; }
 
+a.button {
+  background: #afafaa;
+  border: 3px double #efefec;
+  color: white;
+  display: inline-block;
+  padding: 0.75em 1.5em;
+  border-radius: 0.75em;
+  -moz-border-radius: 0.75em;
+  -webkit-border-radius: 0.75em;
+  text-shadow: #969690 1px 1px 0; }
+  a.button:hover {
+    background: #bbbbb7; }
+
 /*------------------------------------------------------------------------------
 	Header
 ------------------------------------------------------------------------------*/
@@ -209,6 +222,20 @@ form .buttons input {
     color: black; }
   #body strong {
     font-weight: bold; }
+  #body .messages .message {
+    background-position: 0.5em center;
+    background-repeat: no-repeat;
+    border-style: solid;
+    border-width: 1px;
+    padding: 0.75em 0 0.75em 2.25em;
+    border-radius: 0.375em;
+    -moz-border-radius: 0.375em;
+    -webkit-border-radius: 0.375em;
+    margin: 0.75em 0; }
+  #body .messages .success {
+    background-color: #fafada;
+    background-image: url("../images/icon-accept.png");
+    border-color: #eeee80; }
   #body table {
     border-bottom: 2px solid #777777;
     position: relative;
@@ -463,20 +490,9 @@ body.lockdown-confirmation #prompt {
 body.lockdown-confirmation .buttons {
   margin-top: 1.5em; }
   body.lockdown-confirmation .buttons .button {
-    border: 3px double #efefec;
-    display: inline-block;
-    margin-right: 3em;
-    padding: 0.75em 1.5em;
-    border-radius: 0.75em;
-    -moz-border-radius: 0.75em;
-    -webkit-border-radius: 0.75em; }
+    margin-right: 3em; }
     body.lockdown-confirmation .buttons .button.confirm {
-      background: #afafaa;
-      color: white;
-      font-weight: bold;
-      text-shadow: #969690 1px 1px 0; }
-      body.lockdown-confirmation .buttons .button.confirm:hover {
-        background: #bbbbb7; }
+      font-weight: bold; }
     body.lockdown-confirmation .buttons .button.reject {
       background: #dfdfda;
       color: #5f5f5a; }
@@ -484,17 +500,26 @@ body.lockdown-confirmation .buttons {
         background: #e4e4df; }
 
 /* Management */
-body.manage-blogs #current-version {
-  background: #fafada;
-  border: 1px solid #eeee80;
+body.manage-blogs #management-actions {
   float: right;
-  margin: -3em 0;
-  padding: 0.75em 1.5em;
-  border-radius: 0.75em;
-  -moz-border-radius: 0.75em;
-  -webkit-border-radius: 0.75em;
-  text-shadow: #d5d5d5 1px 1px 0; }
-  body.manage-blogs #current-version strong {
+  font-weight: bold;
+  margin-top: -3em; }
+  body.manage-blogs #management-actions .button {
+    background-repeat: no-repeat;
+    background-position: 0.75em center;
+    padding-left: 2.25em; }
+  body.manage-blogs #management-actions .sync {
+    background-image: url("../images/icon-db-refresh.png"); }
+body.manage-blogs .messages {
+  margin: 1.5em 0 -1.5em 0; }
+body.manage-blogs #current-version strong {
+  color: black;
+  font-weight: bold; }
+body.manage-blogs #sync-suggestion {
+  font-size: 1.25em;
+  line-height: 1.2em;
+  margin-top: 2.4em; }
+  body.manage-blogs #sync-suggestion a {
     font-weight: bold; }
 body.manage-blogs #all-blogs {
   margin-bottom: 1.5em;

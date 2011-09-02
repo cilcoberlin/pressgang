@@ -14,21 +14,10 @@ body.lockdown-confirmation {
 		margin-top: 1.5em;
 
 		.button {
-			border: 3px double $color-bg-page;
-			display: inline-block;
 			margin-right: 3em;
-			padding: 0.75em 1.5em;
-			@include rounded(all, 0.75em);
 
 			&.confirm {
-				background: $color-bg-button;
-				color: $color-text-button;
 				font-weight: bold;
-				text-shadow: darken($color-bg-button, 10%) 1px 1px 0;
-
-				&:hover {
-					background: lighten($color-bg-button, 5%);
-				}
 			}
 
 			&.reject {

@@ -4,17 +4,44 @@
 
 body.manage-blogs {
 
+	// Management action buttons
+	#management-actions {
+		float: right;
+		font-weight: bold;
+		margin-top: -3em;
+
+		.button {
+			background-repeat: no-repeat;
+			background-position: 0.75em center;
+			padding-left: 2.25em;
+		}
+
+		// The sync-blogs button
+		.sync {
+			background-image: url("../images/icon-db-refresh.png");
+		}
+	}
+
+	// Messages
+	.messages {
+		margin: 1.5em 0 -1.5em 0;
+	}
+
 	// Current version notice
 	#current-version {
-		background: $color-bg-highlight;
-		border: 1px solid darken($color-bg-highlight, 20%);
-		float: right;
-		margin: -3em 0;
-		padding: 0.75em 1.5em;
-		@include rounded(all, 0.75em);
-		text-shadow: $color-shadow-light 1px 1px 0;
-
 		strong {
+			color: $color-text-strong;
+			font-weight: bold;
+		}
+	}
+
+	// A message displayed when no blogs are found
+	#sync-suggestion {
+		font-size: 1.25em;
+		line-height: 1.2em;
+		margin-top: 2.4em;
+
+		a {
 			font-weight: bold;
 		}
 	}

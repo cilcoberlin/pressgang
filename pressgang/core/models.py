@@ -735,8 +735,8 @@ class Blog(models.Model):
 
 		# Authenticate as the administrator
 		login_data = {
-			'log': username,
-			'pwd': password,
+			'log': username.encode('utf-8'),
+			'pwd': password.encode('utf-8'),
 			'rememberme': 1
 		}
 		response = opener.open(self.login_url, urllib.urlencode(login_data))

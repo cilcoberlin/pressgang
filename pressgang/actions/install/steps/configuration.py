@@ -49,16 +49,15 @@ class Step(InstallationStep):
 			response = urllib2.urlopen(
 				blog.installation_url,
 				urllib.urlencode({
-					'weblog_title': blog.title,
-					'admin_password': installer.password,
-					'admin_password2': installer.password,
-					'admin_email': installer.admin_email,
+					'weblog_title': blog.title.encode('utf-8'),
+					'admin_password': installer.password.encode('utf-8'),
+					'admin_password2': installer.password.encode('utf-8'),
+					'admin_email': installer.admin_email.encode('utf-8'),
 					'blog_public': int(installer.is_public)
 				})
 			)
 		except (ValueError, httplib.HTTPException, urllib2.URLError), e:
 			raise InstallationError(_("The WordPress installation page at %(url)s could not be loaded.") % {'url': blog.installation_url}, e)
-		response.read()
 		self.complete(_("WordPress successfully configured."))
 
 		# If we're on a version that supports multisite, activate it
@@ -78,8 +77,9 @@ class Step(InstallationStep):
 		"""
 
 		# Activate the network through the WordPress admin interface
+		site_name = _("%(blog)s Blogs") % {'blog': blog.title}
 		blog.make_admin_request(blog.network_activate_url, {
-			'sitename': _("%(blog)s Blogs") % {'blog': blog.title},
+			'sitename': site_name.encode('utf-8'),
 			'email': installer.admin_email
 		})
 

@@ -1,6 +1,8 @@
 
 // Wrap the given code in a function to prevent name clashes
-function {{ function }}() {
-	{{ code|safe }}
+if ( ! function_exists( '{{ function }}' ) ) {
+	function {{ function }}() {
+		{{ code|safe }}
+	}
 }
 {{ function }}();

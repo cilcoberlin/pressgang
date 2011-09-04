@@ -70,7 +70,9 @@ class AsynchronousAction(threading.Thread):
 		try:
 			self.action.execute()
 		except ActionError, e:
-			if settings.DEBUG:
+			if e.error_info:
+				raise e.error_info
+			else:
 				raise e
 
 class Action(object):

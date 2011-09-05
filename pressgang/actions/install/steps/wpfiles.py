@@ -61,7 +61,7 @@ class Step(InstallationStep):
 			except OSError, e:
 				raise InstallationError(_("Unable to create the parent directories for the blog at %(blog_dir)s.") % {'blog_dir': blog.path}, e)
 		try:
-			os.rename(wp_source_dir, blog.path)
+			shutil.copytree(wp_source_dir, blog.path)
 		except OSError, e:
 			raise InstallationError(_("Unable to copy WordPress files from %(from)s to the blog's directory in %(to)s.") % {'from': wp_source_dir, 'to': blog.path}, e)
 		self.complete(_("WordPress source files installed."))

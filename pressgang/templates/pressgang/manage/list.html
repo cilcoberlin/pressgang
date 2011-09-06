@@ -97,7 +97,7 @@
 								</ul>
 							</td>
 						{% endif %}
-						<td class="title"><a href="{{ blog.url }}" title="{% trans "Visit blog" %}">{{ blog.title }}</a></td>
+						<td class="title sort__{{ blog.title|slugify }}"><a href="{{ blog.url }}" title="{% trans "Visit blog" %}">{{ blog.title }}</a></td>
 						<td class="path">{{ blog.path }}</td>
 						<td class="version">{{ blog.version }}</td>
 						<td class="created sort__{{ blog.created|date:"Ymd" }}">{{ blog.created|date }}</td>

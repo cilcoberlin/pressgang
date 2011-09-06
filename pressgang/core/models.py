@@ -543,7 +543,7 @@ class Blog(models.Model):
 
 		"""
 		return datetime.datetime.strptime(
-			time.ctime(os.path.getctime(self.config_file_path)),
+			time.ctime(os.path.getctime(self.path)),
 			"%a %b %d %H:%M:%S %Y")
 
 	def create_standalone_apache_conf(self):

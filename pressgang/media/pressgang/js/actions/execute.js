@@ -7,6 +7,16 @@ execute.showError = function(text) {
 	alert(text);
 }
 
+// Return true if an object is empty
+execute.objectIsEmpty = function(obj) {
+	for (var prop in obj) {
+		if (obj.hasOwnProperty(prop)) {
+			return false;
+		}
+	}
+	return true;
+};
+
 // A class to execute an action
 var Executer = function(options) {
 
@@ -60,6 +70,10 @@ var ProgressMonitor = function(url, container, errorMessage) {
 
 	// The error message to display when updating breaks
 	this.errorMessage = errorMessage;
+
+	// The number of null-data responses received
+	this.nullResponses = 0;
+
 };
 
 // CSS identifiers
@@ -74,11 +88,17 @@ ProgressMonitor.POLL_INTERVAL_MS = 1000;
 // How fast to scroll to the newest log step
 ProgressMonitor.SCROLL_SPEED_MS = 250;
 
-// Display the installation progress to the user
+// How many null-data responses must be received before the progress monitor
+// declares an action ended
+ProgressMonitor.NULL_DATA_RESPONSES_ALLOWED = 5;
+
+// Display the action progress to the user
 ProgressMonitor.prototype._renderUpdate = function(data) {
 
+	var nullResponse = execute.objectIsEmpty(data);
+
 	// Update the markup if the content has changed
-	if (data && data.size !== this.contentLength) {
+	if (!nullResponse && data.size !== this.contentLength) {
 		this.contentLength = data.size;
 
 		// Update the progress log
@@ -97,20 +117,33 @@ ProgressMonitor.prototype._renderUpdate = function(data) {
 		}
 	}
 
-	// If the installation has ended, stop refreshing the log, otherwise
-	// continue polling for updates.  If the installation was ended because
-	// the response somehow returned no data, alert the user with an error message.
-	if (!data || data.ended) {
+	// Since it seems that a null-data response is sometimes received even when
+	// the action is proceeding as planned, allow a certain amount of null
+	// responses to take place, continuing with the progress polling until we
+	// have exceeded our total allowed null-response count, at which point we
+	// declare the action to be ended.
+	if (nullResponse) {
+		this.nullResponses++;
+		actionEnded = (this.nullResponses >= ProgressMonitor.NULL_DATA_RESPONSES_ALLOWED);
+	} else {
+		actionEnded = data.ended;
+	}
+
+	// If the action has ended, stop refreshing the log, otherwise
+	// continue polling for updates.
+	if (actionEnded) {
 		this.endUpdating();
-		if (!data) {
-			execute.showError(this.errorMessage);
-		}
 	} else if (this.keepUpdating) {
 		setTimeout(this._requestUpdateProxy, ProgressMonitor.POLL_INTERVAL_MS);
 	}
+
+	// If we ended due to too many null-data responses, alert the user of this
+	if (nullResponse && actionEnded) {
+		execute.showError(this.errorMessage);
+	}
 };
 
-// Request an update on the installation
+// Request an update on the action
 ProgressMonitor.prototype._requestUpdate = function() {
 	$.ajax({
 		dataType: 'json',
@@ -131,7 +164,7 @@ ProgressMonitor.prototype._handleError = function(xhr, status) {
 	execute.showError(pressgang.utils.getErrorText(xhr, this.errorMessage));
 };
 
-// Begin polling for installation progress updates
+// Begin polling for action progress updates
 ProgressMonitor.prototype.beginUpdating = function() {
 	this.keepUpdating = true;
 	this._renderUpdateProxy = $.proxy(this._renderUpdate, this);

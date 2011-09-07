@@ -1,4 +1,4 @@
-from django.conf.urls.defaults import patterns, include
+from django.conf.urls.defaults import patterns, include, url
 
 pressgang_patterns = patterns('',
 	(r'^', include('pressgang.core.urls')),
@@ -8,7 +8,9 @@ pressgang_patterns = patterns('',
 	(r'^install/', include('pressgang.actions.install.urls')),
 	(r'^lockdown/', include('pressgang.actions.lockdown.urls')),
 	(r'^manage/', include('pressgang.actions.manage.urls')),
-	(r'^revert/', include('pressgang.actions.revert.urls'))
+	(r'^revert/', include('pressgang.actions.revert.urls')),
+
+	url(r'^jsi18n/', 'django.views.i18n.javascript_catalog', {'packages': 'pressgang'}, "jsi18n-catalog")
 )
 
 urlpatterns = patterns('',

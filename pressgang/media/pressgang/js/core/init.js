@@ -1,11 +1,24 @@
+(function(window) {
 
+/**
+ * Core namespaces used by PressGang.
+ */
 var pressgang = {
 	actions: {},
 	install: {},
 	utils:   {}
 };
 
-// The prefix used to indicate sorting metadata
+/**
+ * Create an alias for django's JavaScript i18n functions.
+ */
+pressgang.gettext = window.gettext;
+pressgang.ngettext = window.ngettext;
+
+/**
+ * The prefix used to indicate sorting metadata contained in a class, which is
+ * read when a table is made sortable using the sortTableWithMeta function.
+ */
 pressgang.utils.SORT_META_PREFIX = "sort__";
 
 /**
@@ -36,3 +49,20 @@ pressgang.utils.getErrorText = function(xhr, errorText) {
 	}
 	return errorText;
 };
+
+/**
+ * Return true when the given object is empty.
+ */
+pressgang.utils.objectIsEmpty = function(obj) {
+	for (var prop in obj) {
+		if (obj.hasOwnProperty(prop)) {
+			return false;
+		}
+	}
+	return true;
+};
+
+// Expose PressGang to the global namespace
+window.pressgang = pressgang;
+
+})(window);

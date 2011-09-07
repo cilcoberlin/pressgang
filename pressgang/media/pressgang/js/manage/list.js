@@ -1,15 +1,17 @@
-(function(window, $, pressgang) {
+(function($, pressgang) {
 
-var manage = {
-	css: {
-		blogList: '#all-blogs'
-	}
+/**
+ * CSS identifiers used for the blog management page.
+ */
+var css = {
+	blogList: '#all-blogs'
 };
 
-$(document).ready(function() {
-
-	// Make the blogs table sortable
-	$(manage.css.blogList).tablesorter({
+/**
+ * Makes the list of installed blogs sortable.
+ */
+var makeBlogListSortable = function() {
+	$(css.blogList).tablesorter({
 
 		// Disable sorting on the actions column
 		headers: {
@@ -19,7 +21,13 @@ $(document).ready(function() {
 		// Search for date meta on the date columns
 		textExtraction: pressgang.utils.sortTableWithMeta
 	});
+};
 
+/**
+ * Add interactivity to the blog management page
+ */
+$(document).ready(function() {
+	makeBlogListSortable();
 });
 
-})(window, jQuery, pressgang);
+})(jQuery, pressgang);

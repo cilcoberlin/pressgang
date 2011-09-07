@@ -12,7 +12,7 @@ class InstallBlogForm(forms.Form):
 	slug = forms.SlugField(label=_("URL slug"), help_text=_("the last component of the blog's base URL"))
 	title = forms.CharField(label=_("title"), help_text=_("the full title of the blog"))
 	description = forms.CharField(label=_("description"), help_text=_("the blog's description / subtitle"))
-	admins = EmailListField(label=_("admin emails"), help_text=_("a list of admin emails, one per line"))
+	admins = EmailListField(label=_("admin emails"), help_text=_("a list of admin emails, one per line"), required=False)
 	users = EmailListField(label=_("user emails"), help_text=_("a list of normal user emails, one per line"), required=False)
 	password = forms.CharField(widget=forms.PasswordInput, label=_("admin password"), help_text=_("the admin password for the blog"))
 	password_verify = forms.CharField(widget=forms.PasswordInput, label=_("admin password (verify)"), help_text=_("the admin password for the blog"))

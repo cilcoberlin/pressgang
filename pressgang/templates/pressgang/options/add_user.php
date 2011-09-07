@@ -21,12 +21,10 @@
 	);
 
 	// Apply the requested role
-	wp_insert_user(
-		array(
-			'ID'   => $user_id,
-			'role' => '{{ role }}'
-		)
-	);
+	$user_data = array(
+		'ID'   => $user_id,
+		'role' => '{{ role }}' );
+	wp_update_user( $user_data );
 
 {% endexecute_once %}
 

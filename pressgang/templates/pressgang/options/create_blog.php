@@ -31,7 +31,7 @@
 	{% if blog.version.is_multi %}
 		global $wpdb;
 		$conflicts = true;
-		$counter = 0;
+		$counter = 1;
 		while ( $conflicts ) {
 			if ( $wpdb->get_results( $wpdb->prepare( "SELECT path FROM $wpdb->blogs WHERE path=%s", $blog_path ) ) ) {
 				$counter++;

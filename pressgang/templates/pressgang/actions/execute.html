@@ -4,6 +4,7 @@
 
 {% block javascript %}
 
+	<script type="text/javascript" src="{% url pressgang:jsi18n-catalog %}"></script>
 	<script type="text/javascript" src="{{ MEDIA_URL }}pressgang/js/libs/jquery.ui.fx.1.8.15.js"></script>
 	<script type="text/javascript" src="{{ MEDIA_URL }}pressgang/js/actions/execute.js"></script>
 
@@ -15,8 +16,7 @@
 				var executer = new pressgang.actions.Executer({
 					executeURL:        "{% url pressgang:begin-action %}",
 					progressURL:       "{% url pressgang:action-progress %}",
-					progressContainer: "#action-log",
-					errorMessage:      "{% trans "An error occurred.  Try returning to the previous page and performing the action again." %}"
+					progressContainer: "#action-log"
 				});
 				executer.execute();
 			});

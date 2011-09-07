@@ -23,11 +23,8 @@ var Executer = function(options) {
 	// Get the URL to start the action
 	this.executeURL = options.executeURL;
 
-	// Get the error message to display
-	this.errorMessage = options.errorMessage;
-
 	// Create a progress monitor to track the execution of the action
-	this.monitor = new ProgressMonitor(options.progressURL, options.progressContainer, options.errorMessage)
+	this.monitor = new ProgressMonitor(options.progressURL, options.progressContainer);
 };
 
 //Set the action in motion and poll for updates
@@ -47,11 +44,11 @@ Executer.prototype._monitorLog = function(data) {
 
 // Handle an error when the action cannot be started
 Executer.prototype._handleError = function(xhr, status) {
-	execute.showError(pressgang.utils.getErrorText(xhr, this.errorMessage));
+	execute.showError(pressgang.utils.getErrorText(xhr, gettext("Unable to begin executing action.")));
 };
 
 // A class to display progress updates for an action
-var ProgressMonitor = function(url, container, errorMessage) {
+var ProgressMonitor = function(url, container) {
 
 	// Get the URL that will give us progress reports
 	this.url = url;
@@ -67,9 +64,6 @@ var ProgressMonitor = function(url, container, errorMessage) {
 
 	// Keep track of the content length of the returned markup
 	this.contentLength = 0;
-
-	// The error message to display when updating breaks
-	this.errorMessage = errorMessage;
 
 	// The number of null-data responses received
 	this.nullResponses = 0;
@@ -139,7 +133,7 @@ ProgressMonitor.prototype._renderUpdate = function(data) {
 
 	// If we ended due to too many null-data responses, alert the user of this
 	if (nullResponse && actionEnded) {
-		execute.showError(this.errorMessage);
+		execute.showError(gettext("The action has timed out."));
 	}
 };
 
@@ -161,7 +155,7 @@ ProgressMonitor.prototype.endUpdating = function() {
 // Handle an error during the polling for progress log updates
 ProgressMonitor.prototype._handleError = function(xhr, status) {
 	this.endUpdating();
-	execute.showError(pressgang.utils.getErrorText(xhr, this.errorMessage));
+	execute.showError(pressgang.utils.getErrorText(xhr, gettext("Unable to refresh the progress log.")));
 };
 
 // Begin polling for action progress updates

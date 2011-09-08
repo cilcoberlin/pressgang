@@ -21,12 +21,10 @@
 	// Create an account for the user if they don't have one, and get their
 	// user ID of they do have one
 	$user_id = username_exists( $username );
+	$password = '';
 	if ( ! $user_id ) {
-		$user_id = wp_create_user(
-			$username,
-			'{% random_password %}',
-			'{{ email }}'
-		);
+		$password = '{% random_password %}';
+		$user_id = wp_create_user( $username, $password, '{{ email }}' );
 	}
 
 	// Make sure that the blog doesn't conflict with other users' blogs, using
@@ -48,12 +46,9 @@
 	{% endif %}
 
 	// Create the new blog for the user
-	$blog_id = wpmu_create_blog(
-		'{{ domain }}',
-		$blog_path,
-		{{ title|as_php }},
-		$user_id
-	);
+	$blog_title = {{ title|as_php }};
+	$blog_id = wpmu_create_blog( '{{ domain }}', $blog_path, $blog_title, $user_id );
+	wpmu_welcome_notification( $blog_id, $user_id, $password, $blog_title );
 
 {% endexecute_once %}
 

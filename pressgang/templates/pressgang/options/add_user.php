@@ -13,12 +13,10 @@
 	// Get a username for the user, which will be available as $username
 	{% get_username username email %}
 
-	// Create the new user account
-	$user_id = wp_create_user(
-		$username,
-		'{% random_password %}',
-		'{{ email }}'
-	);
+	// Create the new user account and notify the user of their account
+	$password = '{% random_password %}';
+	$user_id = wp_create_user( $username, $password, '{{ email }}' );
+	wp_new_user_notification( $user_id, $password );
 
 	// Apply the requested role
 	$user_data = array(

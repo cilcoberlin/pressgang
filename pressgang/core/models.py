@@ -332,15 +332,12 @@ class Blog(models.Model):
 		"""True if the blog's path and database both exist."""
 		valid = os.path.isdir(self.path)
 		if valid:
-			db_name = self._get_db_info()['db_name']
-			if not db_name:
-				return False
-			conn = connect_to_db_as_admin()
-			cursor = conn.cursor()
-			cursor.execute("SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = %s", (db_name,))
-			valid = bool(cursor.fetchone())
-			cursor.close()
-			conn.close()
+			db_conn = self._connect_to_db()
+			if db_conn:
+				valid = True
+				db_conn.close()
+			else:
+				valid = False
 		return valid
 
 	@property

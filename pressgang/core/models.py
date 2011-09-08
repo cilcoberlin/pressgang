@@ -230,12 +230,20 @@ class BlogManager(models.Manager):
 		return Blog.WP_CONFIG_FILE in dir_files
 
 	def list_by_path(self):
-		"""List all active blogs, ordered by path.
+		"""List all blogs, ordered by path.
 
 		Returns: a Blog queryset, ordered by the path
 
 		"""
 		return self.all().order_by('path')
+
+	def list_by_date(self):
+		"""List all blogs, ordered by their creation date.
+
+		Returns: a Blog queryset, ordered by date
+
+		"""
+		return self.all().order_by('-created')
 
 class Blog(models.Model):
 	"""An installed WordPress blog."""

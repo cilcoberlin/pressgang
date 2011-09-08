@@ -20,7 +20,7 @@ def list_blogs(request):
 
 	page = Page(request)
 	page.add_render_args({
-		'blogs': Blog.objects.list_by_path(),
+		'blogs': Blog.objects.list_by_date(),
 		'current_version': WordPressVersion.objects.current_version(),
 		'synced': synced
 	})

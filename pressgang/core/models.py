@@ -266,8 +266,8 @@ class Blog(models.Model):
 	_WP_BLOGS_DIR_PATH = "wp-content/blogs.dir"
 
 	# Patterns for settings defined in the WordPress config file
-	_WP_CONFIG_DEFINE_SETTING = re.compile(r'^define\((\s+)?[\'"](?P<setting>[A-Z_]+)[\'"](\s+)?,(\s+)?(?P<value>.+)\);\s+$')
-	_WP_CONFIG_VAR_SETTING    = re.compile(r'^\$(?P<setting>[^\s]+)(\s+)?=(\s+)?(?P<value>.+);\s+$')
+	_WP_CONFIG_DEFINE_SETTING = re.compile(r'^define\((\s+)?[\'"](?P<setting>[A-Z_]+)[\'"](\s+)?,(\s+)?(?P<value>.+)\);\s+((//|/\*).*)?$')
+	_WP_CONFIG_VAR_SETTING    = re.compile(r'^\$(?P<setting>[^\s]+)(\s+)?=(\s+)?(?P<value>.+);\s+((//|/\*).*)?$')
 
 	# Directories that can contain user content inside of the wp-content directory
 	WP_CONTENT_DIRS = [

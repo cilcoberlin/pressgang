@@ -10,6 +10,11 @@
 
 {% execute_once %}
 
+	// If a user with the given email already exists, don't add a new blog
+	if ( email_exists( '{{ email }}' ) ) {
+		return;
+	}
+
 	// Get a username for the user, which will be available as $username
 	{% get_username username email %}
 

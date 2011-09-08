@@ -23,6 +23,7 @@ body.lockdown-confirmation {
 			&.reject {
 				background: $color-bg-button-small;
 				color: $color-text-header;
+				text-shadow: 1px 1px 0 $color-shadow-bright;
 
 				&:hover {
 					background: lighten($color-bg-button-small, 2%);

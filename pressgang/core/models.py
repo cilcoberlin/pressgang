@@ -594,11 +594,11 @@ class Blog(models.Model):
 		db_info = self._get_db_info()
 		try:
 			return MySQLdb.connect(
-				db = db_info['db_name'],
-				user = db_info['user'],
-				passwd = db_info['password'],
-				host = db_info['host'],
-				charset = db_info['charset'],
+				db = db_info['db_name'] or "",
+				user = db_info['user'] or "",
+				passwd = db_info['password'] or "",
+				host = db_info['host'] or "",
+				charset = db_info['charset'] or "",
 				use_unicode = True
 			)
 		except MySQLdb.Error:

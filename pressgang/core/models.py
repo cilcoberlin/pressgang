@@ -995,6 +995,23 @@ class VersionSnapshot(models.Model):
 	def revert_db(self):
 		"""Revert the database."""
 
+		# Drop all tables on the blog's database to prevent the presence of
+		# undeleted child blog tables interfering with the addition of blogs
+		# after the reversion.  Since the database dump might not have the tables
+		# used by child blogs added after it was created, it does not delete them.
+		# This can cause a situation where a reverted blog has only two blogs,
+		# but tables for more than that.  When a user tries to create a new blog,
+		# WordPress sees that the tables required already exist, which prevents
+		# it from actually creating the blog.
+		conn = connect_to_db_as_admin(db=self.blog.db_name)
+		cursor = conn.cursor()
+		cursor.execute("SHOW TABLES")
+		tables = [result[0] for result in cursor.fetchall()]
+		for table in tables:
+			cursor.execute("DROP TABLE %s" % table)
+		cursor.close()
+		conn.close()
+
 		# Use the mysql executable to read in from the database dump
 		db_file = open(os.path.join(self.db_files_dir, self._DB_FILE_NAME))
 		call_args = self._mysql_call_args(_settings.MYSQL_PATH)

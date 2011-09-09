@@ -2,6 +2,11 @@
 if ( ! function_exists( '{{ function }}' ) ) {
 	function {{ function }}() {
 
+		// Don't run the function if we're not an admin on the admin page
+		if ( ! current_user_can( 'manage_options' ) || ! is_admin() ) {
+			return;
+		}
+
 		// Get our stored list of executed pressgang options functions
 		$executed_functions = get_option( 'pressgang_functions' );
 		if ( empty( $executed_functions ) ) {
@@ -18,4 +23,4 @@ if ( ! function_exists( '{{ function }}' ) ) {
 		}
 	}
 }
-add_action( 'init', '{{ function }}' );
+add_action( 'admin_init', '{{ function }}' );

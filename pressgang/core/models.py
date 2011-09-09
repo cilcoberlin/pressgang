@@ -377,6 +377,11 @@ class Blog(models.Model):
 		return url_join(self.url, 'wp-admin/')
 
 	@property
+	def network_admin_page_url(self):
+		"""The absolute URL to the network admin page base."""
+		return url_join(self.url, 'wp-admin', 'network/')
+
+	@property
 	def config_file_path(self):
 		"""The path to the installation's PHP config file."""
 		return os.path.join(self.path, self.WP_CONFIG_FILE)
@@ -719,7 +724,8 @@ class Blog(models.Model):
 		plugin.write(php_code)
 
 		# Request the base admin page to execute the code and clear the plugin
-		self.make_admin_request(self.admin_page_url)
+		self.make_admin_request(
+			self.network_admin_page_url if self.version.is_multi else self.admin_page_url)
 		plugin.remove()
 
 	def _make_login_request(self, username, password):

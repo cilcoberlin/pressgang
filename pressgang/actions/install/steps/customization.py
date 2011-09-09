@@ -71,3 +71,9 @@ class Step(InstallationStep):
 			except OptionsError, e:
 				raise InstallationError(_("Blog customizations could not be applied."), e)
 			self.complete(_("Blog customizations applied."))
+
+		# If child blogs were installed, fix their permalinks
+		if blog.version.is_multi and installer.users:
+			self.start(_("Fixing child-blog permalinks."))
+			blog.fix_child_blog_permalinks()
+			self.complete(_("Child-blog permalinks fixed."))

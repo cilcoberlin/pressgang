@@ -39,3 +39,9 @@ class Step(BlogAdditionStep):
 		except OptionsError, e:
 			raise BlogAdditionError(_("Child-blog customizations could not be applied."), e)
 		self.complete(_("Child-blog customizations applied."))
+
+		# If child blogs were installed, fix their permalinks
+		if blog.version.is_multi and adder.users:
+			self.start(_("Fixing child-blog permalinks."))
+			blog.fix_child_blog_permalinks()
+			self.complete(_("Child-blog permalinks fixed."))

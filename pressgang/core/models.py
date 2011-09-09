@@ -874,6 +874,15 @@ class Blog(models.Model):
 			})
 		)
 
+	def fix_child_blog_permalinks(self):
+		"""Fixes the permalinks on all of the child blogs on a site.
+
+		This is required because the permalink structure of the child blogs is
+		often set to mirror that of the root blog.
+
+		"""
+		self.apply_changes(render_to_string('pressgang/options/fix_permalinks.php'))
+
 class VersionSnapshotManager(models.Manager):
 	"""Custom manager for the VersionSnapshot model."""
 

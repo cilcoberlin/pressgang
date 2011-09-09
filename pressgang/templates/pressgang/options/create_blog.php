@@ -48,7 +48,9 @@
 	// Create the new blog for the user
 	$blog_title = {{ title|as_php }};
 	$blog_id = wpmu_create_blog( '{{ domain }}', $blog_path, $blog_title, $user_id );
-	wpmu_welcome_notification( $blog_id, $user_id, $password, $blog_title );
+	if ( ! is_wp_error( $blog_id ) ) {
+		wpmu_welcome_notification( $blog_id, $user_id, $password, $blog_title );
+	}
 
 {% endexecute_once %}
 

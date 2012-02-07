@@ -19,6 +19,6 @@
 	// Enable the requested widgets
 	$current_widgets = get_option( 'sidebars_widgets' );
 	$final_widgets = array_merge( $current_widgets, $new_widgets );
-	update_option( 'sidebars_widgets', $final_widgets );
+	wp_set_sidebars_widgets( $final_widgets );
 
 {% endblock %}

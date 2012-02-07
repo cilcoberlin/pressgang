@@ -883,6 +883,15 @@ class Blog(models.Model):
 		"""
 		self.apply_changes(render_to_string('pressgang/options/fix_permalinks.php'))
 
+	def set_admin_name(self):
+		"""Sets a name for the admin user.
+
+		This is done to prevent the default setting of no first or last name
+		for the admin user.
+
+		"""
+		self.apply_changes(render_to_string('pressgang/options/admin_name.php'))
+
 class VersionSnapshotManager(models.Manager):
 	"""Custom manager for the VersionSnapshot model."""
 

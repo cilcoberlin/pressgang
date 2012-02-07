@@ -77,3 +77,8 @@ class Step(InstallationStep):
 			self.start(_("Fixing child-blog permalinks."))
 			blog.fix_child_blog_permalinks()
 			self.complete(_("Child-blog permalinks fixed."))
+
+		# Set an admin name for better display
+		self.start(_("Setting admin name."))
+		blog.set_admin_name()
+		self.complete(_("Admin name set."))

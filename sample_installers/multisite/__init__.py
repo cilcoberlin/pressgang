@@ -129,6 +129,10 @@ Login Link: BLOG_URLwp-login.php
 
 		allow_plugins_admin_menu = True
 
+		network_plugins = [
+			"sample-network-plugin.php"
+		]
+
 	class AllBlogOptions:
 
 		akismet_key = "abcd1234"

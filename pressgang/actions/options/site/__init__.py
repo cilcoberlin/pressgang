@@ -15,6 +15,13 @@ class SiteOption(Option):
 	# The databse ID used by WordPress for the site option
 	wp_id = None
 
+	# A custom template to use to set the option, relative to the site-options
+	# template directory
+	template = None
+
+	# Whether the option is only available on multisite installations
+	multisite_only = False
+
 	def generate_code(self, blog, value):
 		"""Add code for a plugin to apply the WordPress option.
 
@@ -23,7 +30,18 @@ class SiteOption(Option):
 		value -- the value of the option as a Python data type
 
 		"""
-		return render_to_string('pressgang/options/site_option.php', {
+
+		# If the option is only available on multisite, provide no code
+		if self.multisite_only and not blog.version.is_multi:
+			return ""
+
+		# Use a custom template if one was provided, or fall back to the default
+		if self.template:
+			template = 'pressgang/options/site/%s' % self.template
+		else:
+			template = 'pressgang/options/site_option.php'
+
+		return render_to_string(template, {
 			'option': self.provide_wp_id(blog) or self.wp_id,
 			'name': self.name,
 			'value': self.provide_wp_value(value) or value

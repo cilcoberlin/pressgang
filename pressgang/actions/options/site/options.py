@@ -153,3 +153,12 @@ class AllowPluginsAdminMenu(SiteOption):
 			return {'plugins': "1"}
 		else:
 			return []
+
+class NetworkPlugins(SiteOption):
+	"""Plugins to network activate on a multisite installation."""
+
+	id = "network_plugins"
+	multisite_only = True
+	name = _("network-activated plugins")
+	template = 'network_plugins.php'
+	wp_id = "active_sitewide_plugins"

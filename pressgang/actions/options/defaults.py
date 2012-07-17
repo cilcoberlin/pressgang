@@ -80,6 +80,11 @@ class SiteOptions:
 	# Example: media_upload_buttons = ["image", "video", "audio"]
 	media_upload_buttons = None
 
+	# Plugins to network activate on a multsite installation
+	# ----
+	# Example: network_plugins = ["my-plugin/my-plugin.php"]
+	network_plugins = None
+
 	# The text of the email sent to a user when a blog is created for them
 	# ----
 	# Example: new_blog_email = "You have a new blog"
